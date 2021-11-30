@@ -1,9 +1,10 @@
 const path = require('path')
+const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin')
 const TerserWebpackPlugin = require('terser-webpack-plugin')
 
@@ -15,6 +16,7 @@ const optimization = () => {
     splitChunks: {
       chunks: 'all',
     },
+    runtimeChunk: 'single',
   }
 
   if (isProd) {
@@ -27,17 +29,12 @@ const optimization = () => {
   return config
 }
 
-const fs = require('fs')
-const PATHS = {
-  src: path.join(__dirname, './src'),
-  dist: path.join(__dirname, './dist'),
-  assets: 'assets/',
-}
-
-// const PAGES_DIR = `${PATHS.src}/pug/pages/`;
-// const PAGES = fs
-//   .readdirSync(PAGES_DIR)
-//   .filter((fileName) => fileName.endsWith('.pug'));
+// const fs = require('fs')
+// const PATHS = {
+//   src: path.join(__dirname, './src'),
+//   dist: path.join(__dirname, './dist'),
+//   assets: 'assets/',
+// }
 
 const filename = (ext) => (isDev ? `[name].${ext}` : `[name].[hash].${ext}`)
 
@@ -46,10 +43,10 @@ const cssLoaders = (loader) => {
     ? 'style-loader'
     : {
         loader: MiniCssExtractPlugin.loader,
-        options: {
-          hrm: isDev,
-          reloadAll: true,
-        },
+        // options: {
+        //   hrm: isDev,
+        //   // reloadAll: true,
+        // },
       }
 
   const loaders = [styleLoader, 'css-loader', 'postcss-loader']
@@ -64,7 +61,10 @@ const cssLoaders = (loader) => {
 const babelOptions = (preset) => {
   const options = {
     presets: ['@babel/preset-env'],
-    plugins: ['@babel/plugin-proposal-class-properties'],
+    plugins: [
+      '@babel/plugin-proposal-class-properties',
+      '@babel/plugin-transform-runtime',
+    ],
   }
 
   if (preset) {
@@ -74,13 +74,28 @@ const babelOptions = (preset) => {
   return options
 }
 
+const jsLoaders = (preset) => {
+  const loaders = [
+    {
+      loader: 'babel-loader',
+      options: babelOptions(preset),
+    },
+  ]
+
+  if (isDev) {
+    loaders.push('eslint-loader')
+  }
+
+  return loaders
+}
+
 const plugins = () => {
   const base = [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/favicon.ico'),
+          from: path.resolve(__dirname, 'src/public/favicon.ico'),
           to: path.resolve(__dirname, 'dist'),
         },
         {
@@ -95,13 +110,14 @@ const plugins = () => {
     new HTMLWebpackPlugin({
       title: 'TEST WEBPACK',
       template: path.resolve(__dirname, './src/index.html'),
-      // filename: `./index.html`,
+      filename: './index.html',
       minify: {
         collapseWhitespace: isProd,
       },
       pretty: true,
       // chunks: ['request', 'index'],
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ]
 
   // if (isProd) {
@@ -112,23 +128,26 @@ const plugins = () => {
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  mode: 'development',
+  mode: isDev ? 'development' : 'production',
   entry: {
     app: ['@babel/polyfill', './app.js'],
-    main: './src/pages/main.js',
+    main: './pages/main.js',
     api: './api/UsersAPI.js',
-    product: './src/pages/product.js',
+    // product: './src/pages/product.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: filename('js'),
   },
   resolve: {
-    extensions: ['.js', '.json', '.png'],
+    extensions: ['.js', '.json', '.png', '.ts'],
   },
   optimization: optimization(),
-  devtool: 'eval',
+  devtool: isDev ? 'source-map' : false,
   devServer: {
+    historyApiFallback: true,
+    // contentBase: path.resolve(__dirname, './dist'),
+    compress: true,
     port: 3000,
     hot: isDev,
   },
@@ -139,19 +158,13 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: babelOptions(),
-        },
+        use: jsLoaders(),
       },
       // TypeScript
       {
         test: /\.ts$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: babelOptions('@babel/preset-typescript'),
-        },
+        use: jsLoaders('@babel/preset-typescript'),
       },
       // public
       {
@@ -160,42 +173,13 @@ module.exports = {
       },
       // CSS, PostCSS, Sass
       {
-        test: /\.(css)$/,
-        use: [cssLoaders()],
+        test: /\.css$/,
+        use: cssLoaders(),
       },
       {
         test: /\.(s[ca]ss)$/,
-        use: [cssLoaders('sass-loader')],
+        use: cssLoaders('sass-loader'),
       },
-      // {
-      //   test: /\.s[ac]ss$/,
-      //   use: [
-      //     {
-      //       loader: MiniCssExtractPlugin.loader,
-      //       options: {},
-      //     },
-      //     'css-loader',
-      //     'sass-loader',
-      //   ],
-      // },
-
-      // {
-      //   test: /\.(png|jpg|svg|gif)$/,
-      //   use: ['file-loader'],
-      // },
-      // {
-      //   test: /\.(ttf|woff|woff2|eot)$/,
-      //   use: ['file-loader'],
-      // },
-      // {
-      //   test: /\.pug$/,
-      //   use: {
-      //     loader: 'pug-loader',
-      //     options: {
-      //       pretty: isDev,
-      //     },
-      //   },
-      // },
     ],
   },
 }

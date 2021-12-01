@@ -131,8 +131,8 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   entry: {
     app: ['@babel/polyfill', './app.js'],
-    main: './pages/main.js',
-    api: './api/UsersAPI.js',
+    // main: './pages/main.js',
+    // api: './api/UsersAPI.js',
     // product: './src/pages/product.js',
   },
   output: {
@@ -146,7 +146,6 @@ module.exports = {
   devtool: isDev ? 'source-map' : false,
   devServer: {
     historyApiFallback: true,
-    // contentBase: path.resolve(__dirname, './dist'),
     compress: true,
     port: 3000,
     hot: isDev,

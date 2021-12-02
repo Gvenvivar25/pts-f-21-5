@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -29,26 +28,10 @@ const optimization = () => {
   return config
 }
 
-// const fs = require('fs')
-// const PATHS = {
-//   src: path.join(__dirname, './src'),
-//   dist: path.join(__dirname, './dist'),
-//   assets: 'assets/',
-// }
-
 const filename = (ext) => (isDev ? `[name].${ext}` : `[name].[hash].${ext}`)
 
 const cssLoaders = (loader) => {
-  const styleLoader = isDev
-    ? 'style-loader'
-    : {
-        loader: MiniCssExtractPlugin.loader,
-        // options: {
-        //   hrm: isDev,
-        //   // reloadAll: true,
-        // },
-      }
-
+  const styleLoader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader
   const loaders = [styleLoader, 'css-loader', 'postcss-loader']
 
   if (loader) {
@@ -95,34 +78,25 @@ const plugins = () => {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/public/favicon.ico'),
-          to: path.resolve(__dirname, 'dist'),
-        },
-        {
           from: path.resolve(__dirname, 'src/public'),
-          to: path.resolve(__dirname, 'dist/public'),
+          to: path.resolve(__dirname, 'dist'),
         },
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: filename('css'),
+      filename: `styles/${filename('css')}`,
     }),
     new HTMLWebpackPlugin({
-      title: 'TEST WEBPACK',
       template: path.resolve(__dirname, './src/index.html'),
-      filename: './index.html',
       minify: {
         collapseWhitespace: isProd,
       },
-      pretty: true,
-      // chunks: ['request', 'index'],
+      hash: true,
     }),
-    new webpack.HotModuleReplacementPlugin(),
   ]
 
-  // if (isProd) {
-  //   base.push(new BundleAnalyzerPlugin());
-  // }
+  // if (isProd) base.push(new BundleAnalyzerPlugin());
+
   return base
 }
 
@@ -131,13 +105,10 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   entry: {
     app: ['@babel/polyfill', './app.js'],
-    // main: './pages/main.js',
-    // api: './api/UsersAPI.js',
-    // product: './src/pages/product.js',
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: filename('js'),
+    filename: `js/${filename('js')}`,
     publicPath: '/',
   },
   resolve: {
@@ -146,10 +117,13 @@ module.exports = {
   optimization: optimization(),
   devtool: isDev ? 'source-map' : false,
   devServer: {
+    watchFiles: 'src/**.html',
     historyApiFallback: true,
     compress: true,
     port: 3000,
-    hot: isDev,
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
   },
   plugins: plugins(),
   module: {

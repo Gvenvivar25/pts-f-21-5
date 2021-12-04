@@ -1,8 +1,7 @@
 $point1: 740px
 $point2: 1140px
 $point3: 480px
-
-    
+ 
 *
     margin: 0px
     padding: 0px
@@ -11,13 +10,19 @@ $point3: 480px
     
 body
     background-color: #1c1b15
-    background-image: url(img/bgimage.png)
-    background-size: 1920px 680px
+
+.wrapper
+    max-width: 1920px
+    @media  (  min-width: $point1)
+        min-height: 740px
+    margin: 0 auto
+    background-image: url(../public/img/bgimage.png) 
+    background-position: top   
+    background-size: 100%
     background-repeat: no-repeat
-    background-position-y: 60px
     @media  ( max-width: $point1 )
         background-image: none
-        
+
 header
     background-color: #000000
     height: 60px
@@ -46,7 +51,7 @@ h1
     &:before
         display: flex
         align-items: center
-        content: url(img/logo.png)
+        content: url(../public/img/logo.png)
         margin-right: 10px
         
 
@@ -81,18 +86,18 @@ h1
 
 .wish
     @media ( max-width: $point1 ) 
-        background: url(img/adaptive/valentines-heart.png) no-repeat 
+        background: url(../public/img/adaptive/valentines-heart.png) no-repeat 
         padding-left: 16px
 
 
 .cart
     @media ( max-width: $point1 ) 
-        background: url(img/adaptive/cart.png) no-repeat 
+        background: url(../public/img/adaptive/cart.png) no-repeat 
         padding-left: 16px
 
 .login
     @media ( max-width: $point1 )
-        background: url(img/adaptive/ico.png) no-repeat  
+        background: url(../public/img/adaptive/ico.png) no-repeat  
         padding-left: 30px
         
 .text 
@@ -147,7 +152,7 @@ h1
         position: absolute
 
 .logoWoT
-    background: url(img/LogoWoT.png)
+    background: url(../public/img/LogoWoT.png)
     background-repeat: no-repeat
     margin-top: 5px
     margin-left: -10px
@@ -155,7 +160,7 @@ h1
     width: 200px
     height: 200px
     @media (max-width: 740px) 
-        background: url(img/adaptive/Logo.png)
+        background: url(../public/img/adaptive/Logo.png)
         background-repeat: no-repeat
         background-size: 19px 24px
         left: 15px
@@ -184,7 +189,7 @@ h1
         display: block
         width: 30px
         height: 30px
-        background: url(img/heart\ B.png)
+        background: url(../public/img/heart\ B.png)
         background-size: 30px 30px
         background-repeat: no-repeat
         position: absolute
@@ -201,7 +206,7 @@ h1
         display: block
         width: 30px
         height: 30px
-        background: url(img/heartFull.png)
+        background: url(../public/img/heartFull.png)
         background-size: 30px 30px
         background-repeat: no-repeat
         position: absolute
@@ -246,29 +251,24 @@ h1
 .item_conteiner
     bottom: 15px
     left: 15px
+    @media (max-width: $point3) 
+        bottom: 10px
+        left: 10px
     position: absolute
     h2
         font-size: 14px
         color: #cccccc
-        margin-left: 10px
-        margin-bottom: 10px
         font-weight: 400
         @media (max-width: $point1)
             margin-left: 5px
-            margin-bottom: 5px
         @media (max-width: $point3)
-            font-size: 13px
+            font-size: 12px
     span
         display: block
         margin-left: 10px
-        margin-bottom: 10px
         color: #d1b482
         font-weight: 400
         font-size: 15px
-        @media (max-width: $point1)
-            margin-left: 5px
-            margin-bottom: 5px
-
 
 img.pictureItem,img.heart
     position: absolute
@@ -289,6 +289,7 @@ button.purchase
     opacity: 0
     transition: .4s
     overflow: hidden
+    margin-top: 8px
     @media ( hover: none )
         opacity: 1
         height: 30px
@@ -296,8 +297,7 @@ button.purchase
         @media  ( max-width: $point3)
             height: 25px
             
-
-
+            
 @media (hover: hover)
     .item:hover button.purchase
         display: block
@@ -308,3 +308,52 @@ button.purchase
 .double
     padding-bottom: 50%
     grid-column: span 2
+
+.description
+    display: flex
+    align-items: center
+    margin-bottom: 7px
+    @media (max-width: $point3)
+        margin-bottom: 3px
+    .flag
+        height: 15px
+        width: 26px
+        @media (max-width: $point3)
+            height: 12px
+            width: 20px
+    .ussr
+        background: url('../public/img/flags/ussr.png') center/cover no-repeat
+    .sweden
+        background: url('../public/img/flags/sweden.png') center/cover no-repeat
+    .chine
+        background: url('../public/img/flags/chine.png') center/cover no-repeat
+    .czech
+        background: url('../public/img/flags/czech.png') center/cover no-repeat
+    .france
+        background: url('../public/img/flags/france.png') center/cover no-repeat
+    .germany
+        background: url('../public/img/flags/germany.png') center/cover no-repeat
+    .italy
+        background: url('../public/img/flags/italy.png') center/cover no-repeat
+    .japan
+        background: url('../public/img/flags/japan.png') center/cover no-repeat
+    .poland
+        background: url('../public/img/flags/poland.png') center/cover no-repeat
+    .uk
+        background: url('../public/img/flags/uk.png') center/cover no-repeat
+    .usa
+        background: url('../public/img/flags/usa.png') center/cover no-repeat
+ 
+    .type  
+        height: 15px
+        width: 12px
+        margin-right: 5px
+    .light
+        background: url('../public/img/type/light.png') center/cover no-repeat
+    .medium
+        background: url('../public/img/type/medium.png') center/cover no-repeat
+    .heavy
+        background: url('../public/img/type/heavy.png') center/cover no-repeat
+    .destroyers
+        height: 10px
+        background: url('../public/img/type/destroyers.png') center/cover no-repeat

@@ -1,6 +1,6 @@
 import main from './pages/main'
 // import cart from './pages/cart'
-import './styles/style.css'
+import './styles/style.sass'
 
 const dinamic = async () => {
   const cart = await import('./pages/cart')

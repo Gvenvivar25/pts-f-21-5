@@ -4,7 +4,7 @@
   "description": "Premium Shop for the WG project",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack serve --mode development",
+    "dev": "cross-env NODE_ENV=development webpack serve --mode development --hot",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "start": "cross-env NODE_ENV=production webpack serve --mode production",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"

@@ -111,10 +111,11 @@ const plugins = () => {
     }),
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
-      minify: {
-        collapseWhitespace: isProd,
-      },
-      hash: true,
+      minify: isProd,
+      // minify: {
+      //   collapseWhitespace: isProd,
+      // },
+      // hash: true,
     }),
   ]
 

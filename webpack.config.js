@@ -111,10 +111,11 @@ const plugins = () => {
     }),
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
-      minify: {
-        collapseWhitespace: isProd,
-      },
-      hash: true,
+      minify: isProd,
+      // minify: {
+      //   collapseWhitespace: isProd,
+      // },
+      // hash: true,
     }),
   ]
 
@@ -129,7 +130,7 @@ module.exports = {
     app: './app.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: `js/${filename('js')}`,
     publicPath: '/',
   },
@@ -142,7 +143,7 @@ module.exports = {
     compress: true,
     port: 3000,
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, 'public'),
     },
   },
   module: {
@@ -187,6 +188,7 @@ module.exports = {
     ],
   },
   optimization: optimization(),
+  target: isDev ? 'web' : 'browserslist',
   plugins: plugins(),
   resolve: {
     extensions: ['.js', '.json', '.ts'],

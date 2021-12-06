@@ -4,12 +4,12 @@
   "description": "Premium Shop for the WG project",
   "private": true,
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack serve --color --hot --stats  minimal",
+    "dev": "cross-env NODE_ENV=development webpack serve --stats minimal --color --hot",
     "build": "cross-env NODE_ENV=production webpack --color --progress",
     "start": "cross-env NODE_ENV=production webpack serve",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
-  "browserslist": "> 0.25%, not dead",
+  "browserslist": "last 2 versions",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Gvenvivar25/pts-f-21-5.git"

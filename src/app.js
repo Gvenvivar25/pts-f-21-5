@@ -1,26 +1,53 @@
 import main from './pages/main'
-import route from './route/route'
+import router from './route/route'
 // import cart from './pages/cart'
 import './styles/style.sass'
 
-console.log('ke')
-const dinamic = async () => {
-  const cart = await import('./pages/cart')
-  return cart
+// route()
+// console.log(push)
+console.log(router)
+console.log(router.localPath)
+
+const routers = [
+  {
+    path: '/',
+    component: () => 'main',
+  },
+  {
+    path: '/wishlist',
+    component: () => 'wishlist',
+  },
+  {
+    path: '/cart',
+    component: () => 'cart',
+  },
+]
+
+router.setRoutes(routers)
+
+const dynamic = (fn) => {
+  return async () => {
+    const modul = await fn()
+    return modul.default
+  }
 }
 
-import('./api/REST').then(() => console.log('dinamic rest'))
+// const dynamic = async () => {
+//   const modul = await import('./pages/cart')
+//   return modul.default
+// }
 
-console.log('app', main)
-const handleClick = () => {
-  dinamic().then((cart) => {
-    console.log('click', cart)
-  })
+const dynamicCart = dynamic(() => import('./pages/cart'))
+
+// import('./api/REST').then(() => console.log('dinamic rest'))
+
+const handleClick = async () => {
+  console.log('test')
+  const cart = await dynamicCart()
+  console.log('click', cart)
 }
 
-document.body.addEventListener('click', handleClick)
-
-route()
+// document.body.addEventListener('click', handleClick)
 
 // const getAllGrid = (store) => {
 //   const { data, currency } = store

@@ -1,51 +1,46 @@
-// const routes = {
-//   '/': 'main',
-//   '/wishlist': 'wishlist',
-//   '/cart': 'cart',
-//   '/product': 'product',
-// }
+class Router {
+  #routes = []
+  #id = 0
+  #rootDiv = window.root
+  #errorComponent = {
+    path: '/404',
+    component: () => '<div>404</div>',
+  }
+  #localPath = window.location.pathname
+  localPath = window.location.pathname
 
-const routes = (pathname) => {
-  console.log(pathname)
-  switch (pathname) {
-    case '/': {
-      return 'main'
+  #switch(pathName) {
+    for (let route of this.#routes) {
+      if (route.path === pathName) return route.component()
     }
-    case '/wishlist': {
-      return 'wishlist'
+    return this.#errorComponent.component()
+  }
+  // It's the method that makes the redirect as in React/Next
+  push(pathName) {
+    this.#id++
+    let path = pathName === '/' ? '.' : pathName.slice(1)
+    console.log('push', path, pathName)
+    window.history.pushState({ empId: this.#id, as: pathName }, null, path)
+    this.#rootDiv.innerHTML = this.#switch(pathName)
+  }
+  // It's the method that accepts an array as [{path: '/xxx', component: function}]. 'path' it's path which calls componnet. 'component' it's fancion which dynamically called callback
+  setRoutes(arrRoute) {
+    if (!arrRoute || !Array.isArray(arrRoute)) {
+      throw new Error('Incorrect data: arrRoute must be Array')
     }
-    case '/cart': {
-      return 'cart'
-    }
-    case '/product': {
-      return 'product'
-    }
+    this.#routes = arrRoute
+    this.onPopState()
+  }
+  // It's the method that is triggered when the page loads or the path changes
+  onPopState() {
+    this.#rootDiv.innerHTML = this.#switch(this.#localPath)
   }
 }
 
-const getPathName = () => {
-  return window.location.pathname
-}
-
-const root = window.root
-root.innerHTML = routes(getPathName())
-
-let number = 0
-
-export const onNavigate = (pathname) => {
-  number++
-  let path = pathname === '/' ? '.' : pathname.slice(1)
-
-  window.history.pushState(
-    { empId: number, title: 'test', as: path },
-    'test',
-    pathname
-  )
-  root.innerHTML = routes(pathname)
-}
+const router = new Router()
 
 window.onpopstate = () => {
-  root.innerHTML = routes(getPathName())
+  router.onPopState()
 }
 
 window.header.addEventListener('click', (e) => {
@@ -53,10 +48,8 @@ window.header.addEventListener('click', (e) => {
   if (!a || !e.currentTarget.contains(a)) return
 
   e.preventDefault()
-  // console.log(e.currentTarget.contains(a))
   const path = a.getAttribute('href')
-  onNavigate(path)
+  router.push(path)
 })
 
-const test = () => console.log('ROUTE')
-export default test
+export default router

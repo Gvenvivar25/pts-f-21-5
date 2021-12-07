@@ -2,43 +2,44 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <title>Premium shop</title>
 </head>
 
 <body>
+  <header id="header">
+    <div class="header_content page_content">
+      <a href="/">
+        <h1>PREMIUM SHOP</h1>
+      </a>
+      <ul class="header_menu">
+        <li class="header_menu_item">
+          <a href="/wishlist" class="wish"><span class="text">Wishlist</span><span class="index">(0)</span></a>
+        </li>
+        <li class="header_menu_item">
+          <a href="/cart" class="cart"><span class="text">Shopping card</span><span class="index">(0)</span></a>
+        </li>
+        <li class="header_menu_item">
+          <a href="#" class="login"><span class="text">Login</span></a><span class="or text">or</span><a href="#"><span
+              class="text">Create account</span></a>
+        </li>
+      </ul>
+    </div>
+  </header>
 
-  
-    <header>
-      <div class="header_content">
-        <a href="">
-          <h1>PREMIUM SHOP</h1>
-        </a>
-        <ul class="header_menu">
-          <li class="header_menu_item"><a href="#" class="wish"><span class="text">Wishlist</span><span
-                class="index">(0)</span></a></li>
-          <li class="header_menu_item"><a href="#" class="cart"><span class="text">Shopping card</span><span
-                class="index">(0)</span></a></li>
-          <li class="header_menu_item"><a href="#" class="login"><span class="text">Login</span></a><span
-              class="or text">or</span><a href="#"><span class="text">Create account</span></a></li>
-        </ul>
-      </div>
-    </header>
-  
-
-    <div class="wrapper">
-
-    <div class="nav_container">
-      <div class="logoWoT">
-      </div>
+  <div class="wrapper">
+    <div class="nav_container page_content">
+      <div class="logoWoT"></div>
       <nav>
         <div class="content-wh content-wh-end">
           <ul class="nav_menu">
-            <li class="nav_menu_item"><a class="active_itm" href="#">All</a></li>
+            <li class="nav_menu_item">
+              <a class="active_itm" href="/">All</a>
+            </li>
             <li class="nav_menu_item"><a href="#">Vehicles</a></li>
             <li class="nav_menu_item"><a href="#">Gold</a></li>
             <li class="nav_menu_item"><a href="#">Premium account</a></li>
@@ -46,11 +47,11 @@
         </div>
       </nav>
     </div>
-  
-    <main>
-      <div class="grid">
-  
-        <!-- <article class="item">
+
+    <main id="root" class="page_content">
+
+      <!-- <div class="grid">
+        <article class="item">
           <input class="checkbox_input" id="checkbox_1" type="checkbox">
           <label class="checkbox_label" for="checkbox_1"></label>
           <a href=""><img class="pictureItem"
@@ -65,9 +66,8 @@
             <span class="price">$ 47.99</span>
             <button class="purchase">PURSHACE</button>
           </div>
-  
+
         </article>
-  
         <article class="item double">
           <input class="checkbox_input" id="checkbox_2" type="checkbox">
           <label class="checkbox_label" for="checkbox_2"></label>
@@ -84,7 +84,7 @@
             <button class="purchase">PURSHACE</button>
           </div>
         </article>
-  
+
         <article class="item">
           <input class="checkbox_input" id="checkbox_4" type="checkbox">
           <label class="checkbox_label" for="checkbox_4"></label>
@@ -100,15 +100,11 @@
             <span class="price">2.99</span>
             <button class="purchase">PURSHACE</button>
           </div>
-        </article> -->
-  
-      </div>
-  
+        </article>
+
+      </div> -->
     </main>
   </div>
-
-  
 </body>
-
 
 </html>

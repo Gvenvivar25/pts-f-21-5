@@ -33,7 +33,16 @@ const filename = (ext) =>
   isDev ? `[name].${ext}` : `[name].[chunkhash].${ext}`
 
 const cssLoaders = (loader) => {
-  const loaders = [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+  const loaders = [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+      },
+    },
+    'postcss-loader',
+  ]
 
   if (loader) {
     loaders.push(loader)

@@ -33,8 +33,16 @@ const filename = (ext) =>
   isDev ? `[name].${ext}` : `[name].[chunkhash].${ext}`
 
 const cssLoaders = (loader) => {
-  const styleLoader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader
-  const loaders = [styleLoader, 'css-loader', 'postcss-loader']
+  const loaders = [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+      },
+    },
+    'postcss-loader',
+  ]
 
   if (loader) {
     loaders.push(loader)
@@ -88,7 +96,7 @@ const jsLoaders = (loader) => {
     loaders[0].options.loader = loader
   }
 
-  if (isDev) {
+  if (isProd) {
     loaders.push('eslint-loader')
   }
 
@@ -112,10 +120,6 @@ const plugins = () => {
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
       minify: isProd,
-      // minify: {
-      //   collapseWhitespace: isProd,
-      // },
-      // hash: true,
     }),
   ]
 

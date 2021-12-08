@@ -12,15 +12,15 @@ const routers = [
 
 router.setRoutes(routers)
 
-const dynamicCart = dynamic(() => import('./pages/cart'))
+// const dynamicCart = dynamic(() => import('./pages/cart'))
 
 // import('./api/REST').then(() => console.log('dinamic rest'))
 
-const handleClick = async () => {
-  console.log('test')
-  const cart = await dynamicCart()
-  console.log('click', cart)
-}
+// const handleClick = async () => {
+//   console.log('test')
+//   const cart = await dynamicCart()
+//   console.log('click', cart)
+// }
 
 window.header.addEventListener('click', (e) => getPathLink(e, router))
 

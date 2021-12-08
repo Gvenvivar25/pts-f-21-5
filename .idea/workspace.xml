@@ -26,28 +26,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6028ff91-ea74-4907-a568-79664112f617" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/pts-f-21-5.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/categories.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/currencies.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/items.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/products.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/types.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/controllers/users.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/firebase.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/routes/routes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/serviceAccountKey.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +56,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="prettierjs.PrettierConfiguration.Package" value="C:\Users\Marina\WebstormProjects\pts-f-21-5\node_modules\prettier" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -93,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1638956536147</updated>
-      <workItem from="1638956537883" duration="1784000" />
+      <workItem from="1638956537883" duration="2980000" />
     </task>
     <servers />
   </component>
@@ -140,5 +119,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1638957224374" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1638959296724">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1638959296724" />
   </component>
 </project>

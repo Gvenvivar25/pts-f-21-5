@@ -40,8 +40,7 @@ class ItemsController {
 
   async removeItem (req, res) {
     try {
-      const itemRef = itemsCol.doc(`${req.params.id}`)
-      const response = await itemRef.delete()
+      await itemsCol.doc(`${req.params.id}`).delete()
       res.json({message: `Item was deleted successfully`})
     } catch (e) {
       throw new Error(e)

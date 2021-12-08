@@ -43,13 +43,4 @@ window.onpopstate = () => {
   router.onPopState()
 }
 
-window.header.addEventListener('click', (e) => {
-  const a = e.target.closest('a')
-  if (!a || !e.currentTarget.contains(a)) return
-
-  e.preventDefault()
-  const path = a.getAttribute('href')
-  router.push(path)
-})
-
 export default router

@@ -1,5 +1,6 @@
 import router from './route/route'
 import dynamic from './middleware/dynamic'
+import getPathLink from './middleware/pathLink'
 import './styles/style.sass'
 
 const routers = [
@@ -20,6 +21,8 @@ const handleClick = async () => {
   const cart = await dynamicCart()
   console.log('click', cart)
 }
+
+window.header.addEventListener('click', (e) => getPathLink(e, router))
 
 // document.body.addEventListener('click', handleClick)
 

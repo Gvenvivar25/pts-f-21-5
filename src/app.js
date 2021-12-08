@@ -1,26 +1,30 @@
-import main from './pages/main'
-import route from './route/route'
-// import cart from './pages/cart'
+import router from './route/route'
+import dynamic from './middleware/dynamic'
+import getPathLink from './middleware/pathLink'
 import './styles/style.sass'
 
-console.log('ke')
-const dinamic = async () => {
-  const cart = await import('./pages/cart')
-  return cart
+const routers = [
+  ['/', dynamic(() => import('./pages/main'))],
+  ['/wishlist', dynamic(() => import('./pages/wishlist'))],
+  ['/cart', () => 'cart'],
+  ['/404', () => '404'],
+]
+
+router.setRoutes(routers)
+
+const dynamicCart = dynamic(() => import('./pages/cart'))
+
+// import('./api/REST').then(() => console.log('dinamic rest'))
+
+const handleClick = async () => {
+  console.log('test')
+  const cart = await dynamicCart()
+  console.log('click', cart)
 }
 
-import('./api/REST').then(() => console.log('dinamic rest'))
+window.header.addEventListener('click', (e) => getPathLink(e, router))
 
-console.log('app', main)
-const handleClick = () => {
-  dinamic().then((cart) => {
-    console.log('click', cart)
-  })
-}
-
-document.body.addEventListener('click', handleClick)
-
-route()
+// document.body.addEventListener('click', handleClick)
 
 // const getAllGrid = (store) => {
 //   const { data, currency } = store

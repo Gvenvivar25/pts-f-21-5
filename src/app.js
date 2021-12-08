@@ -1,41 +1,15 @@
-import main from './pages/main'
 import router from './route/route'
-// import cart from './pages/cart'
+import dynamic from './middleware/dynamic'
 import './styles/style.sass'
 
-// route()
-// console.log(push)
-console.log(router)
-console.log(router.localPath)
-
 const routers = [
-  {
-    path: '/',
-    component: () => 'main',
-  },
-  {
-    path: '/wishlist',
-    component: () => 'wishlist',
-  },
-  {
-    path: '/cart',
-    component: () => 'cart',
-  },
+  ['/', dynamic(() => import('./pages/main'))],
+  ['/wishlist', dynamic(() => import('./pages/wishlist'))],
+  ['/cart', () => 'cart'],
+  ['/404', () => '404'],
 ]
 
 router.setRoutes(routers)
-
-const dynamic = (fn) => {
-  return async () => {
-    const modul = await fn()
-    return modul.default
-  }
-}
-
-// const dynamic = async () => {
-//   const modul = await import('./pages/cart')
-//   return modul.default
-// }
 
 const dynamicCart = dynamic(() => import('./pages/cart'))
 

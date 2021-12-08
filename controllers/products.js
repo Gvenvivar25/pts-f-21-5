@@ -85,8 +85,7 @@ class ProductsController {
 
   async removeProduct (req, res) {
     try {
-      const prodRef = prodCol.doc(`${req.params.id}`)
-      await prodRef.delete()
+      await prodCol.doc(`${req.params.id}`).delete()
       res.json({message: `Product was deleted successfully`})
     } catch (e) {
       throw new Error(e)

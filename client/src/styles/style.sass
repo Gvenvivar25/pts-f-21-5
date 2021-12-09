@@ -1,15 +1,20 @@
 @import 'reset.sass'
-@import 'main.sass'
-@import 'wishlist.sass'
-@import 'cart.sass'
+@import 'fonts.sass'
+// @import 'main.sass'
+// @import 'wishlist.sass'
+// @import 'cart.sass'
 
-*
-    font-family: 'Roboto', sans-serif
+
+$point1: 740px
+$point2: 1140px
+$point3: 480px
     
-body
+.page
     background-color: #1c1b15
+    min-width: 320px
+    font-family: 'Roboto', sans-serif
 
-header
+.header
     background-color: #000000
     height: 60px
     @media  ( max-width: $point1 )
@@ -36,7 +41,7 @@ header
     display: flex
     align-items: center
     justify-content: space-between
-    h1
+    .logo_text
         display: flex
         align-items: center
         font-weight: 400
@@ -55,13 +60,13 @@ header
 .header_menu
     display: flex
     list-style-type: none
-    li:first-child 
+    .header_menu_item:first-child 
         margin: 0 0 0 5px
     .header_menu_item
         @media ( max-width: $point1 )
             margin: 0 0px 0 25px
         margin: 0 0px 0 55px
-        a
+        .cart, .wish, .login, .account
             font-weight: 400
             font-size: 15px
             color: #ffffff
@@ -95,7 +100,7 @@ header
     @media ( max-width: $point1 )
         height: 100%
     height: 122px
-    nav 
+    .nav 
         position: absolute
         right: 0
         margin-top: 70px
@@ -103,20 +108,24 @@ header
             position: relative
             margin-top: 10px
             margin-left: 0px
-    ul
+    .nav_menu
         display: flex
         @media ( max-width: $point1 )
             flex-wrap: wrap
             justify-content: flex-end
         list-style-type: none
-    ul:first-child
-        @media ( max-width: $point1 )
-            margin-left: 30px
-    li
+    .nav_menu_item
+        &:first-child
+            @media ( max-width: $point1 )
+                margin-left: 30px
         padding-left: 15px
         padding-right: 15px
         margin-bottom: 20px
-    a
+    .nav_link
+        &:hover
+            @media( hover: hover)
+                border-bottom: 3px solid white
+                opacity: 1
         padding: 0 7px 10px 7px
         font-size: 17px
         @media ( max-width: $point1 )
@@ -124,6 +133,9 @@ header
         text-transform: uppercase
         color: white
         opacity: 0.8
+    .active_itm
+        border-bottom: 3px solid white
+        opacity: 1  
 
 .logoWoT
     background: url(../public/img/LogoWoT.png) no-repeat
@@ -137,17 +149,6 @@ header
         background-size: 19px 24px
         left: 15px
         margin: 0
-
-.nav_menu_item 
-    a.active_itm
-        border-bottom: 3px solid white
-        opacity: 1  
-
-@media( hover: hover)
-    .nav_menu_item>a:hover
-        border-bottom: 3px solid white
-        opacity: 1
-
 
 
 

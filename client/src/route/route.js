@@ -9,7 +9,7 @@ const routes = (pathname) => {
   console.log(pathname)
   switch (pathname) {
     case '/': {
-      return 'main'
+      return '<div>main<div>'
     }
     case '/wishlist': {
       return 'wishlist'

@@ -1,24 +1,32 @@
+import { ReactDOM } from './react/react'
+
+// import kek from './react/react'
+
 import main from './pages/main'
 import route from './route/route'
+import Elem from './test'
 // import cart from './pages/cart'
 import './styles/style.sass'
 
-console.log('ke')
-const dinamic = async () => {
-  const cart = await import('./pages/cart')
-  return cart
-}
+ReactDOM(<Elem name="kek" />, window.root)
+// appendChild(window.root, elem('kek'))
 
-import('./api/REST').then(() => console.log('dinamic rest'))
+console.log('tets', Elem)
+// console.log('keke', React)
+// const dinamic = async () => {
+//   const cart = await import('./pages/cart')
+//   return cart
+// }
 
-console.log('app', main)
-const handleClick = () => {
-  dinamic().then((cart) => {
-    console.log('click', cart)
-  })
-}
-
-document.body.addEventListener('click', handleClick)
+// import('./api/REST').then(() => console.log('dinamic rest'))
+// console.log('app', elem())
+console.log('main app', main)
+// const handleClick = () => {
+//   dinamic().then((cart) => {
+//     console.log('click', cart)
+//   })
+// }
+// document.body.addEventListener('click', handleClick)
 
 route()
 

@@ -1,8 +1,9 @@
 // import main from './pages/main'
 import route from './route/route'
-// import cart from './pages/cart'
+import cart from './pages/cart'
 import './styles/style.sass'
-
+import './redux/store'
+import UserAPI from './api/UsersAPI'
 // const dinamic = async () => {
 //   const cart = await import('./pages/cart')
 //   return cart
@@ -19,4 +20,4 @@ import './styles/style.sass'
 
 // document.body.addEventListener('click', handleClick)
 
-route()
+//route()

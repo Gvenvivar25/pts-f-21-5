@@ -20,9 +20,7 @@ class CurrenciesController {
     try {
 
       const currentCurData = await currentCurCol.doc(`1`).get()
-      console.log(currentCurData)
       const currentCur = currentCurData.data()
-      console.log(currentCur)
       res.json(currentCur)
     } catch (e) {
       throw new Error(e)

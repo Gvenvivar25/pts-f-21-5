@@ -1,0 +1,424 @@
+$black: #000000;
+$white: #ffff;
+$light_grey: #cccccc;
+$middle_grey: #989898;
+$dark_grey: #656565;
+$brown: #6e655e;
+$dark_orange: #f26402;
+$light_orange: #f78c03;
+$sand: #c8b283;
+
+$maxWidth: 1220;
+
+$mobile: 320px;
+$tablet:550px;
+$middle: 720px;
+$desktop:992px;
+$high:1200px;
+
+@mixin adaptive-font($pcSize, $mobSize) {
+  $addSize: $pcSize - $mobSize;
+  $addMobSize: $addSize + $addSize * 0.7;
+  @media(max-width: $tablet){
+    font-size: calc(#{$mobSize + px} + #{$addMobSize} * ((100vw - 320px) / #{$maxWidth}));
+  }
+  @media(min-width: $tablet){
+    font-size: calc(#{$mobSize + px} + #{$addSize} * (100vw / #{$maxWidth}));
+  }
+}
+
+.icon {
+  width: 21px;
+  height: 14px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.tier {
+  font-size: 19px;
+  color: $light_grey;
+}
+
+.container_item {
+  max-width: 1220px;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0 15px 50px;
+  @media(max-width: $tablet){
+    padding: 0 20px 70px;
+  }
+}
+
+.item_header {
+  margin-top: -150px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+
+  @media(max-width: $tablet){
+    //position: relative;
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  @media (max-width: $mobile) {
+    flex-direction: column;
+    margin-top: 0;
+
+  }
+}
+
+.item-header_content {
+  padding-top: 200px;
+  margin-right: 40px;
+  display: flex;
+  flex-direction: column;
+
+  flex: 3;
+
+  @media(max-width: $desktop){
+    padding-top: 150px;
+  }
+
+  @media(max-width: $tablet){
+    padding-top: 30px;
+    max-width: 760px;
+    margin-right: 0;
+  }
+
+  @media (max-width: $mobile) {
+    padding-top: 10px;
+    max-width: 315px;
+    min-width: 200px;
+  }
+}
+
+.header-image-box {
+  flex: 5;
+  @media (max-width: $tablet) {
+    background-image: url('https://res.cloudinary.com/premium-shop/image/upload/v1639080755/bc_uveayw.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: -20px;
+    margin-right: -20px;
+  }
+}
+
+.mobile_bundle {
+  display: none;
+  @media (max-width: $tablet) {
+    display: block;
+    color: $light_grey;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-left: 25px;
+
+  }
+}
+
+.item-header_image {
+  padding-top: 50px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  @media(max-width: $desktop){
+    padding-top: 60px;
+  }
+
+  @media(max-width: $middle){
+    padding-top: 90px;
+  }
+
+  @media(max-width: $tablet){
+    padding-top: 10px;
+  }
+
+  @media (max-width: $mobile) {
+    padding-top: 10px;
+  }
+}
+
+hr {
+  border: none;
+  color: $brown;
+  background-color: $brown;
+  height: 1px;
+  width: 100%;
+}
+
+.header-name{
+  color: $white;
+  font-weight: 300;
+  line-height: 1;
+  padding: 10px 0;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  @include adaptive-font(46, 24);
+
+  @media (max-width: $tablet) {
+    @include adaptive-font(36, 20);
+    padding: 20px 10px 20px 25px;
+    background-color: #21211c;
+    margin-left: -20px;
+    margin-right: -20px;
+    margin-bottom: 0;
+  }
+
+}
+
+.header-price {
+  @media(max-width: $tablet){
+    margin: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    z-index: 100;
+  }
+
+  @media (max-width: $mobile) {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.product-price {
+
+  margin: 35px 10px 40px;
+  color: $sand;
+  font-size: 18px;
+  letter-spacing: 1px;
+  @media(max-width: $tablet){
+    font-size: 20px;
+    display: inline-block;
+    width: 50%;
+    margin: 0;
+    padding: 16px 50px;
+    background-color: #282828;
+    text-align: center;
+    height: 100%;
+
+  }
+}
+
+.button {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+  color: $white;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 16px;
+  height: 56px;
+  width: 150px;
+  padding: 18px 25px;
+  background-color: $dark_orange;
+  border: none;
+  transition: .3s;
+  align-items: center;
+  @media(max-width: $tablet){
+    padding: 20px 25px 16px;
+    font-size: 16px;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.button:hover{
+  cursor: pointer;
+  background-color: $light_orange;
+  transition: .3s;
+}
+
+.item-content_header {
+  color: $white;
+  font-size: 28px;
+  font-weight: 300;
+  text-transform: uppercase;
+  margin: 20px 0 3px;
+}
+
+.bundle_description {
+  padding: 20px 0;
+}
+
+.bundle_description_list {
+  list-style: none;
+}
+
+.description_list_item {
+  font-weight: 200;
+  font-size: 19px;
+  letter-spacing: 1px;
+  color: $light_grey;
+  padding-bottom: 5px;
+
+  @media(max-width: $tablet){
+    font-size: 16px;
+  }
+}
+
+.item-content_description {
+  padding: 20px 0 50px;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: $middle_grey;
+  font-size: 17px;
+  line-height: 2;
+}
+
+.item-content_slider {
+  display: block;
+}
+
+.item-content-bundle {
+  font-size: 30px;
+  padding-top: 10px;
+  @media(max-width: $desktop){
+    padding-top: 25px;
+  }
+  @media(max-width: $middle){
+    padding-top: 50px;
+  }
+  @media(max-width: $tablet){
+    display: none;
+
+  }
+}
+
+.item-content_description {
+  font-size: 19px;
+  @media(max-width: $mobile){
+    padding-right: 10px;
+    font-size: 15px;
+
+  }
+
+}
+
+// Slider styles
+
+#preview {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  }
+
+.img_tooltip{
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  opacity: 0;
+  width: 200px;
+  height: 60px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  line-height: 60px;
+}
+
+.imgSlider {
+  max-width: 100%;
+}
+
+// затемнение при наведении на картинку
+.imgSlider:hover, {
+  cursor: pointer;
+  opacity:0.2;
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+#preview:hover .img_tooltip {
+  opacity: 1;
+}
+
+.imageView{
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  display: none;
+}
+
+
+
+#slider{
+  width:80vw;
+  height: 85vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+
+  @media(max-width: $desktop){
+      height: 75vh;
+  }
+
+  @media(max-width: 850px){
+    height: 65vh;
+  }
+
+  @media(max-width: $middle){
+      height: 55vh;
+  }
+
+  @media(max-width: 640px){
+    height: 50vh;
+  }
+
+  @media(max-width: $tablet){
+      height: 40vh;
+  }
+
+  @media(max-width: 500px){
+    height: 35vh;
+  }
+
+  @media(max-width: 420px){
+    height: 30vh;
+  }
+
+  @media(max-width: $mobile){
+      height: 25vh;
+  }
+}
+
+#prev-btn, #next-btn{
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: all 0.5s ease;
+  cursor: pointer;
+}
+
+#prev-btn{
+  border-right: 40px solid grey;
+  left: -50px;
+}
+
+#next-btn{
+  border-left: 40px solid grey;
+  right: -50px;
+}
+
+#next-btn:hover, #prev-btn:hover{
+  opacity: 0.6;
+}
+

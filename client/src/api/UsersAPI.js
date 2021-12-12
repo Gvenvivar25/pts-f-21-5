@@ -9,19 +9,22 @@ function LoginOpenID() {
     console.log(url)
     window.location.replace(url);
 }
-
-
-function getObjItUrl(){
-    console.log('чота есть!');
+    let UserData = [];
+if(window.location.search){
+    UserData = decodeURIComponent(location.search.substr(1)).split('&');
+    editUserData(UserData);
+}
+let User = {};
+function editUserData(arr){
+    console.log(arr)
+     if(arr.length===6){
+         console.log(arr[4]);
+         if(arr[4]){
+             console.log(arr[4].lastIndexOf('=', ))
+         }
+     }
 }
 
-async function getResponce() {
-    let response = await fetch('https://api.worldoftanks.ru/wot/auth/login/?application_id=c4a80daf163b5d68b2d8bd7801d040d0&', {
-        method: 'GET',
-    });
-    let content = await response.text();
-    let res = JSON.parse(content)
-    console.log(res)
-}
+
 
 //getResponce()

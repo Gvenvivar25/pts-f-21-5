@@ -194,7 +194,7 @@ h1
         background-repeat: no-repeat
         position: absolute
         top: 25px
-        right: 25px 
+        right: 25px
         @media (max-width: $point3)
             width: 20px
             height: 20px
@@ -219,6 +219,8 @@ h1
             background-size: 20px 20px
             top: 18px
             right: 18px
+    &:hover
+        cursor: pointer
 
 .checkbox_input:checked 
     + .checkbox_label::before
@@ -251,6 +253,11 @@ h1
 .item_conteiner
     bottom: 15px
     left: 15px
+    -moz-user-select: -moz-none
+    -o-user-select: none
+    -khtml-user-select: none
+    -webkit-user-select: none
+    user-select: none
     @media (max-width: $point3) 
         bottom: 10px
         left: 10px
@@ -348,12 +355,12 @@ button.purchase
         height: 15px
         width: 12px
         margin-right: 5px
-    .light
+    .lightTank
         background: url('../public/img/type/light.png') center/cover no-repeat
-    .medium
+    .mediumTank
         background: url('../public/img/type/medium.png') center/cover no-repeat
-    .heavy
+    .heavyTank
         background: url('../public/img/type/heavy.png') center/cover no-repeat
-    .destroyers
+    .AT-SPG
         height: 10px
         background: url('../public/img/type/destroyers.png') center/cover no-repeat

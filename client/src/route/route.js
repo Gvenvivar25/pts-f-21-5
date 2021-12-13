@@ -7,9 +7,28 @@ class Router {
   #id = 0
   #rootDiv = window.root
   #localPath = window.location.pathname
+  #search = window.location.search
+  query = {}
+
+  #setQuery() {
+    let getArraySearch = this.#search.slice(1).split('&')
+    let result = []
+
+    for (const item of getArraySearch) {
+      let params = item.split('=')
+      if (params.length === 1) break
+      result.push(params)
+    }
+
+    this.query = Object.fromEntries(result)
+  }
 
   #switch(pathName) {
     const component = this.#routes.get(pathName) || this.#routes.get('/404')
+    if (this.#search) {
+      this.#setQuery()
+      console.log(this.query)
+    }
     return component()
   }
 

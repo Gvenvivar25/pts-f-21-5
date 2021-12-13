@@ -4,7 +4,7 @@
 //   '/cart': 'cart',
 //   '/product': 'product',
 // }
-
+import {ProductCard} from '../components/product/product_card'
 const routes = (pathname) => {
   console.log(pathname)
   switch (pathname) {
@@ -18,7 +18,7 @@ const routes = (pathname) => {
       return 'cart'
     }
     case '/product': {
-      return 'product'
+      return `<product-card></product-card>`
     }
   }
 }

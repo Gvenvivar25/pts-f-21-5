@@ -1,4 +1,4 @@
-import 'item.scss'
+import './item.scss'
 
 
 //temporary methods to read from firestore
@@ -25,11 +25,16 @@ export class ProductCard extends HTMLElement {
     super()
     this.gallery = []
     this.bundle = ''
+    this.oldPrice = 0
   }
 
   // get product data by id from url
   async getProductData(id) {
     this.product = await getProductWithItem(id)
+    if(this.product.discPer !== 0 || this.product.discValue !== 0) {
+      this.oldPrice = this.product.price
+      this.product.price = this.product.price - this.product.price*this.product.discPer/100 - this.product.discValue
+    }
     await getCurrentCur().then(data => {
       if(data.name !== "USD") {
         this.product.price = (Number(data.multiplier)*Number(this.product.price)).toFixed(2)
@@ -42,7 +47,9 @@ export class ProductCard extends HTMLElement {
     const items = this.product.items
     if(items) {
       for(let i = 0; i < items.length; i++) {
-        if(items[i].type) {
+        console.log(items[i].item_type)
+        if(items[i].item_type === 'vehicle') {
+
           if(items[i].gallery) {
             this.gallery.push(...items[i].gallery)
           }
@@ -59,8 +66,10 @@ export class ProductCard extends HTMLElement {
                             <span class="icon" style="background-image:url('${items[i].type_icon}');">  </span>
                             <span class="tier"> ${items[i].tier_name}  </span>${items[i].name}</li>`
           console.log(this.bundle)
-        } else if(items[i].name === 'premium account') {
+        } else if(items[i].item_type === 'premium') {
           this.bundle += `<li class="description_list_item">${items[i].value} days of ${items[i].name}</li>`
+        } else if (items[i].item_type === 'bonus') {
+          this.bundle += `<li class="description_list_item">${items[i].value}x ${items[i].name}</li>`
         } else {
           this.bundle += `<li class="description_list_item">${items[i].value} ${items[i].name}</li>`
         }
@@ -75,6 +84,10 @@ export class ProductCard extends HTMLElement {
     this.innerHTML = this.render()
     const list = document.querySelector('.bundle_description_list')
     list.innerHTML = this.bundle
+    const oldPrice = document.querySelector('.product-old-price')
+    if(this.oldPrice !==0) {
+      oldPrice.classList.add('show')
+    }
     //render slider after page
     this.renderSlider()
   }
@@ -133,10 +146,14 @@ export class ProductCard extends HTMLElement {
     <div class="container_item">
         <div class="item_header">
           <div class="item-header_content">
-              <h1 class="header-name">${this.product.name}</h1>
+              <h1 class="item_header-name">${this.product.name}</h1>
               <hr>
               <div class="header-price">
-                  <p class="product-price">${this.product.sign}${this.product.price}</p>
+                <div class="product-price-box">
+                    <p class="product-old-price">${this.product.sign}${this.oldPrice}</p>
+                    <p class="product-price">${this.product.sign}${this.product.price}</p>
+                </div>
+                
                   <a href="#" class="button">Purchase</a>
               </div>
   
@@ -172,4 +189,4 @@ export class ProductCard extends HTMLElement {
   }
 }
 
-customElements.define('item-card', ProductCard)
+customElements.define('product-card', ProductCard)

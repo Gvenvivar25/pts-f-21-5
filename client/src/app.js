@@ -7,11 +7,11 @@ import route from './route/route'
 import Elem from './test'
 // import cart from './pages/cart'
 import './styles/style.sass'
+import { mount } from './react/vdom'
 
-ReactDOM(<Elem name="kek" />, window.root)
-// appendChild(window.root, elem('kek'))
+mount(<Elem name="kek" />, window.root)
 
-console.log('tets', Elem)
+console.log('tets', <Elem name="kek" />)
 // console.log('keke', React)
 // const dinamic = async () => {
 //   const cart = await import('./pages/cart')

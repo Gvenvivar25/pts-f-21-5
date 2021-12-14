@@ -15,8 +15,13 @@ class Router {
     let result = []
 
     for (const item of getArraySearch) {
+      //check is param ''
+      if (item == '' || item == ' ') continue
+
       let params = item.split('=')
-      if (params.length === 1) break
+      // check is rigth item param search
+      if (params.length === 1) continue
+      // add item param search
       result.push(params)
     }
 
@@ -27,7 +32,6 @@ class Router {
     const component = this.#routes.get(pathName) || this.#routes.get('/404')
     if (this.#search) {
       this.#setQuery()
-      console.log(this.query)
     }
     return component()
   }
@@ -46,7 +50,6 @@ class Router {
       throw new Error('Incorrect data: arrRoute must be Array')
     }
     this.#routes = new Map([...errorComponent, ...arrRoute])
-    console.log(this.#routes)
     this.onPopState()
   }
 

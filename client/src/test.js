@@ -29,19 +29,20 @@ class NestedApp extends Component {
     super(props)
   }
 
-  shouldComponentUpdate() {
-    return this.props.counter % 2
-  }
+  // shouldComponentUpdate() {
+  //   return this.props.counter % 2
+  // }
 
   render() {
+    console.log('NestedApp render')
     return (
-      <h1
+      <h2
         style={{
           color: '#' + Math.floor(Math.random() * 16777215).toString(16),
         }}
       >
         The count from parent is: {this.props.counter}
-      </h1>
+      </h2>
     )
   }
 }

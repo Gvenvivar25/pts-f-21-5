@@ -3,9 +3,21 @@ const mountVText = (vText, container) => {
 }
 
 const mountVElement = (vElement, container) => {
-  const { className, tag, props, style } = vElement
+  // debugger
+  const { className, tag, props, style, attrs } = vElement
   const domNode = document.createElement(tag)
   vElement.dom = domNode
+  vElement.eventListeners = []
+
+  // add style
+  if (style != undefined) {
+    Object.keys(style).forEach((s) => (domNode.style[s] = style[s]))
+  }
+  // add class
+  if (className != undefined) {
+    domNode.className = className
+  }
+  // add children
   if (props.children) {
     if (Array.isArray(props.children)) {
       props.children.forEach((child) => mount(child, domNode))
@@ -13,13 +25,17 @@ const mountVElement = (vElement, container) => {
       mount(props.children, domNode)
     }
   }
-  if (className != undefined) {
-    domNode.className = className
-  }
 
-  if (style != undefined) {
-    Object.keys(style).forEach((s) => (domNode.style[s] = style[s]))
-  }
+  // add attributes
+  Object.entries(attrs || {}).forEach(([name, value]) => {
+    if (name.startsWith('on') && name.toLowerCase() in window) {
+      let type = name.toLowerCase().slice(2)
+
+      vElement.eventListeners.push([type, value])
+
+      domNode.addEventListener(type, value)
+    } else domNode.setAttribute(name, value.toString())
+  })
 
   container.appendChild(domNode)
 
@@ -27,12 +43,12 @@ const mountVElement = (vElement, container) => {
 }
 
 const mountVComponent = (vComponent, container) => {
+  // debugger
   const { tag, props } = vComponent
   const Component = tag
   const instance = new Component(props)
 
   const nextRenderedElement = instance.render()
-
   instance._currentElement = nextRenderedElement
 
   instance._parentNode = container
@@ -42,12 +58,15 @@ const mountVComponent = (vComponent, container) => {
   vComponent._instance = instance
   vComponent.dom = dom
 
-  container.textContent = ''
+  if (container === window.root) {
+    container.textContent = ''
+  }
+
   container.appendChild(dom)
+  instance.componentDidMount()
 }
 
 export const mount = (vNode, container) => {
-  // debugger
   if (typeof vNode === 'string' || typeof vNode === 'number') {
     return mountVText(vNode, container)
   }

@@ -10,9 +10,17 @@ export class Component {
     this._parentNode = null
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps, nextState, prevComponent) {
+    if (nextProps == prevComponent.props && nextState == this.state)
+      return false
     return true
   }
+
+  componentDidMount() {}
+
+  componentWillUnmount() {}
+
+  componentDidUpdate(prevProps, prevState, snapshot) {}
 
   updateCopmonent() {
     const prevState = this.state
@@ -23,6 +31,7 @@ export class Component {
     }
 
     this._nextState = null
+
     const nextElement = this.render()
     this._currentElement = nextElement
 
@@ -31,7 +40,14 @@ export class Component {
 
   setState(newState) {
     // debugger
-    this._nextState = Object.assign({}, this.state, newState)
+    if (typeof newState === 'function') {
+      this._nextState = Object.assign(
+        this.state,
+        newState(this.state, this.props)
+      )
+    } else {
+      this._nextState = Object.assign(this.state, newState)
+    }
     this.updateCopmonent()
   }
 

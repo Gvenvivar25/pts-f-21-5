@@ -16,9 +16,33 @@ class App extends Component {
     this.state = {
       counter: 1,
     }
-    setInterval(() => {
-      this.setState({ counter: this.state.counter + 1 })
-    }, 3000)
+    // setInterval(() => {
+    //   this.setState({ counter: this.state.counter + 1 })
+    //   console.log('test')
+    // }, 1000)
+  }
+
+  componentDidMount() {
+    console.log('MOUNT')
+    this.timerID = setInterval(() => this.tick(), 1000)
+  }
+
+  componentWillUnmount() {
+    console.log('UNMOUNT')
+    clearInterval(this.timerID)
+  }
+
+  componentDidUpdate() {
+    console.log('Update')
+  }
+
+  tick() {
+    this.setState({ counter: this.state.counter + 1 })
+    console.log(this.state.counter)
+  }
+
+  handleClick = () => {
+    clearInterval(this.timerID)
   }
 
   render() {
@@ -26,10 +50,10 @@ class App extends Component {
 
     return (
       <div
-        style={{
-          height: `${10 * counter}px`,
-          background: '#' + Math.floor(Math.random() * 16777215).toString(16),
-        }}
+      // style={{
+      //   height: `${10 * counter}px`,
+      //   background: '#' + Math.floor(Math.random() * 16777215).toString(16),
+      // }}
       >
         <p>the counter is {counter}</p>
         <h2
@@ -37,9 +61,12 @@ class App extends Component {
             color: '#' + Math.floor(Math.random() * 16777215).toString(16),
           }}
         >
-          'BOOM!'
+          {'BOOM!!'.repeat(counter)}
         </h2>
-        {/* <NestedApp counter={counter} /> */}
+        <button id="test" onClick={this.handleClick}>
+          Delet
+        </button>
+        <NestedApp counter={counter} />
       </div>
     )
   }
@@ -53,7 +80,6 @@ class App extends Component {
 //     </div>
 //   )
 // }
-window.root.contentText = ''
 
 mount(createElement(App), window.root)
 // console.log('tets', <Elem name="kek" />)
@@ -103,6 +129,6 @@ route()
 // </article>`
 // }
 
-if (module.hot) {
-  module.hot.accept()
-}
+// if (module.hot) {
+//   module.hot.accept()
+// }

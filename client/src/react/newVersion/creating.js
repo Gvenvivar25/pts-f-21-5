@@ -6,17 +6,14 @@ const createVComponent = (tag, props) => {
   }
 }
 
-const createVElement = (tag, propsElement = {}, children = null) => {
-  let style
-  let className
-  if (propsElement != null) {
-    style = propsElement.style
-    className = propsElement.className
-  }
+const createVElement = (tag, propsElement, children = null) => {
+  if (propsElement == null) propsElement = {}
+  let { style, className, ...attrs } = propsElement
 
   return {
     tag,
     style,
+    attrs,
     props: {
       children,
     },
@@ -26,6 +23,7 @@ const createVElement = (tag, propsElement = {}, children = null) => {
 }
 
 const createElement = (tag, props, ...children) => {
+  // debugger
   if (typeof tag === 'function') {
     return createVComponent(tag, props)
   }

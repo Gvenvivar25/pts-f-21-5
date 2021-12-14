@@ -24,13 +24,18 @@ router.post('/api/products', productsController.addProduct);
 router.delete('/api/products/:id', productsController.removeProduct);
 
 
-
 //items для админки
 router.get('/api/items', itemsController.getAllItems);
 router.get('/api/items/:id', itemsController.getOneItem);
 router.put('/api/items/:id', itemsController.updateItem);
 router.post('/api/items', itemsController.addItem);
 router.delete('/api/items/:id', itemsController.removeItem);
+
+// get tiers, nations and types of vehicles in 1 request
+router.get('/api/vehicle_info', tiersController.getAllVehicleInfo);
+
+// get tiers, nations and types of 1 vehicle in 1 request with item in params
+router.get('/api/vehicle_info/:id', tiersController.getVehicleInfo);
 
 
 //tiers

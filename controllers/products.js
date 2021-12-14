@@ -73,7 +73,6 @@ class ProductsController {
       const prodRef = prodCol
       const data = req.body
       const response = await prodRef.add(data)
-      console.log(response.id)
       const collect = prodCol.doc(`${response.id}`)
       const updData = {...data, id: response.id}
       await collect.set(updData, {merge: true})

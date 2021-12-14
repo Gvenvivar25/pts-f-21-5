@@ -1,62 +1,68 @@
-// const routes = {
-//   '/': 'main',
-//   '/wishlist': 'wishlist',
-//   '/cart': 'cart',
-//   '/product': 'product',
-// }
+const errorComponent = [
+  ['/404', () => '<div>404</div>'],
+  ['/500', () => '<div>500</div>'],
+]
+class Router {
+  #routes
+  #id = 0
+  #rootDiv = window.root
+  #localPath = window.location.pathname
+  #search = window.location.search
+  query = {}
 
-const routes = (pathname) => {
-  console.log(pathname)
-  switch (pathname) {
-    case '/': {
-      return '<div>main<div>'
+  #setQuery() {
+    let getArraySearch = this.#search.slice(1).split('&')
+    let result = []
+
+    for (const item of getArraySearch) {
+      //check is param ''
+      if (item == '' || item == ' ') continue
+
+      let params = item.split('=')
+      // check is rigth item param search
+      if (params.length === 1) continue
+      // add item param search
+      result.push(params)
     }
-    case '/wishlist': {
-      return 'wishlist'
+
+    this.query = Object.fromEntries(result)
+  }
+
+  #switch(pathName) {
+    const component = this.#routes.get(pathName) || this.#routes.get('/404')
+    if (this.#search) {
+      this.#setQuery()
     }
-    case '/cart': {
-      return 'cart'
+    return component()
+  }
+
+  // It's the method that makes the redirect as in React/Next
+  async push(pathName) {
+    this.#id++
+    let path = pathName === '/' ? '.' : pathName.slice(1)
+    window.history.pushState({ empId: this.#id, as: pathName }, null, path)
+    this.#rootDiv.innerHTML = await this.#switch(pathName)
+  }
+
+  // It's the method that accepts an array as [{path: '/xxx', component: function}]. 'path' it's path which calls componnet. 'component' it's fancion which dynamically called callback
+  setRoutes(arrRoute) {
+    if (!arrRoute || !Array.isArray(arrRoute)) {
+      throw new Error('Incorrect data: arrRoute must be Array')
     }
-    case '/product': {
-      return 'product'
-    }
+    this.#routes = new Map([...errorComponent, ...arrRoute])
+    this.onPopState()
+  }
+
+  // It's the method that is triggered when the page loads or the path changes
+  async onPopState() {
+    this.#rootDiv.innerHTML = await this.#switch(this.#localPath)
   }
 }
 
-const getPathName = () => {
-  return window.location.pathname
-}
-
-const root = window.root
-root.innerHTML = routes(getPathName())
-
-let number = 0
-
-export const onNavigate = (pathname) => {
-  number++
-  let path = pathname === '/' ? '.' : pathname.slice(1)
-
-  window.history.pushState(
-    { empId: number, title: 'test', as: path },
-    'test',
-    pathname
-  )
-  root.innerHTML = routes(pathname)
-}
+const router = new Router()
 
 window.onpopstate = () => {
-  root.innerHTML = routes(getPathName())
+  router.onPopState()
 }
 
-window.header.addEventListener('click', (e) => {
-  const a = e.target.closest('a')
-  if (!a || !e.currentTarget.contains(a)) return
-
-  e.preventDefault()
-  // console.log(e.currentTarget.contains(a))
-  const path = a.getAttribute('href')
-  onNavigate(path)
-})
-
-const test = () => console.log('ROUTE')
-export default test
+export default router

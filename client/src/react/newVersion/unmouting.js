@@ -1,0 +1,3 @@
+const unmount = (vNode) => {
+  vNode
+}

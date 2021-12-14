@@ -110,7 +110,7 @@ const jsLoaders = (loader) => {
 const plugins = () => {
   const base = [
     new webpack.ProvidePlugin({
-      CastomReact: './react/react',
+      CastomReact: './react/newVersion/creating',
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({

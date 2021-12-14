@@ -1,17 +1,62 @@
-import { ReactDOM } from './react/react'
-
-// import kek from './react/react'
-
 import main from './pages/main'
 import route from './route/route'
-import Elem from './test'
 // import cart from './pages/cart'
 import './styles/style.sass'
-import { mount } from './react/vdom'
+import { Component } from './react/newVersion/Component'
+import { mount } from './react/newVersion/mounting'
+import { createElement } from './react/newVersion/creating'
+import NestedApp from './test'
+// import { mount } from './react/vdom'
 
-mount(<Elem name="kek" />, window.root)
+// mount(<Elem name="kek" />, window.root)
 
-console.log('tets', <Elem name="kek" />)
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      counter: 1,
+    }
+    setInterval(() => {
+      this.setState({ counter: this.state.counter + 1 })
+    }, 3000)
+  }
+
+  render() {
+    const { counter } = this.state
+
+    return (
+      <div
+        style={{
+          height: `${10 * counter}px`,
+          background: '#' + Math.floor(Math.random() * 16777215).toString(16),
+        }}
+      >
+        <p>the counter is {counter}</p>
+        <h2
+          style={{
+            color: '#' + Math.floor(Math.random() * 16777215).toString(16),
+          }}
+        >
+          'BOOM!'
+        </h2>
+        {/* <NestedApp counter={counter} /> */}
+      </div>
+    )
+  }
+}
+
+// const App2 = () => {
+//   return (
+//     <div>
+//       wegeg
+//       <h2>BOOM</h2>
+//     </div>
+//   )
+// }
+window.root.contentText = ''
+
+mount(createElement(App), window.root)
+// console.log('tets', <Elem name="kek" />)
 // console.log('keke', React)
 // const dinamic = async () => {
 //   const cart = await import('./pages/cart')
@@ -20,7 +65,6 @@ console.log('tets', <Elem name="kek" />)
 
 // import('./api/REST').then(() => console.log('dinamic rest'))
 // console.log('app', elem())
-console.log('main app', main)
 // const handleClick = () => {
 //   dinamic().then((cart) => {
 //     console.log('click', cart)

@@ -1,4 +1,4 @@
-export const createVComponent = (tag, props) => {
+const createVComponent = (tag, props) => {
   return {
     tag,
     props,
@@ -6,8 +6,13 @@ export const createVComponent = (tag, props) => {
   }
 }
 
-export const createVElement = (tag, props, children = null) => {
-  const { className, style } = props
+const createVElement = (tag, propsElement = {}, children = null) => {
+  let style
+  let className
+  if (propsElement != null) {
+    style = propsElement.style
+    className = propsElement.className
+  }
 
   return {
     tag,
@@ -15,13 +20,23 @@ export const createVElement = (tag, props, children = null) => {
     props: {
       children,
     },
-    className: className,
+    className,
     dom: null,
   }
 }
 
-export const createElement = (tag, props, children) => {
-  typeof tag === 'function'
-    ? createVComponent(tag, props)
-    : createVElement(tag, props, children)
+const createElement = (tag, props, ...children) => {
+  if (typeof tag === 'function') {
+    return createVComponent(tag, props)
+  }
+  return createVElement(tag, props, children)
+}
+
+const createFragment = (props, ...children) => {
+  return children
+}
+
+module.exports = {
+  createElement,
+  createFragment,
 }

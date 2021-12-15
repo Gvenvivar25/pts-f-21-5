@@ -23,7 +23,7 @@ export class NestedApp extends Component {
           color: '#' + Math.floor(Math.random() * 16777215).toString(16),
         }}
       >
-        The count from parent is: {this.props.counter}
+        The count from parent is: {this.props?.counter}
       </h2>
     )
   }
@@ -49,7 +49,7 @@ export class NestedApp2 extends Component {
           color: '#' + Math.floor(Math.random() * 16777215).toString(16),
         }}
       >
-        The count from parent is: {this.props.counter}
+        The count from parent is: {this.props?.counter}
       </h3>
     )
   }

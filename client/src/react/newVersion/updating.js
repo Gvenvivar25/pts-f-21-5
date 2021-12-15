@@ -1,7 +1,7 @@
 import { mount } from './mounting'
 import { unmount } from './unmouting'
 
-export const update = (prevElement, nextElement, parentDOM) => {
+export const update = (prevElement = '', nextElement = '', parentDOM) => {
   // debugger
   if (!prevElement) {
     mount(nextElement, parentDOM)

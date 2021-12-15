@@ -17,51 +17,29 @@ const dynamicNestedApp = dynamic(() => import('./test'))
 class App extends Component {
   constructor() {
     super()
-    this.state = {
-      counter: 1,
-    }
+    // this.state = {
+    //   counter: 1,
+    // }
   }
 
-  componentDidMount() {
-    console.log('MOUNT')
-    // this.timerID = setInterval(() => this.tick(), 1000)
-  }
+  // componentWillUnmount() {
+  //   console.log('UNMOUNT')
+  //   clearInterval(this.timerID)
+  // }
 
-  componentWillUnmount() {
-    console.log('UNMOUNT')
-    clearInterval(this.timerID)
-  }
+  // tick() {
+  //   this.setState({ counter: this.state.counter + 1 })
+  // }
 
-  tick() {
-    this.setState({ counter: this.state.counter + 1 })
-  }
-
-  handleClick = () => {
-    clearInterval(this.timerID)
-  }
+  // handleClick = () => {
+  //   clearInterval(this.timerID)
+  // }
 
   render() {
-    const { counter } = this.state
+    // const { counter } = this.state
 
     return (
-      <div
-        style={{
-          height: `${10 * counter}px`,
-          background: '#' + Math.floor(Math.random() * 16777215).toString(16),
-        }}
-      >
-        <p>the counter is {counter}</p>
-        <h2
-          style={{
-            color: '#' + Math.floor(Math.random() * 16777215).toString(16),
-          }}
-        >
-          {'BOOM!!'.repeat(counter)}
-        </h2>
-        <button id="test" onClick={this.handleClick}>
-          Delet
-        </button>
-        {/* <NestedApp counter={counter} /> */}
+      <div>
         <Link href="/test" className="item" classActive={'kek'}>
           TEST LINK
         </Link>
@@ -72,12 +50,12 @@ class App extends Component {
           <Route
             path="/test"
             // render={dynamicNestedApp}
-            component={<NestedApp counter={counter} />}
+            component={<NestedApp />}
           />
           <Route
             path="/test2"
             // render={dynamicNestedApp}
-            component={<NestedApp2 counter={counter + 10} />}
+            component={<NestedApp2 />}
           />
         </Router>
       </div>

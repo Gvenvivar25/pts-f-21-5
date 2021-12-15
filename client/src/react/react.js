@@ -57,6 +57,12 @@ const router = new Router()
 
 export default router
 
+const subscriber = []
+
+window.onpopstate = () => {
+  router.onPopState(subscriber)
+}
+
 export class Link extends Component {
   constructor(props) {
     super(props)
@@ -73,19 +79,18 @@ export class Link extends Component {
     let path = pathName === '/' ? '.' : pathName.slice(1)
     window.history.pushState({ empId: 1, as: pathName }, null, path)
 
+    router.updateLocalPath()
     const navEvent = new PopStateEvent('popstate')
     window.dispatchEvent(navEvent)
   }
 
   render() {
-    const { className, href, children, classActive } = this.props
+    const { className = '', href, children, classActive = '' } = this.props
     const isActive = window.location.pathname === href
 
     return (
       <a
-        className={
-          `${className}` + (isActive && classActive ? ' ' + classActive : '')
-        }
+        className={`${className}` + (isActive ? ' ' + classActive : '')}
         href={href}
         onClick={this.onClick}
       >
@@ -93,12 +98,6 @@ export class Link extends Component {
       </a>
     )
   }
-}
-
-const subscriber = []
-
-window.onpopstate = () => {
-  router.onPopState(subscriber)
 }
 
 export class Route extends Component {
@@ -138,7 +137,7 @@ export class Route extends Component {
   render() {
     // debugger
     const component = this.props.component
-    console.log(this.state)
+    // console.log(this.state)
     return component
   }
 }
@@ -155,7 +154,6 @@ export class BrowserRouter extends Component {
   }
 
   componentDidUpdate() {
-    // debugger
     if (router.localPath !== this.state.path) {
       this.setState({ path: router.localPath })
     }
@@ -168,6 +166,7 @@ export class BrowserRouter extends Component {
       (child) => child.props.path === this.state.path
     )
     console.log('br', this.state.path)
+    console.log('br2', router.query)
 
     return currentRoute.length > 0 ? currentRoute[0] : def
   }

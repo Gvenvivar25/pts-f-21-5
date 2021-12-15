@@ -1,7 +1,18 @@
-console.log('wishlist')
+import router from '../react/react'
+import { Component } from '/react/newVersion/Component'
 
-const Wishlist = () => {
-  return '<div>Wishlist</div>'
+class Wishlist extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  render() {
+    return (
+      <div>
+        <h2>Wishlist</h2>
+      </div>
+    )
+  }
 }
 
-export default Wishlist()
+export default Wishlist

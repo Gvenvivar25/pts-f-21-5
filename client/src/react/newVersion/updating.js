@@ -2,10 +2,15 @@ import { mount } from './mounting'
 import { unmount } from './unmouting'
 
 export const update = (prevElement, nextElement, parentDOM) => {
+  // debugger
   if (!prevElement) {
     mount(nextElement, parentDOM)
   } else {
-    if (prevElement.tag === nextElement.tag) {
+    if (
+      prevElement?.tag &&
+      nextElement?.tag &&
+      prevElement.tag === nextElement.tag
+    ) {
       // same tags
       if (typeof prevElement.tag === 'string') {
         updateVElement(prevElement, nextElement)
@@ -17,8 +22,20 @@ export const update = (prevElement, nextElement, parentDOM) => {
         updateVText(prevElement, nextElement, parentDOM)
       }
     } else {
-      unmount(prevElement)
-      mount(nextElement, parentDOM)
+      if (Array.isArray(prevElement) && Array.isArray(nextElement)) {
+        updateChildren(prevElement, nextElement, parentDOM)
+      } else {
+        if (
+          (typeof prevElement === 'string' &&
+            typeof nextElement === 'string') ||
+          (typeof nextElement === 'number' && typeof nextElement === 'number')
+        ) {
+          updateVText(prevElement, nextElement, parentDOM)
+        } else {
+          unmount(prevElement)
+          mount(nextElement, parentDOM)
+        }
+      }
     }
   }
 }
@@ -37,6 +54,7 @@ const updateVText = (prevText, nextText, parentDOM) => {
 }
 
 const updateChildren = (prevChildren, nextChildren, container) => {
+  // debugger
   if (typeof prevChildren === 'string') {
     container.textContent = null
     nextChildren.forEach((child) => {
@@ -51,7 +69,11 @@ const updateChildren = (prevChildren, nextChildren, container) => {
 
     if (prevChildren.length > nextChildren.length) {
       prevChildren.slice(nextChildren.length).forEach((child) => {
-        unmount(child)
+        if (typeof child === 'string') {
+          unmount(child, container)
+        } else {
+          unmount(child)
+        }
       })
     }
     if (nextChildren.length > prevChildren.length) {
@@ -157,7 +179,7 @@ const updateVComponent = (prevComponent, nextComponent) => {
   nextComponent._instance.props = nextProps
 
   const nextState = nextComponent._instance.state
-
+  // debugger
   if (_instance.shouldComponentUpdate(nextProps, nextState, prevComponent)) {
     const prevRenderElement = _currentElement
     _instance.componentDidUpdate(prevProps, _instance.state)

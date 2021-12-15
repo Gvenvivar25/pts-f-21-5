@@ -1,3 +1,4 @@
+import { mount } from './mounting'
 import { update } from './updating'
 
 export class Component {
@@ -10,9 +11,9 @@ export class Component {
     this._parentNode = null
   }
 
-  shouldComponentUpdate(nextProps, nextState, prevComponent) {
-    if (nextProps == prevComponent.props && nextState == this.state)
-      return false
+  shouldComponentUpdate() {
+    // if (nextProps == prevComponent.props && nextState == this.state)
+    //   return false
     return true
   }
 
@@ -20,19 +21,19 @@ export class Component {
 
   componentWillUnmount() {}
 
-  componentDidUpdate(prevProps, prevState, snapshot) {}
+  componentDidUpdate() {}
 
   updateCopmonent() {
+    // debugger
     const prevState = this.state
     const prevElement = this._currentElement
 
-    if (this._nextState !== prevState) {
+    if (this._nextState !== prevState && this._nextState != null) {
       this.state = this._nextState
+      this._nextState = null
     }
 
-    this._nextState = null
-
-    const nextElement = this.render()
+    let nextElement = this.render()
     this._currentElement = nextElement
 
     update(prevElement, nextElement, this._parentNode)
@@ -46,7 +47,7 @@ export class Component {
         newState(this.state, this.props)
       )
     } else {
-      this._nextState = Object.assign(this.state, newState)
+      this._nextState = Object.assign({}, this.state, newState)
     }
     this.updateCopmonent()
   }

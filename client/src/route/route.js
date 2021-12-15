@@ -55,7 +55,7 @@ class Router {
 
   // It's the method that is triggered when the page loads or the path changes
   async onPopState() {
-    this.#rootDiv.innerHTML = await this.#switch(this.#localPath)
+    // this.#rootDiv.innerHTML = await this.#switch(this.#localPath)
   }
 }
 

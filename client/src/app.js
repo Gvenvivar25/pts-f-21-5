@@ -2,8 +2,8 @@
 import dynamic from './middleware/dynamic'
 import getPathLink from './middleware/pathLink'
 import { Component } from './react/newVersion/Component'
-import NestedApp from './test'
-import { Link, Route } from './react/react'
+import { NestedApp, NestedApp2 } from './test'
+import { Link, Route, BrowserRouter as Router } from './react/react'
 
 // const routers = [
 //   ['/', dynamic(() => import('./pages/main'))],
@@ -32,13 +32,8 @@ class App extends Component {
     clearInterval(this.timerID)
   }
 
-  componentDidUpdate() {
-    console.log('Update')
-  }
-
   tick() {
     this.setState({ counter: this.state.counter + 1 })
-    console.log(this.state.counter)
   }
 
   handleClick = () => {
@@ -50,12 +45,12 @@ class App extends Component {
 
     return (
       <div
-      // style={{
-      //   height: `${10 * counter}px`,
-      //   background: '#' + Math.floor(Math.random() * 16777215).toString(16),
-      // }}
+        style={{
+          height: `${10 * counter}px`,
+          background: '#' + Math.floor(Math.random() * 16777215).toString(16),
+        }}
       >
-        {/* <p>the counter is {counter}</p>
+        <p>the counter is {counter}</p>
         <h2
           style={{
             color: '#' + Math.floor(Math.random() * 16777215).toString(16),
@@ -65,14 +60,26 @@ class App extends Component {
         </h2>
         <button id="test" onClick={this.handleClick}>
           Delet
-        </button> */}
+        </button>
+        {/* <NestedApp counter={counter} /> */}
         <Link href="/test" className="item" classActive={'kek'}>
           TEST LINK
         </Link>
         <Link href="/test2" className="item" classActive={'kek'}>
           TEST LINK2
         </Link>
-        <Route path="/test" render={dynamicNestedApp} />
+        <Router>
+          <Route
+            path="/test"
+            // render={dynamicNestedApp}
+            component={<NestedApp counter={counter} />}
+          />
+          <Route
+            path="/test2"
+            // render={dynamicNestedApp}
+            component={<NestedApp2 counter={counter + 10} />}
+          />
+        </Router>
       </div>
     )
   }

@@ -3,7 +3,7 @@
 
 import { Component } from './react/newVersion/Component'
 
-class NestedApp extends Component {
+export class NestedApp extends Component {
   constructor(props) {
     super(props)
   }
@@ -12,8 +12,11 @@ class NestedApp extends Component {
   //   return this.props.counter % 2
   // }
 
+  componentWillUnmount() {
+    console.log('UNMOUNT:', this.props)
+  }
+
   render() {
-    console.log('NestedApp render')
     return (
       <h2
         style={{
@@ -26,4 +29,28 @@ class NestedApp extends Component {
   }
 }
 
-export default NestedApp
+export class NestedApp2 extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  // shouldComponentUpdate() {
+  //   return this.props.counter % 2
+  // }
+
+  componentWillUnmount() {
+    console.log('UNMOUNT:', this.props)
+  }
+
+  render() {
+    return (
+      <h3
+        style={{
+          color: '#' + Math.floor(Math.random() * 16777215).toString(16),
+        }}
+      >
+        The count from parent is: {this.props.counter}
+      </h3>
+    )
+  }
+}

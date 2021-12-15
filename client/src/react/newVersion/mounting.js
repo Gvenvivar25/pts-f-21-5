@@ -1,5 +1,5 @@
 const mountVText = (vText, container) => {
-  container.appendChild(vText ? document.createTextNode(vText) : vText)
+  return container.appendChild(document.createTextNode(vText))
 }
 
 const mountVElement = (vElement, container) => {
@@ -20,7 +20,7 @@ const mountVElement = (vElement, container) => {
   // add children
   if (props.children) {
     if (Array.isArray(props.children)) {
-      props.children.forEach((child) => mount(child, domNode))
+      props.children.forEach((child) => mount(child || '', domNode))
     } else {
       mount(props.children, domNode)
     }
@@ -54,18 +54,18 @@ const mountVComponent = (vComponent, container) => {
   const Component = tag
   const instance = new Component(props)
 
-  const nextRenderedElement = instance.render()
+  const nextRenderedElement = instance.render() || ''
 
   instance._currentElement = nextRenderedElement
 
   instance._parentNode = container
   vComponent._instance = instance
 
-  if (!nextRenderedElement) {
-    isContainerRoot(container)
-    instance.componentDidMount()
-    return
-  }
+  // if (!nextRenderedElement) {
+  //   isContainerRoot(container)
+  //   instance.componentDidMount()
+  //   return
+  // }
 
   // debugger
   const dom = mount(nextRenderedElement, container)
@@ -74,6 +74,7 @@ const mountVComponent = (vComponent, container) => {
   isContainerRoot(container)
   container.appendChild(dom)
   instance.componentDidMount()
+  return dom
 }
 
 export const mount = (vNode, container) => {

@@ -91,7 +91,7 @@ const jsLoaders = (loader) => {
         loader: 'jsx',
         target: 'es2019',
         jsxFactory: 'CastomReact.createElement',
-        // jsxFragment: 'Fragment',
+        // jsxFragment: 'CastomReact.createFragment',
       },
     },
   ]
@@ -110,7 +110,7 @@ const jsLoaders = (loader) => {
 const plugins = () => {
   const base = [
     new webpack.ProvidePlugin({
-      CastomReact: './react/newVersion/creating',
+      CastomReact: '/react/newVersion/creating',
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
@@ -138,7 +138,7 @@ const plugins = () => {
 module.exports = {
   entry: {
     // app: ['@babel/polyfill', './app.js'],
-    app: './app.js',
+    app: './index.js',
   },
   output: {
     path: path.resolve(__dirname, './dist'),

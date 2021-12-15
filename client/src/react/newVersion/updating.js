@@ -2,21 +2,24 @@ import { mount } from './mounting'
 import { unmount } from './unmouting'
 
 export const update = (prevElement, nextElement, parentDOM) => {
-  // debugger
-  if (prevElement.tag === nextElement.tag) {
-    // same tags
-    if (typeof prevElement.tag === 'string') {
-      updateVElement(prevElement, nextElement)
-    }
-    if (typeof prevElement.tag === 'function') {
-      updateVComponent(prevElement, nextElement)
-    }
-    if (typeof prevElement === 'string' || typeof prevElement === 'number') {
-      updateVText(prevElement, nextElement, parentDOM)
-    }
-  } else {
-    unmount(prevElement)
+  if (!prevElement) {
     mount(nextElement, parentDOM)
+  } else {
+    if (prevElement.tag === nextElement.tag) {
+      // same tags
+      if (typeof prevElement.tag === 'string') {
+        updateVElement(prevElement, nextElement)
+      }
+      if (typeof prevElement.tag === 'function') {
+        updateVComponent(prevElement, nextElement)
+      }
+      if (typeof prevElement === 'string' || typeof prevElement === 'number') {
+        updateVText(prevElement, nextElement, parentDOM)
+      }
+    } else {
+      unmount(prevElement)
+      mount(nextElement, parentDOM)
+    }
   }
 }
 
@@ -145,7 +148,6 @@ const updateVElement = (prevElement, nextElement) => {
 const updateVComponent = (prevComponent, nextComponent) => {
   const { _instance } = prevComponent
   const { _currentElement } = _instance
-  debugger
 
   const prevProps = prevComponent.props
   const nextProps = nextComponent.props

@@ -1,27 +1,30 @@
-import router from './route/route'
+// import router from './route/route'
 import dynamic from './middleware/dynamic'
 import getPathLink from './middleware/pathLink'
-import './styles/style.sass'
 import { Component } from './react/newVersion/Component'
-import { mount } from './react/newVersion/mounting'
-import { createElement } from './react/newVersion/creating'
 import NestedApp from './test'
+import { Link, Route } from './react/react'
 
+// const routers = [
+//   ['/', dynamic(() => import('./pages/main'))],
+//   ['/wishlist', dynamic(() => import('./pages/wishlist'))],
+//   ['/cart', () => 'cart'],
+//   ['/404', () => '404'],
+// ]
+const dynamicNestedApp = dynamic(() => import('./test'))
+// router.setRoutes(routers)
+// console.log(dynamicNestedApp)
 class App extends Component {
   constructor() {
     super()
     this.state = {
       counter: 1,
     }
-    // setInterval(() => {
-    //   this.setState({ counter: this.state.counter + 1 })
-    //   console.log('test')
-    // }, 1000)
   }
 
   componentDidMount() {
     console.log('MOUNT')
-    this.timerID = setInterval(() => this.tick(), 1000)
+    // this.timerID = setInterval(() => this.tick(), 1000)
   }
 
   componentWillUnmount() {
@@ -52,7 +55,7 @@ class App extends Component {
       //   background: '#' + Math.floor(Math.random() * 16777215).toString(16),
       // }}
       >
-        <p>the counter is {counter}</p>
+        {/* <p>the counter is {counter}</p>
         <h2
           style={{
             color: '#' + Math.floor(Math.random() * 16777215).toString(16),
@@ -62,50 +65,22 @@ class App extends Component {
         </h2>
         <button id="test" onClick={this.handleClick}>
           Delet
-        </button>
-        <NestedApp counter={counter} />
+        </button> */}
+        <Link href="/test" className="item" classActive={'kek'}>
+          TEST LINK
+        </Link>
+        <Link href="/test2" className="item" classActive={'kek'}>
+          TEST LINK2
+        </Link>
+        <Route path="/test" render={dynamicNestedApp} />
       </div>
     )
   }
 }
 
-// const App2 = () => {
-//   return (
-//     <div>
-//       wegeg
-//       <h2>BOOM</h2>
-//     </div>
-//   )
-// }
-
-mount(createElement(App), window.root)
-// console.log('tets', <Elem name="kek" />)
-// console.log('keke', React)
-// const dinamic = async () => {
-//   const cart = await import('./pages/cart')
-//   return cart
-// }
-
-// import('./api/REST').then(() => console.log('dinamic rest'))
-// console.log('app', elem())
-// const handleClick = () => {
-//   dinamic().then((cart) => {
-//     console.log('click', cart)
-//   })
-// }
-// document.body.addEventListener('click', handleClick)
-const routers = [
-  ['/', dynamic(() => import('./pages/main'))],
-  ['/wishlist', dynamic(() => import('./pages/wishlist'))],
-  ['/cart', () => 'cart'],
-  ['/404', () => '404'],
-]
-
-router.setRoutes(routers)
+export default App
 
 // const dynamicCart = dynamic(() => import('./pages/cart'))
-
-// import('./api/REST').then(() => console.log('dinamic rest'))
 
 // const handleClick = async () => {
 //   console.log('test')
@@ -113,7 +88,7 @@ router.setRoutes(routers)
 //   console.log('click', cart)
 // }
 
-window.header.addEventListener('click', (e) => getPathLink(e, router))
+// window.header.addEventListener('click', (e) => getPathLink(e, router))
 
 // document.body.addEventListener('click', handleClick)
 

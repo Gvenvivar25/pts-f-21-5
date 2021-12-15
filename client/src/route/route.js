@@ -61,8 +61,8 @@ class Router {
 
 const router = new Router()
 
-window.onpopstate = () => {
-  router.onPopState()
-}
+// window.onpopstate = () => {
+//   router.onPopState()
+// }
 
 export default router

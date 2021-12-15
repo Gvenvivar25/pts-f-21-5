@@ -25,7 +25,8 @@ const createVElement = (tag, propsElement, children = null) => {
 const createElement = (tag, props, ...children) => {
   // debugger
   if (typeof tag === 'function') {
-    return createVComponent(tag, props)
+    // let propsVComponent =
+    return createVComponent(tag, { ...props, children: [...children] })
   }
   return createVElement(tag, props, children)
 }

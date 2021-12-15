@@ -1,51 +1,74 @@
-const appendChild = (parent, child) => {
-  if (Array.isArray(child))
-    child.forEach((nestedChild) => appendChild(parent, nestedChild))
-  else
-    parent.appendChild(child.nodeType ? child : document.createTextNode(child))
-}
+import { Component } from './newVersion/Component'
 
-const addAttribute = (props, el) => {
-  Object.entries(props || {}).forEach(([name, value]) => {
-    if (name.startsWith('on') && name.toLowerCase() in window)
-      el.addEventListener(name.toLowerCase().slice(2), value)
-    else el.setAttribute(name, value.toString())
-  })
-}
-
-const createElement = (tag, props, ...children) => {
-  return { tag, props, children }
-}
-
-const createElementNode = ({ tag, props, children }) => {
-  if (typeof tag === 'function') {
-    return createElementNode(tag(props, children))
+export class Link extends Component {
+  constructor(props) {
+    super(props)
   }
-  let el = document.createElement(tag)
 
-  addAttribute(props, el)
+  onClick = (e) => {
+    if (e.metaKey || e.ctrlKey) {
+      return
+    }
 
-  children.forEach((child) => {
-    typeof child === 'string'
-      ? appendChild(el, child)
-      : appendChild(el, createElementNode(child))
-  })
-  return el
+    e.preventDefault()
+
+    const pathName = this.props.href
+    let path = pathName === '/' ? '.' : pathName.slice(1)
+    window.history.pushState({ empId: 1, as: pathName }, null, path)
+
+    const navEvent = new PopStateEvent('popstate')
+    window.dispatchEvent(navEvent)
+  }
+
+  render() {
+    const { className, href, children, classActive } = this.props
+    const isActive = window.location.pathname === href
+
+    return (
+      <a
+        className={
+          `${className}` + (isActive && classActive ? ' ' + classActive : '')
+        }
+        href={href}
+        onClick={this.onClick}
+      >
+        {children}
+      </a>
+    )
+  }
 }
 
-const createFragment = (props, ...children) => {
-  return children
-}
+export const subscriber = []
 
-const ReactDOM = (el, container) => {
-  container.appendChild(el)
-}
+export class Route extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { component: null, path: window.location.pathname }
+  }
 
-module.exports = {
-  createElement,
-  createFragment,
-  appendChild,
-  ReactDOM,
-  addAttribute,
-  createElementNode,
+  componentDidMount() {
+    subscriber.push(this.updateCopmonent.bind(this))
+  }
+
+  componentDidUpdate() {
+    console.log('update')
+    debugger
+    if (!this.state.component && this.props.href === this.statepath) {
+      this.props.render().then((mode) => this.setState({ component: mode }))
+    }
+  }
+
+  render() {
+    debugger
+    console.log('route', this.state.path)
+    // const { path, render } = this.props
+    if (window.location.pathname === this.props.path) {
+      if (!this.state?.component) {
+        return <div>Loading...</div>
+      } else {
+        return this.state.component
+      }
+    }
+    return null
+  }
 }

@@ -1,5 +1,5 @@
 const mountVText = (vText, container) => {
-  container.appendChild(document.createTextNode(vText))
+  container.appendChild(vText ? document.createTextNode(vText) : vText)
 }
 
 const mountVElement = (vElement, container) => {
@@ -42,6 +42,12 @@ const mountVElement = (vElement, container) => {
   return domNode
 }
 
+const isContainerRoot = (container) => {
+  if (container === window.root) {
+    container.textContent = ''
+  }
+}
+
 const mountVComponent = (vComponent, container) => {
   // debugger
   const { tag, props } = vComponent
@@ -49,33 +55,44 @@ const mountVComponent = (vComponent, container) => {
   const instance = new Component(props)
 
   const nextRenderedElement = instance.render()
+
   instance._currentElement = nextRenderedElement
 
   instance._parentNode = container
-
-  const dom = mount(nextRenderedElement, container)
-
   vComponent._instance = instance
-  vComponent.dom = dom
 
-  if (container === window.root) {
-    container.textContent = ''
+  if (!nextRenderedElement) {
+    isContainerRoot(container)
+    instance.componentDidMount()
+    return
   }
 
+  // debugger
+  const dom = mount(nextRenderedElement, container)
+  vComponent.dom = dom
+
+  isContainerRoot(container)
   container.appendChild(dom)
   instance.componentDidMount()
 }
 
 export const mount = (vNode, container) => {
-  if (typeof vNode === 'string' || typeof vNode === 'number') {
-    return mountVText(vNode, container)
-  }
+  // debugger
+  // if (!vNode) return
 
-  if (typeof vNode.tag === 'function') {
-    return mountVComponent(vNode, container)
-  }
+  if (Array.isArray(vNode)) {
+    vNode.forEach((node) => mount(node, container))
+  } else {
+    if (typeof vNode === 'string' || typeof vNode === 'number') {
+      return mountVText(vNode, container)
+    }
 
-  if (typeof vNode.tag === 'string') {
-    return mountVElement(vNode, container)
+    if (typeof vNode.tag === 'function') {
+      return mountVComponent(vNode, container)
+    }
+
+    if (typeof vNode.tag === 'string') {
+      return mountVElement(vNode, container)
+    }
   }
 }

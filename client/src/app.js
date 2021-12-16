@@ -8,7 +8,8 @@ import Header from './components/Header/Header'
 import Menu from './components/Menu/Menu'
 import Main from './pages/main'
 import Wishlist from './pages/wishlist'
-import Cart from './pages/cart'
+import ShoppingCard from './pages/shoppingCard'
+import ProductPage from './pages/product'
 
 class App extends Component {
   render() {
@@ -20,8 +21,8 @@ class App extends Component {
           <Router>
             <Route path="/" component={<Main />} />
             <Route path="/wishlist" component={<Wishlist />} />
-            <Route path="/cart" component={<Cart />} />
-            <Route path="/product" component={<Cart />} />
+            <Route path="/shopping-card" component={<ShoppingCard />} />
+            <Route path="/product" component={<ProductPage />} />
           </Router>
         </main>
         {/* <Link href="/test" className="item" classActive={'kek'}>

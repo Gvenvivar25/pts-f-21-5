@@ -1,10 +1,11 @@
 export class REST {
-  _baseUrl = process.env.NEXT_PUBLIC_API
+  // _baseUrl = process.env.NEXT_PUBLIC_API
+  _baseUrl = 'http://localhost:3300/api/'
 
   get(url, headers = {}) {
     return fetch(this._baseUrl + url, {
       method: 'GET',
-      credentials: 'include',
+      // credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
         ...headers,
@@ -24,7 +25,7 @@ export class REST {
   put(url, body, headers = {}) {
     return fetch(this._baseUrl + url, {
       method: 'PUT',
-      credentials: 'include',
+      // credentials: 'include',
       body: JSON.stringify({ ...body }),
       headers: {
         'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export class REST {
   post(url, body, headers = {}) {
     return fetch(this._baseUrl + url, {
       method: 'POST',
-      credentials: 'include',
+      // credentials: 'include',
       body: JSON.stringify({ ...body }),
       headers: {
         'Content-Type': 'application/json',

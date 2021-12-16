@@ -22,7 +22,7 @@ class Header extends Component {
               </Link>
             </li>
             <li class="header_menu_item">
-              <Link href="/cart" className="cart">
+              <Link href="/shopping-card" className="cart">
                 <span class="text">Shopping card</span>
                 <span class="index">(0)</span>
               </Link>

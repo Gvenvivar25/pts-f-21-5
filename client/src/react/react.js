@@ -67,9 +67,9 @@ class Router {
   }
 }
 
-const router = new Router()
+export const router = new Router()
 
-export default router
+// export default router
 
 export const subscriber = []
 
@@ -153,7 +153,7 @@ export class Route extends Component {
   render() {
     // debugger
     const component = this.props.component
-    return component
+    return <>{component}</>
   }
 }
 

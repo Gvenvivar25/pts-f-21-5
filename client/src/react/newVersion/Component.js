@@ -1,4 +1,3 @@
-import { mount } from './mounting'
 import { update } from './updating'
 
 export class Component {
@@ -26,7 +25,7 @@ export class Component {
   updateCopmonent() {
     const prevState = this.state
     const prevElement = this._currentElement
-
+    // debugger
     if (this._nextState !== prevState && this._nextState != null) {
       this.state = this._nextState
       this._nextState = null

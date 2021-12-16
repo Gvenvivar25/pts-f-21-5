@@ -92,7 +92,7 @@ const jsLoaders = (loader) => {
         loader: 'jsx',
         target: 'es2019',
         jsxFactory: 'CastomReact.createElement',
-        // jsxFragment: 'CastomReact.createFragment',
+        jsxFragment: 'CastomReact.createFragment',
       },
     },
   ]

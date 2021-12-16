@@ -33,6 +33,7 @@ export const update = (prevElement = '', nextElement = '', parentDOM) => {
           updateVText(prevElement, nextElement, parentDOM)
         } else {
           unmount(prevElement)
+          debugger
           mount(nextElement, parentDOM)
         }
       }
@@ -179,7 +180,7 @@ const updateVComponent = (prevComponent, nextComponent) => {
   nextComponent._instance.props = nextProps
 
   const nextState = nextComponent._instance.state
-  // debugger
+  debugger
   if (_instance.shouldComponentUpdate(nextProps, nextState, prevComponent)) {
     const prevRenderElement = _currentElement
     _instance.componentDidUpdate(prevProps, _instance.state)

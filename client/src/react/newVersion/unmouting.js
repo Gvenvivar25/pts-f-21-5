@@ -5,10 +5,10 @@ export const unmount = (prevElement, container) => {
   } else {
     if (prevElement?.tag && typeof prevElement.tag === 'function') {
       removeEventListener(prevElement?._instance?._currentElement)
-      prevElement._instance.componentWillUnmount()
+      prevElement._instance?.componentWillUnmount()
     } else {
       removeEventListener(prevElement)
-      prevElement.componentWillUnmount()
+      prevElement.componentWillUnmount && prevElement.componentWillUnmount()
     }
 
     prevElement.dom.remove()

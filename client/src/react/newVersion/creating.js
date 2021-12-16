@@ -25,14 +25,16 @@ const createVElement = (tag, propsElement, children = null) => {
 const createElement = (tag, props, ...children) => {
   // debugger
   if (typeof tag === 'function') {
-    // let propsVComponent =
+    if (tag.name === 'createFragment') {
+      return createFragment(children)
+    }
     return createVComponent(tag, { ...props, children: [...children] })
   }
   return createVElement(tag, props, children)
 }
 
-const createFragment = (props, ...children) => {
-  return children
+const createFragment = (children) => {
+  return children[0]
 }
 
 module.exports = {

@@ -26,7 +26,8 @@ const createElement = (tag, props, ...children) => {
   // debugger
   if (typeof tag === 'function') {
     if (tag.name === 'createFragment') {
-      return createFragment(children)
+      // debugger
+      return children
     }
     return createVComponent(tag, { ...props, children: [...children] })
   }
@@ -34,7 +35,7 @@ const createElement = (tag, props, ...children) => {
 }
 
 const createFragment = (children) => {
-  return children[0]
+  return children
 }
 
 module.exports = {

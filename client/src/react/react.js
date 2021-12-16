@@ -153,7 +153,7 @@ export class Route extends Component {
   render() {
     // debugger
     const component = this.props.component
-    return <>{component}</>
+    return component
   }
 }
 

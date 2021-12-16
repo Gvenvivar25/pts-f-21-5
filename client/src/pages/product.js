@@ -28,10 +28,10 @@ class ProductPage extends Component {
   }
 
   render() {
-    return this.state.isReady ? (
-      <Product data={this.state.data} />
-    ) : (
-      <div>Loading...</div>
+    return (
+      <div class="container_item">
+        {this.state.isReady ? <Product data={this.state.data} /> : 'Loading...'}
+      </div>
     )
   }
 }

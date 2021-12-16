@@ -11,7 +11,7 @@ class Product extends Component {
     console.log(this.props.data)
     const { bundle, gallery, oldPrice, product } = this.props.data
     return (
-      <div class="container_item">
+      <>
         <div class="item_header">
           <div class="item-header_content">
             <h1 class="item_header-name">{product.name}</h1>
@@ -65,7 +65,7 @@ class Product extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </>
     )
   }
 }

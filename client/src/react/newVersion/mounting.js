@@ -53,7 +53,6 @@ const isContainerRoot = (container) => {
 }
 
 const mountVComponent = (vComponent, container) => {
-  // debugger
   const { tag, props } = vComponent
   const Component = tag
   const instance = new Component(props)

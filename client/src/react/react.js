@@ -3,11 +3,12 @@ import { Component } from './newVersion/Component'
 class Router {
   #id = 0
   localPath = window.location.pathname
-  #search = window.location.search
+  search = window.location.search
   query = {}
 
-  #setQuery() {
-    let getArraySearch = this.#search.slice(1).split('&')
+  #setQuery(newSearch) {
+    this.search = newSearch
+    let getArraySearch = this.search.slice(1).split('&')
     let result = []
 
     for (const item of getArraySearch) {
@@ -25,7 +26,16 @@ class Router {
   }
 
   get localPath() {
+    if (this.localPath !== window.location.pathname) {
+      this.updateLocalPath()
+    }
     return this.localPath
+  }
+  get search() {
+    if (this.search !== window.location.search) {
+      this.updateLocalPath()
+    }
+    return this.search
   }
 
   // It's the method that makes the redirect as in React/Next
@@ -37,8 +47,8 @@ class Router {
 
   updateLocalPath() {
     this.localPath = window.location.pathname
-    if (this.#search) {
-      this.#setQuery()
+    if (window.location.search !== this.search) {
+      this.#setQuery(window.location.search)
     }
   }
 
@@ -74,26 +84,35 @@ export class Link extends Component {
     }
 
     e.preventDefault()
-
+    // debugger
     const pathName = this.props.href
-    let path = pathName === '/' ? '.' : pathName.slice(1)
-    window.history.pushState({ empId: 1, as: pathName }, null, path)
-
+    window.history.pushState({ as: pathName }, null, pathName)
     router.updateLocalPath()
+
     const navEvent = new PopStateEvent('popstate')
     window.dispatchEvent(navEvent)
   }
 
+  componentDidMount() {
+    subscriber.push(this.updateCopmonent.bind(this))
+  }
+
   render() {
     const { className = '', href, children, classActive = '' } = this.props
-    const isActive = window.location.pathname === href
+    let allPathName = router.localPath
+    // debugger
+    if (router.search) {
+      allPathName += router.search
+    }
+    const isActive = allPathName === href
+
+    let finallyClassName = className
+    if (isActive && classActive) {
+      finallyClassName += className ? ' ' + classActive : classActive
+    }
 
     return (
-      <a
-        className={`${className}` + (isActive ? ' ' + classActive : '')}
-        href={href}
-        onClick={this.onClick}
-      >
+      <a className={finallyClassName} href={href} onClick={this.onClick}>
         {children}
       </a>
     )

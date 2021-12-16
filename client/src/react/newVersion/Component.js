@@ -24,7 +24,6 @@ export class Component {
   componentDidUpdate() {}
 
   updateCopmonent() {
-    // debugger
     const prevState = this.state
     const prevElement = this._currentElement
 

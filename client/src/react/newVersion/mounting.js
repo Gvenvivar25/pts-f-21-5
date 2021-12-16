@@ -34,7 +34,11 @@ const mountVElement = (vElement, container) => {
       vElement.eventListeners.push([type, value])
 
       domNode.addEventListener(type, value)
-    } else domNode.setAttribute(name, value.toString())
+    } else {
+      if (value) {
+        domNode.setAttribute(name, value.toString())
+      }
+    }
   })
 
   container.appendChild(domNode)

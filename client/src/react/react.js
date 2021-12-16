@@ -43,11 +43,11 @@ class Router {
   }
 
   // It's the method that makes the redirect as in React/Next
-  async push(pathName) {
-    this.#id++
-    let path = pathName === '/' ? '.' : pathName.slice(1)
-    window.history.pushState({ empId: this.#id, as: pathName }, null, path)
-  }
+  // async push(pathName) {
+  //   this.#id++
+  //   let path = pathName === '/' ? '.' : pathName.slice(1)
+  //   window.history.pushState({ empId: this.#id, as: pathName }, null, path)
+  // }
 
   updateLocalPath() {
     this.localPath = window.location.pathname
@@ -143,24 +143,16 @@ export class Route extends Component {
   componentDidMount() {
     // debugger
     console.log(router.localPath)
-    // this.setState({ ...this.state })
-    // subscriber.push(this.updateCopmonent.bind(this))
     this.dynamicRoute()
   }
 
   componentDidUpdate() {
-    // if(this.props.path !== router.localPath) {
-
-    // }
-    console.log('update')
-    // debugger
     this.dynamicRoute()
   }
 
   render() {
     // debugger
     const component = this.props.component
-    // console.log(this.state)
     return component
   }
 }
@@ -173,7 +165,6 @@ export class BrowserRouter extends Component {
 
   componentDidMount() {
     subscriber.push(this.componentDidUpdate.bind(this))
-    // this.setState({ path: router.localPath })
   }
 
   componentDidUpdate() {
@@ -186,8 +177,8 @@ export class BrowserRouter extends Component {
   }
 
   render() {
-    const def = <div>нет ничего</div>
     // debugger
+    const def = <div>нет ничего</div>
     const currentRoute = this.props.children.filter(
       (child) => child.props.path === this.state.path
     )

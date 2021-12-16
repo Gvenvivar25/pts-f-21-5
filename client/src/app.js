@@ -1,48 +1,17 @@
 // import router from './route/route'
-import dynamic from './middleware/dynamic'
-import getPathLink from './middleware/pathLink'
+// import dynamic from './middleware/dynamic'
+// import getPathLink from './middleware/pathLink'
 import { Component } from './react/newVersion/Component'
-import { NestedApp, NestedApp2 } from './test'
-import router, { Link, Route, BrowserRouter as Router } from './react/react'
+// import { NestedApp, NestedApp2 } from './test'
+import { Route, BrowserRouter as Router } from './react/react'
 import Header from './components/Header/Header'
 import Menu from './components/Menu/Menu'
 import Main from './pages/main'
 import Wishlist from './pages/wishlist'
 import Cart from './pages/cart'
 
-// const routers = [
-//   ['/', dynamic(() => import('./pages/main'))],
-//   ['/wishlist', dynamic(() => import('./pages/wishlist'))],
-//   ['/cart', () => 'cart'],
-//   ['/404', () => '404'],
-// ]
-const dynamicNestedApp = dynamic(() => import('./test'))
-// router.setRoutes(routers)
-// console.log(dynamicNestedApp)
 class App extends Component {
-  constructor() {
-    super()
-    // this.state = {
-    //   counter: 1,
-    // }
-  }
-
-  // componentWillUnmount() {
-  //   console.log('UNMOUNT')
-  //   clearInterval(this.timerID)
-  // }
-
-  // tick() {
-  //   this.setState({ counter: this.state.counter + 1 })
-  // }
-
-  // handleClick = () => {
-  //   clearInterval(this.timerID)
-  // }
-
   render() {
-    // const { counter } = this.state
-
     return (
       <div className="wrapper">
         <Header />
@@ -52,6 +21,7 @@ class App extends Component {
             <Route path="/" component={<Main />} />
             <Route path="/wishlist" component={<Wishlist />} />
             <Route path="/cart" component={<Cart />} />
+            <Route path="/product" component={<Cart />} />
           </Router>
         </main>
         {/* <Link href="/test" className="item" classActive={'kek'}>

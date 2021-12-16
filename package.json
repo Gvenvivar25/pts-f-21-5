@@ -9,7 +9,7 @@
     "client": "npm run dev --prefix client",
     "client:install": "npm install --prefix client",
     "client:build": "npm run build --prefix client",
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run serve\" \"npm run client:dev\""
+    "dev": "cross-env NODE_ENV=development concurrently \"npm run serve\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",

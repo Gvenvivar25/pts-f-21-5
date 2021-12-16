@@ -33,13 +33,14 @@ const optimization = () => {
 const filename = (ext) =>
   isDev ? `[name].${ext}` : `[name].[chunkhash].${ext}`
 
-const cssLoaders = (loader) => {
+const cssLoaders = (isModule = false, loader) => {
   const loaders = [
     MiniCssExtractPlugin.loader,
     {
       loader: 'css-loader',
       options: {
         importLoaders: 1,
+        modules: isModule,
       },
     },
     'postcss-loader',
@@ -196,10 +197,16 @@ module.exports = {
       {
         test: /\.css$/,
         use: cssLoaders(),
+        exclude: /\.module\.css$/,
+      },
+      {
+        test: /\.module.css$/,
+        // include: /\.module\.css$/,
+        use: cssLoaders(true),
       },
       {
         test: /\.(s[ca]ss)$/,
-        use: cssLoaders('sass-loader'),
+        use: cssLoaders(false, 'sass-loader'),
       },
     ],
   },

@@ -47,11 +47,13 @@ class App extends Component {
       <div className="wrapper">
         <Header />
         <Menu />
-        <Router>
-          <Route path="/" component={<Main search={router.query} />} />
-          <Route path="/wishlist" component={<Wishlist />} />
-          <Route path="/cart" component={<Cart />} />
-        </Router>
+        <main>
+          <Router>
+            <Route path="/" component={<Main />} />
+            <Route path="/wishlist" component={<Wishlist />} />
+            <Route path="/cart" component={<Cart />} />
+          </Router>
+        </main>
         {/* <Link href="/test" className="item" classActive={'kek'}>
           TEST LINK
         </Link>

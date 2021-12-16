@@ -14,7 +14,7 @@ class Menu extends Component {
           <div class="content-wh content-wh-end">
             <ul class="nav_menu">
               <li class="nav_menu_item">
-                <Link href="/" classActive="active_itm">
+                <Link href="/?type=all" classActive="active_itm">
                   All
                 </Link>
               </li>

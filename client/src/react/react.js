@@ -38,6 +38,10 @@ class Router {
     return this.search
   }
 
+  getSearch() {
+    return this.search
+  }
+
   // It's the method that makes the redirect as in React/Next
   async push(pathName) {
     this.#id++
@@ -67,7 +71,7 @@ const router = new Router()
 
 export default router
 
-const subscriber = []
+export const subscriber = []
 
 window.onpopstate = () => {
   router.onPopState(subscriber)
@@ -164,7 +168,7 @@ export class Route extends Component {
 export class BrowserRouter extends Component {
   constructor(props) {
     super(props)
-    this.state = { path: router.localPath }
+    this.state = { path: router.localPath, search: router.search }
   }
 
   componentDidMount() {
@@ -174,7 +178,10 @@ export class BrowserRouter extends Component {
 
   componentDidUpdate() {
     if (router.localPath !== this.state.path) {
-      this.setState({ path: router.localPath })
+      this.setState({ ...this.state, path: router.localPath })
+    }
+    if (router.search !== this.state.search) {
+      this.setState({ ...this.state, search: router.search })
     }
   }
 
@@ -184,8 +191,6 @@ export class BrowserRouter extends Component {
     const currentRoute = this.props.children.filter(
       (child) => child.props.path === this.state.path
     )
-    console.log('br', this.state.path)
-    console.log('br2', router.query)
 
     return currentRoute.length > 0 ? currentRoute[0] : def
   }

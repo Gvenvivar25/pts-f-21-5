@@ -1,359 +1,157 @@
+@import 'reset.sass'
+// @import 'main.sass'
+// @import 'wishlist.sass'
+// @import 'cart.sass'
+
+
 $point1: 740px
 $point2: 1140px
 $point3: 480px
- 
-*
-    margin: 0px
-    padding: 0px
-    text-decoration: none
-    font-family: 'Roboto', sans-serif
     
-body
+.page
     background-color: #1c1b15
+    min-width: 320px
+    font-family: 'Roboto', sans-serif
+
+.header
+    background-color: #000000
+    height: 60px
+    @media  ( max-width: $point1 )
+        height: 40px
 
 .wrapper
     max-width: 1920px
     @media  (  min-width: $point1)
         min-height: 740px
     margin: 0 auto
-    background-image: url(../public/img/bgimage.png) 
-    background-position: top   
+    background: url(../public/img/bgimage.png) no-repeat
     background-size: 100%
-    background-repeat: no-repeat
     @media  ( max-width: $point1 )
         background-image: none
 
-header
-    background-color: #000000
-    height: 60px
-    @media  ( max-width: $point1 )
-        height: 40px
+.page_content
+    margin: 0 auto
+    max-width: 1200px 
 
 .header_content
-    position: relative
-    margin: 0 auto
-    padding: 0 15px
-    max-width: 1200px
+    @media  ( max-width: $point1 )
+        padding: 0 15px
+    height: 100%
     display: flex
     align-items: center
     justify-content: space-between
-    top: 50%                    
-    transform: translate(0, -50%)
-
-h1
-    display: flex
-    align-items: center
-    font-weight: 400
-    font-size: 16px
-    @media ( max-width: $point1 )
-        font-size: 12px
-    color: #cccccc
-    &:before
+    .logo_text
         display: flex
         align-items: center
-        content: url(../public/img/logo.png)
-        margin-right: 10px
-        
+        font-weight: 400
+        font-size: 16px
+        @media ( max-width: $point1 )
+            font-size: 12px
+        color: #cccccc
+        &:before
+            content: ''
+            width: 23px
+            height: 23px
+            background: url(../public/img/logo.png) no-repeat
+            background-size: 100%
+            margin-right: 10px
 
 .header_menu
     display: flex
-    justify-content: flex-end
     list-style-type: none
-    li:first-child 
+    .header_menu_item:first-child 
         margin: 0 0 0 5px
     .header_menu_item
         @media ( max-width: $point1 )
             margin: 0 0px 0 25px
         margin: 0 0px 0 55px
-        a
-            font-family: Roboto, sans-serif
+        .cart, .wish, .login, .account
             font-weight: 400
             font-size: 15px
-            color: white
+            color: #ffffff
             opacity: 0.6
             transition: .3s screen
+
             @media ( max-width: $point1  )
                 opacity: 1
             @media (hover: hover)
                 &:hover
                     opacity: 1
-                    transition: .3s
-
-.or
-    margin: 0 5px 0 5px
-    color: #656565
-
-
-.wish
-    @media ( max-width: $point1 ) 
-        background: url(../public/img/adaptive/valentines-heart.png) no-repeat 
-        padding-left: 16px
-
-
-.cart
-    @media ( max-width: $point1 ) 
-        background: url(../public/img/adaptive/cart.png) no-repeat 
-        padding-left: 16px
-
-.login
-    @media ( max-width: $point1 )
-        background: url(../public/img/adaptive/ico.png) no-repeat  
-        padding-left: 30px
-        
-.text 
-    @media ( max-width: $point1 ) 
-        display: none  
-        
-             
+        .or
+            margin: 0 5px 0 5px
+            color: #656565
+    .wish
+        @media ( max-width: $point1 ) 
+            background: url(../public/img/adaptive/valentines-heart.png) no-repeat 
+            padding-left: 16px
+    .cart
+        @media ( max-width: $point1 ) 
+            background: url(../public/img/adaptive/cart.png) no-repeat 
+            padding-left: 16px
+    .login
+        @media ( max-width: $point1 )
+            background: url(../public/img/adaptive/ico.png) no-repeat  
+            padding-left: 30px
+    .text 
+        @media ( max-width: $point1 ) 
+            display: none  
+           
 .nav_container
     position: relative
     @media ( max-width: $point1 )
         height: 100%
     height: 122px
-    max-width: 1200px
-    margin: 0 auto
-    nav 
-        @media ( max-width: $point1 )
-            position: relative
+    .nav 
+        position: absolute
         right: 0
         margin-top: 70px
-        position: absolute
         @media ( max-width: $point1 )
+            position: relative
             margin-top: 10px
             margin-left: 0px
-    ul
+    .nav_menu
         display: flex
         @media ( max-width: $point1 )
             flex-wrap: wrap
             justify-content: flex-end
         list-style-type: none
-    ul:first-child
-        @media ( max-width: $point1 )
-            margin-left: 30px
-    li
+    .nav_menu_item
+        &:first-child
+            @media ( max-width: $point1 )
+                margin-left: 30px
         padding-left: 15px
         padding-right: 15px
         margin-bottom: 20px
-    a
+    .nav_link
+        &:hover
+            @media( hover: hover)
+                border-bottom: 3px solid white
+                opacity: 1
         padding: 0 7px 10px 7px
-        font-family: 'Roboto', sans-serif
         font-size: 17px
         @media ( max-width: $point1 )
             font-size: 15px
         text-transform: uppercase
         color: white
         opacity: 0.8
-    img
-        @media ( max-width: $point1 )
-            padding-left: 25px
-            margin: 0
-        margin-top: 5px
-        margin-left: -10px
-        position: absolute
+    .active_itm
+        border-bottom: 3px solid white
+        opacity: 1  
 
 .logoWoT
-    background: url(../public/img/LogoWoT.png)
-    background-repeat: no-repeat
+    background: url(../public/img/LogoWoT.png) no-repeat
     margin-top: 5px
     margin-left: -10px
     position: absolute
     width: 200px
     height: 200px
     @media (max-width: 740px) 
-        background: url(../public/img/adaptive/Logo.png)
-        background-repeat: no-repeat
+        background: url(../public/img/adaptive/Logo.png) no-repeat
         background-size: 19px 24px
         left: 15px
         margin: 0
 
-.nav_menu_item 
-    a.active_itm
-        border-bottom: 3px solid white
-        opacity: 1  
-
-@media( hover: hover)
-    .nav_menu_item>a:hover
-        border-bottom: 3px solid white
-        opacity: 1
 
 
-// CHECKBOX
-.checkbox_input
-    -webkit-appearance: none
-    appearance: none
-    position: absolute
 
-.checkbox_label
-    &::before
-        content: ""
-        display: block
-        width: 30px
-        height: 30px
-        background: url(../public/img/heart.png)
-        background-size: 30px 30px
-        background-repeat: no-repeat
-        position: absolute
-        top: 25px
-        right: 25px 
-        @media (max-width: $point3)
-            width: 20px
-            height: 20px
-            background-size: 20px 20px
-            top: 18px
-            right: 18px 
-    &::after
-        content: ""
-        display: block
-        width: 30px
-        height: 30px
-        background: url(../public/img/heartFull.png)
-        background-size: 30px 30px
-        background-repeat: no-repeat
-        position: absolute
-        display: none
-        top: 25px
-        right: 25px
-        @media (max-width: $point3)
-            width: 20px
-            height: 20px
-            background-size: 20px 20px
-            top: 18px
-            right: 18px
 
-.checkbox_input:checked 
-    + .checkbox_label::before
-        display: none
-    + .checkbox_label::after
-        display: block
-/////////////////
-
-.grid
-    display: grid
-    grid-template-columns: 1fr 1fr 1fr 1fr
-    grid-gap: 1px
-    grid-auto-flow: row dense
-    max-width: 1200px
-    margin: 0 auto
-    @media ( max-width: $point2 )
-        grid-template-columns: 1fr 1fr 1fr
-    @media ( max-width: $point1 )
-        grid-template-columns: 1fr 1fr
-        
-
-.item
-    position: relative
-    background-color: rgba(0, 0, 0, 0.22)
-    padding-bottom: 100%
-    @media (hover: hover)
-        &:hover
-            background-color: rgba(0, 0, 0, 0.8)
-
-.item_conteiner
-    bottom: 15px
-    left: 15px
-    @media (max-width: $point3) 
-        bottom: 10px
-        left: 10px
-    position: absolute
-    h2
-        font-size: 14px
-        color: #cccccc
-        font-weight: 400
-        @media (max-width: $point1)
-            margin-left: 5px
-        @media (max-width: $point3)
-            font-size: 12px
-    span
-        display: block
-        margin-left: 10px
-        color: #d1b482
-        font-weight: 400
-        font-size: 15px
-
-img.pictureItem,img.heart
-    position: absolute
-    width: 85%
-    margin: 0 auto
-    top: 50%
-    transform: translate(7.5%,-50%)        
-
-button.purchase
-    display: block
-    background: #e95104
-    border: none
-    width: 100px
-    height: 0px
-    cursor: pointer
-    color: white
-    font-size: 12px
-    opacity: 0
-    transition: .4s
-    overflow: hidden
-    margin-top: 8px
-    @media ( hover: none )
-        opacity: 1
-        height: 30px
-        font-size: 10px
-        @media  ( max-width: $point3)
-            height: 25px
-            
-            
-@media (hover: hover)
-    .item:hover button.purchase
-        display: block
-        opacity: 1
-        height: 40px
-        transition: .4s
-
-.double
-    padding-bottom: 50%
-    grid-column: span 2
-
-.description
-    display: flex
-    align-items: center
-    margin-bottom: 7px
-    @media (max-width: $point3)
-        margin-bottom: 3px
-    .flag
-        height: 15px
-        width: 26px
-        @media (max-width: $point3)
-            height: 12px
-            width: 20px
-    .ussr
-        background: url('../public/img/flags/ussr.png') center/cover no-repeat
-    .sweden
-        background: url('../public/img/flags/sweden.png') center/cover no-repeat
-    .chine
-        background: url('../public/img/flags/chine.png') center/cover no-repeat
-    .czech
-        background: url('../public/img/flags/czech.png') center/cover no-repeat
-    .france
-        background: url('../public/img/flags/france.png') center/cover no-repeat
-    .germany
-        background: url('../public/img/flags/germany.png') center/cover no-repeat
-    .italy
-        background: url('../public/img/flags/italy.png') center/cover no-repeat
-    .japan
-        background: url('../public/img/flags/japan.png') center/cover no-repeat
-    .poland
-        background: url('../public/img/flags/poland.png') center/cover no-repeat
-    .uk
-        background: url('../public/img/flags/uk.png') center/cover no-repeat
-    .usa
-        background: url('../public/img/flags/usa.png') center/cover no-repeat
- 
-    .type  
-        height: 15px
-        width: 12px
-        margin-right: 5px
-    .light
-        background: url('../public/img/type/light.png') center/cover no-repeat
-    .medium
-        background: url('../public/img/type/medium.png') center/cover no-repeat
-    .heavy
-        background: url('../public/img/type/heavy.png') center/cover no-repeat
-    .destroyers
-        height: 10px
-        background: url('../public/img/type/destroyers.png') center/cover no-repeat

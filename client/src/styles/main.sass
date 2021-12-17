@@ -1,0 +1,208 @@
+$point1: 740px
+$point2: 1140px
+$point3: 480px
+
+
+// CHECKBOX
+.checkbox_input
+    -webkit-appearance: none
+    appearance: none
+    position: absolute
+
+.checkbox_label
+    &::before
+        content: ""
+        display: block
+        width: 30px
+        height: 30px
+        background: url(../public/img/heart.png)
+        background-size: 30px 30px
+        background-repeat: no-repeat
+        position: absolute
+        top: 25px
+        right: 25px 
+        @media (max-width: $point3)
+            width: 20px
+            height: 20px
+            background-size: 20px 20px
+            top: 18px
+            right: 18px 
+    &::after
+        content: ""
+        display: block
+        width: 30px
+        height: 30px
+        background: url(../public/img/heartFull.png)
+        background-size: 30px 30px
+        background-repeat: no-repeat
+        position: absolute
+        display: none
+        top: 25px
+        right: 25px
+        @media (max-width: $point3)
+            width: 20px
+            height: 20px
+            background-size: 20px 20px
+            top: 18px
+            right: 18px
+
+.checkbox_input:checked 
+    + .checkbox_label::before
+        display: none
+    + .checkbox_label::after
+        display: block
+/////////////////
+
+.grid
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-gap: 1px
+    grid-auto-flow: row dense
+    @media ( max-width: $point2 )
+        grid-template-columns: 1fr 1fr 1fr
+    @media ( max-width: $point1 )
+        grid-template-columns: 1fr 1fr
+        
+.item
+    position: relative
+    background-color: rgba(0, 0, 0, 0.22)
+    padding-bottom: 100%
+    @media (hover: hover)
+        &:hover
+            background-color: rgba(0, 0, 0, 0.8)
+    &:hover
+        @media (hover: hover)
+            .item_container
+                transform: translateY(-45px)
+            .purchase
+                opacity: 1
+                transition: .4s
+    @media (hover: none)
+        .item_container
+            transform: translateY(-45px)
+            @media  ( max-width: $point3)
+                transform: translateY(-30px)
+
+
+.item_container
+    position: absolute
+    bottom: 15px
+    left: 15px
+    transition: .3s ease
+    @media (max-width: $point3) 
+        bottom: 10px
+        left: 10px
+    .item_name
+        font-size: 14px
+        color: #cccccc
+        font-weight: 400
+        max-width: 75%
+        @media (max-width: $point1)
+            margin-left: 5px
+            max-width: 60%
+        @media (max-width: $point3)
+            font-size: 12px
+    .price
+        display: block
+        margin-left: 10px
+        color: #d1b482
+        font-weight: 400
+        font-size: 15px      
+
+.purchase
+    position: absolute
+    bottom: 14px
+    left: 16px
+    background: #e95104
+    border: none
+    width: 100px
+    height: 40px
+    cursor: pointer
+    color: white
+    font-size: 12px
+    opacity: 0
+    transition: 0.3s
+    @media ( hover: none )
+        opacity: 1
+        font-size: 10px
+        @media  ( max-width: $point3)
+            height: 25px
+
+.item
+    &:hover
+        @media (hover: hover)
+            .item_container
+                transform: translateY(-45px)
+            .purchase
+                opacity: 1
+                transition: .4s
+    @media (hover: none)
+        .item_container
+            transform: translateY(-45px)
+            @media  ( max-width: $point3)
+                transform: translateY(-30px)
+
+.pictureItem
+    position: absolute
+    width: 85%
+    margin: 0 auto
+    top: 50%
+    transform: translate(7.5%,-50%)             
+            
+.double
+    padding-bottom: 50%
+    grid-column: span 2
+    .pictureItem
+        width: 75%
+        transform: translate(12.5%,-50%)  
+
+.description
+    display: flex
+    align-items: center
+    margin-bottom: 7px
+    @media (max-width: $point3)
+        margin-bottom: 3px
+    .flag
+        margin-left: 10px
+        height: 15px
+        width: 23px
+        @media (max-width: $point3)
+            height: 12px
+            width: 20px
+    .ussr
+        background: url('../public/img/flags/ussr.png') center/100% no-repeat
+    .sweden
+        background: url('../public/img/flags/sweden.png') center/100% no-repeat
+    .chine
+        background: url('../public/img/flags/chine.png') center/100% no-repeat
+    .czech
+        background: url('../public/img/flags/czech.png') center/100% no-repeat
+    .france
+        background: url('../public/img/flags/france.png') center/100% no-repeat
+    .germany
+        background: url('../public/img/flags/germany.png') center/100% no-repeat
+    .italy
+        background: url('../public/img/flags/italy.png') center/100% no-repeat
+    .japan
+        background: url('../public/img/flags/japan.png') center/100% no-repeat
+    .poland
+        background: url('../public/img/flags/poland.png') center/100% no-repeat
+    .uk
+        background: url('../public/img/flags/uk.png') center/100% no-repeat
+    .usa
+        background: url('../public/img/flags/usa.png') center/100% no-repeat
+ 
+    .type  
+        height: 15px
+        width: 13px
+        margin-left: 10px
+        margin-right: 5px
+    .light
+        background: url('../public/img/type/light.png') center/100% no-repeat
+    .medium
+        background: url('../public/img/type/medium.png') center/100% no-repeat
+    .heavy
+        background: url('../public/img/type/heavy.png') center/100% no-repeat
+    .destroyers
+        height: 10px
+        background: url('../public/img/type/destroyers.png') center/100% no-repeat

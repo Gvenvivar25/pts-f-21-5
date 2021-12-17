@@ -1,7 +1,6 @@
-import router from '../react/react'
 import { Component } from '/react/newVersion/Component'
 
-class Wishlist extends Component {
+class ShoppingCard extends Component {
   constructor(props) {
     super(props)
   }
@@ -9,10 +8,10 @@ class Wishlist extends Component {
   render() {
     return (
       <div>
-        <h2>Wishlist</h2>
+        <h2>Cart</h2>
       </div>
     )
   }
 }
 
-export default Wishlist
+export default ShoppingCard

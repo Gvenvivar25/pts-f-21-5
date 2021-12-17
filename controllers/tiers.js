@@ -1,5 +1,5 @@
 const db = require('../firebase')
-const tiersCol = db.collection('veh_types')
+const tiersCol = db.collection('veh_tiers')
 
 class VehTiersController {
   async getAllTiers (req, res)  {
@@ -15,7 +15,7 @@ class VehTiersController {
     }
   }
 
-  async getOneTiers (req, res)  {
+  async getOneTier (req, res)  {
     try {
       const tierRef = tiersCol.doc(`${req.params.id}`)
       const doc = await tierRef.get()
@@ -31,7 +31,7 @@ class VehTiersController {
       const tierRef = tiersCol.doc(`${req.body.id}`)
       const data = req.body
       const response = await tierRef.set(data)
-      res.json({message: `Type id ${response.id} added`})
+      res.json({message: `Tier id ${response.id} added`})
     } catch (e) {
       throw new Error(e)
     }
@@ -40,7 +40,7 @@ class VehTiersController {
   async removeTier (req, res) {
     try {
       await tiersCol.doc(`${req.params.id}`).delete()
-      res.json({message: `Item was deleted successfully`})
+      res.json({message: `Tier was deleted successfully`})
     } catch (e) {
       throw new Error(e)
     }
@@ -50,7 +50,7 @@ class VehTiersController {
     try {
       const tierRef = tiersCol.doc(`${req.params.id}`)
       const response = await tierRef.update(req.body)
-      res.json({message: `Item id ${response.id} updated`})
+      res.json({message: `Tier id ${response.id} updated`})
     } catch (e) {
       throw new Error(e)
     }

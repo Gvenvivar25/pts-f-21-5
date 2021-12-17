@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -88,7 +89,10 @@ const jsLoaders = (loader) => {
     {
       loader: 'esbuild-loader',
       options: {
+        loader: 'jsx',
         target: 'es2019',
+        jsxFactory: 'CastomReact.createElement',
+        jsxFragment: 'CastomReact.createFragment',
       },
     },
   ]
@@ -106,6 +110,9 @@ const jsLoaders = (loader) => {
 
 const plugins = () => {
   const base = [
+    new webpack.ProvidePlugin({
+      CastomReact: '/react/newVersion/creating',
+    }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
@@ -132,7 +139,7 @@ const plugins = () => {
 module.exports = {
   entry: {
     // app: ['@babel/polyfill', './app.js'],
-    app: './app.js',
+    app: './index.js',
   },
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -159,6 +166,11 @@ module.exports = {
         exclude: /node_modules/,
         use: jsLoaders(),
       },
+      // {
+      //   test: /\.jsx$/,
+      //   exclude: /node_modules/,
+      //   use: jsLoaders(null, true),
+      // },
       // TypeScript
       {
         test: /\.ts$/,
@@ -202,6 +214,6 @@ module.exports = {
   target: isDev ? 'web' : 'browserslist',
   plugins: plugins(),
   resolve: {
-    extensions: ['.js', '.json', '.ts'],
+    extensions: ['.js', '.json', '.ts', '.jsx', '.tsx'],
   },
 }

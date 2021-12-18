@@ -1,16 +1,28 @@
 import { router, subscriber } from '../react/react'
+import { getCarrent } from '../redux/main-selectors'
 import { Component } from '/react/newVersion/Component'
+import store from '../redux/redux-store'
+import { updateCarrent } from '../redux/main-reducer'
 
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.state = { search: router.getSearch() }
+    this.state = { search: router.getSearch(), current: getCarrent() }
   }
 
   updateSearch() {
     if (this.state.search !== router.search) {
-      this.setState({ search: router.search })
+      this.setState({ ...this.state, search: router.search })
     }
+  }
+
+  handlePlus = () => {
+    // debugger
+    store.dispatch(updateCarrent(this.state.current++))
+  }
+  handleMinus = () => {
+    // debugger
+    store.dispatch(updateCarrent(this.state.current--))
   }
 
   componentDidMount() {
@@ -22,11 +34,15 @@ class Main extends Component {
   }
 
   render() {
+    console.log('root', this.state.current)
     return (
       <div className="grid">
         <div>
           <h2>MAIN</h2>
           <h3>Search state: {this.state.search}</h3>
+          <h4>current store: {this.state.current}</h4>
+          <button onClick={this.handlePlus}>plus</button>
+          <button onClick={this.handleMinus}>minus</button>
         </div>
       </div>
     )

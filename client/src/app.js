@@ -10,8 +10,21 @@ import Main from './pages/main'
 import Wishlist from './pages/wishlist'
 import ShoppingCard from './pages/shoppingCard'
 import ProductPage from './pages/product'
+import store from './redux/redux-store'
 
 class App extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     search: router.getSearch(),
+  //     current: store.getState().main.carrent,
+  //   }
+  // }
+
+  componentDidMount() {
+    store.subscriber.push(this.updateCopmonent.bind(this))
+  }
+
   render() {
     return (
       <div className="wrapper">

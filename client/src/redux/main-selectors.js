@@ -1,3 +1,5 @@
-export const getCarrent = (state) => {
-  return state.main.carrent
+import store from './redux-store'
+
+export const getCarrent = () => {
+  return store.getState().main.carrent
 }

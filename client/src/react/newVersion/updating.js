@@ -3,7 +3,8 @@ import { unmount } from './unmouting'
 
 export const update = (prevElement = '', nextElement = '', parentDOM) => {
   // debugger
-  if (!prevElement) {
+  if (!prevElement && typeof prevElement !== 'number') {
+    // debugger
     mount(nextElement, parentDOM)
   } else {
     if (
@@ -42,6 +43,7 @@ export const update = (prevElement = '', nextElement = '', parentDOM) => {
 }
 
 const updateVText = (prevText, nextText, parentDOM) => {
+  // debugger
   if (prevText !== nextText) {
     if (prevText == undefined) {
       parentDOM.appendChild(document.createTextNode(nextText))

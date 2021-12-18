@@ -1,3 +1,4 @@
+import { subscriber } from '../react/react'
 import mainReducer from './main-reducer'
 
 class Store {
@@ -7,21 +8,26 @@ class Store {
     },
   }
 
-  #callSubscriber() {
+  #callSubscriber(subscriber) {
     console.log('State changed')
+    for (const item of subscriber) {
+      item()
+    }
   }
 
   getState() {
     return this.#state
   }
 
-  subscribe(observer) {
-    this.#callSubscriber = observer
-  }
+  subscriber = []
 
   dispatch(action) {
     this.#state.main = mainReducer(this.#state.main, action)
+
+    this.#callSubscriber(this.subscriber)
   }
 }
 
-export default new Store()
+let store = new Store()
+window.store = store
+export default store

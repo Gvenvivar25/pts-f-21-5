@@ -7,13 +7,13 @@ class ProductCard extends Component {
 
   render() {
     // console.log(this.props.card)
-    const { image, name, price } = this.props.card
+    const { image, name, price, id } = this.props.card
     // const current= getCarrent()
     return (
       <article class="item">
         <input class="checkbox_input" id="checkbox_1" type="checkbox" />
         <label class="checkbox_label" for="checkbox_1"></label>
-        <a href="">
+        <a href={`/product?id=${id}`}>
           <img class="pictureItem" src={image} alt={name} />
         </a>
         <div class="item_conteiner">

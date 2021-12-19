@@ -16,14 +16,15 @@ class Main extends Component {
       countProductsCard: 12,
       isFetching: false,
       dynamicListProducts: [],
+      items: [],
     }
   }
 
   getProductsFetch() {
-    UsersAPI.getAllProduct().then((products) => {
-      console.log('main products', products)
-
-      dispatch(addProducts(products))
+    UsersAPI.getAllProduct().then(({products, items}) => {
+      console.log('main products', products, items)
+      // this.getItemsFetch ()
+      dispatch(addProducts({products, items}))
       this.setState({
         ...this.state,
         isReady: true,
@@ -33,10 +34,22 @@ class Main extends Component {
     })
   }
 
+  getItemsFetch () {
+    UsersAPI.getAllItems().then((items) =>{
+      console.log('main items', items)
+
+      this.setState({
+        ...this.state,
+        items: items.slice(0)
+      })
+    })
+  }
+
   updateSearch() {
     if (this.state.search !== router.search) {
       this.setState({ ...this.state, search: router.search })
       this.getProductsFetch()
+      //this.getItemInProduct()
     }
   }
 
@@ -44,9 +57,9 @@ class Main extends Component {
     const { scrollHeight, scrollTop } = target.documentElement
 
     if (
-      scrollHeight - (scrollTop + window.innerHeight) < 100 &&
-      this.state.dynamicListProducts.length < this.state.totalCount &&
-      !this.state.isFetching
+        scrollHeight - (scrollTop + window.innerHeight) < 100 &&
+        this.state.dynamicListProducts.length < this.state.totalCount &&
+        !this.state.isFetching
     ) {
       // this.setState({ ...this.state, isFetching: true })
       this.dynamicAddProducts()
@@ -56,8 +69,8 @@ class Main extends Component {
 
   dynamicAddProducts() {
     const resultDynamic = getDynamicProducts(
-      this.state.countProductsCard,
-      this.state.dynamicListProducts.length
+        this.state.countProductsCard,
+        this.state.dynamicListProducts.length
     )
     console.log(resultDynamic)
 
@@ -90,16 +103,43 @@ class Main extends Component {
     document.removeEventListener('scroll', this.scrollHandler)
   }
 
+  // getItemInProduct(products) {
+  //   products.map((product) =>  (
+  //       this.uniteProductAndItem (product)
+  //   ))
+  // }
+
+  // GetItemInProduct(Product, key){
+  //   this.state.items.map((item) =>{
+  //         if(String(item.id)=== key){
+  //           Product.items.tank=item;
+  //         }
+  //         console.log(Product)
+  //   }
+  //   )
+  // }
+  //
+  // uniteProductAndItem (product){
+  //   //console.log(product)
+  //     for (let key in product.items){
+  //       if(key.length >2){
+  //         this.GetItemInProduct(product, key)
+  //          //console.log(product)
+  //       }
+  //     }
+  // }
+
   render() {
+
     // const listProductsCard = getDynamicProducts()
     return (
-      <div className="grid">
-        {this.state.isReady
-          ? this.state.dynamicListProducts.map((product) => (
-              <ProductCard card={product} />
-            ))
-          : 'Loading...'}
-      </div>
+        <div className="grid">
+          {this.state.isReady
+              ? this.state.dynamicListProducts.map((product) => (
+                  <ProductCard card={product} />
+              ))
+              : 'Loading...'}
+        </div>
     )
   }
 }
@@ -186,33 +226,3 @@ export default Main
 // }
 
 // export default render
-// import { getCarrent } from '../redux/main-selectors'
-// import store from '/redux/redux-store'
-// import s from './main.module.css'
-// import { updateCarrent } from '../redux/main-reducer'
-
-// console.log(s)
-// class Main {
-//   current = getCarrent(store.getState())
-
-//   constructor(store) {
-//     this.store = store
-//   }
-
-//   increment() {
-//     this.store.dispacth(updateCarrent(this.current + 1))
-//     console.log(this.current)
-//   }
-
-//   render() {
-//     return `<div class=${s.test}>test style</div>
-//     <p>${this.current}</p>
-//       <button onclick=${this.increment}>click</button>
-//     `
-//   }
-// }
-
-// const main = new Main(store)
-// // store.subscribe(main.render)
-// console.log(main)
-// export default main.render()

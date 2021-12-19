@@ -1,4 +1,5 @@
 import { Component } from '/react/newVersion/Component'
+//import UsersAPI from '../api/UsersAPI'
 
 class ProductCard extends Component {
   componentDidUpdate() {
@@ -16,10 +17,10 @@ class ProductCard extends Component {
         <a href={`/product?id=${id}`}>
           <img class="pictureItem" src={image} alt={name} />
         </a>
-        <div class="item_conteiner">
+        <div className="item_conteiner">
           <div class="description">
-            <span class="flag ussr"></span>
-            <span class="type destroyers"></span>
+            <span className="flag ussr"></span>
+            <span className={`type  {item.}`}></span>
             <h2>{name}</h2>
           </div>
           <span class="price">$ {price}</span>

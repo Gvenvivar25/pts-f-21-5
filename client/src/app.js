@@ -10,22 +10,9 @@ import Main from './pages/main'
 import Wishlist from './pages/wishlist'
 import ShoppingCard from './pages/shoppingCard'
 import ProductPage from './pages/product'
-import { subscriberStore } from './redux/redux-store'
-import { getCarrent } from './redux/main-selectors'
+import vehiclesType from '/client/src/modules/main/VehiclesType/vehiclesType'
 
 class App extends Component {
-  // constructor(props) {
-  //   super(props)
-  //   this.state = {
-  //     search: router.getSearch(),
-  //     current: store.getState().main.carrent,
-  //   }
-  // }
-
-  componentDidMount() {
-    subscriberStore.push(this.updateCopmonent.bind(this))
-  }
-
   render() {
     return (
       <div className="wrapper">
@@ -33,7 +20,7 @@ class App extends Component {
         <Menu />
         <main>
           <Router>
-            <Route path="/" component={<Main current={getCarrent()} />} />
+            <Route path="/" component={<Main />} />
             <Route path="/wishlist" component={<Wishlist />} />
             <Route path="/shopping-card" component={<ShoppingCard />} />
             <Route path="/product" component={<ProductPage />} />

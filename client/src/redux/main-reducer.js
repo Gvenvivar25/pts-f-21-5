@@ -4,6 +4,7 @@ const ADD_PRODUCTS = 'ADD_PRODUCTS'
 const initialState = {
   carrent: 0,
   products: [],
+  items: []
 }
 
 const mainReducer = (state = initialState, action = {}) => {
@@ -11,7 +12,7 @@ const mainReducer = (state = initialState, action = {}) => {
     case UPDATE_CARRENT:
       return { ...state, ...action.body }
     case ADD_PRODUCTS: {
-      return { ...state, products: action.products }
+      return {...state, products: action.products, items: action.items}
     }
 
     default:
@@ -24,10 +25,11 @@ export const updateCarrent = (carrent) => ({
   body: { carrent },
 })
 
-export const addProducts = (products) => {
+export const addProducts = ({products, items}) => {
   return {
     type: ADD_PRODUCTS,
     products: products.filter((product) => product.isActive),
+    items,
   }
 }
 

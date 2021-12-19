@@ -1,4 +1,5 @@
 import { Component } from '/react/newVersion/Component'
+//import UsersAPI from '../api/UsersAPI'
 
 class ProductCard extends Component {
   componentDidUpdate() {
@@ -6,20 +7,21 @@ class ProductCard extends Component {
   }
 
   render() {
-    // console.log(this.props.card)
-    const { image, name, price } = this.props.card
+    //console.log(this.props.card)
+
+    const { image, name, price, id, items } = this.props.card
     // const current= getCarrent()
     return (
-      <article class="item">
-        <input class="checkbox_input" id="checkbox_1" type="checkbox" />
-        <label class="checkbox_label" for="checkbox_1"></label>
+      <article className="item">
+        <input className="checkbox_input" id={id}  type="checkbox" />
+        <label className="checkbox_label" for={id}></label>
         <a href="">
           <img class="pictureItem" src={image} alt={name} />
         </a>
-        <div class="item_conteiner">
+        <div className="item_conteiner">
           <div class="description">
-            <span class="flag ussr"></span>
-            <span class="type destroyers"></span>
+            <span className="flag ussr"></span>
+            <span className={`type  {item.}`}></span>
             <h2>{name}</h2>
           </div>
           <span class="price">$ {price}</span>

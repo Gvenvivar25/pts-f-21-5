@@ -12,5 +12,11 @@ export const getDynamicProducts = (countProductsCard, length) => {
   if (sizePart > allProducts.length) {
     sizePart = allProducts.length
   }
-  return allProducts.slice(length, sizePart)
+  const resPart = allProducts.slice(length, sizePart)
+  resPart.forEach(product => {
+    product.items.forEach(item => {
+      product.tank = store.getState().main.items.find(element => element.id === "vehicle")
+    })
+  })
+  return
 }

@@ -1,110 +1,36 @@
-import { router, subscriber } from '../react/react'
 import { Component } from '/react/newVersion/Component'
-import { dispatch } from '../redux/redux-store'
-import { addProducts } from '../redux/main-reducer'
-import UsersAPI from '../api/UsersAPI'
-import ProductCard from '../components/Main/ProductCard'
-import { getDynamicProducts } from '../redux/main-selectors'
 
-class Main extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      search: router.getSearch(),
-      isReady: false,
-      totalCount: 0,
-      countProductsCard: 12,
-      isFetching: false,
-      dynamicListProducts: [],
-    }
-  }
-
-  getProductsFetch() {
-    UsersAPI.getAllProduct().then((products) => {
-      console.log('main products', products)
-
-      dispatch(addProducts(products))
-      this.setState({
-        ...this.state,
-        isReady: true,
-        totalCount: products.length,
-        dynamicListProducts: products.slice(0, this.state.countProductsCard),
-      })
-    })
-  }
-
-  updateSearch() {
-    if (this.state.search !== router.search) {
-      this.setState({ ...this.state, search: router.search })
-      this.getProductsFetch()
-    }
-  }
-
-  scrollHandler = ({ target }) => {
-    const { scrollHeight, scrollTop } = target.documentElement
-
-    if (
-      scrollHeight - (scrollTop + window.innerHeight) < 100 &&
-      this.state.dynamicListProducts.length < this.state.totalCount &&
-      !this.state.isFetching
-    ) {
-      // this.setState({ ...this.state, isFetching: true })
-      this.dynamicAddProducts()
-      console.log('fething')
-    }
-  }
-
-  dynamicAddProducts() {
-    const resultDynamic = getDynamicProducts(
-      this.state.countProductsCard,
-      this.state.dynamicListProducts.length
-    )
-    console.log(resultDynamic)
-
-    if (resultDynamic) {
-      this.setState({
-        ...this.state,
-        isFetching: false,
-        dynamicListProducts: [
-          ...this.state.dynamicListProducts,
-          ...resultDynamic,
-        ],
-      })
-    }
-  }
-
-  componentDidMount() {
-    subscriber.push(this.updateSearch.bind(this))
-    this.getProductsFetch()
-    document.addEventListener('scroll', this.scrollHandler)
-  }
-
+class ProductCard extends Component {
   componentDidUpdate() {
     // debugger
-    // if (this.state.isFetching) {
-    // }
-    // debugger
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('scroll', this.scrollHandler)
   }
 
   render() {
-    // const listProductsCard = getDynamicProducts()
+    // console.log(this.props.card)
+    const { image, name, price } = this.props.card
+    // const current= getCarrent()
     return (
-      <div className="grid">
-        {this.state.isReady
-          ? this.state.dynamicListProducts.map((product) => (
-              <ProductCard card={product} />
-            ))
-          : 'Loading...'}
-      </div>
+      <article class="item">
+        <input class="checkbox_input" id="checkbox_1" type="checkbox" />
+        <label class="checkbox_label" for="checkbox_1"></label>
+        <a href="">
+          <img class="pictureItem" src={image} alt={name} />
+        </a>
+        <div class="item_conteiner">
+          <div class="description">
+            <span class="flag ussr"></span>
+            <span class="type destroyers"></span>
+            <h2>{name}</h2>
+          </div>
+          <span class="price">$ {price}</span>
+          <button class="purchase">PURSHACE</button>
+        </div>
+      </article>
     )
   }
 }
 
-export default Main
+export default ProductCard
 
 // import shopList from "../redux/store";
 

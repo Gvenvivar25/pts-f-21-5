@@ -174,12 +174,13 @@ const updateVComponent = (prevComponent, nextComponent) => {
   const { _instance } = prevComponent
   const { _currentElement } = _instance
 
-  const prevProps = prevComponent.props
-  const nextProps = nextComponent.props
-
   nextComponent.dom = prevComponent.dom
   nextComponent._instance = _instance
-  nextComponent._instance.props = nextProps
+
+  // nextComponent._instance.props = nextProps
+
+  const prevProps = prevComponent.props
+  const nextProps = nextComponent._instance.props
 
   const nextState = nextComponent._instance.state
   // debugger

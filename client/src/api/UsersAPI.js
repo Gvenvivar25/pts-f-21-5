@@ -64,6 +64,10 @@ class UsepsAPI extends REST {
     const type = await this.get(`types/${item.type}`)
     return { tier, nation, type }
   }
+
+  getAllProduct() {
+    return this.get('products')
+  }
 }
 
 export default new UsepsAPI()

@@ -10,7 +10,8 @@ import Main from './pages/main'
 import Wishlist from './pages/wishlist'
 import ShoppingCard from './pages/shoppingCard'
 import ProductPage from './pages/product'
-import store from './redux/redux-store'
+import { subscriberStore } from './redux/redux-store'
+import { getCarrent } from './redux/main-selectors'
 
 class App extends Component {
   // constructor(props) {
@@ -22,7 +23,7 @@ class App extends Component {
   // }
 
   componentDidMount() {
-    store.subscriber.push(this.updateCopmonent.bind(this))
+    subscriberStore.push(this.updateCopmonent.bind(this))
   }
 
   render() {
@@ -32,7 +33,7 @@ class App extends Component {
         <Menu />
         <main>
           <Router>
-            <Route path="/" component={<Main />} />
+            <Route path="/" component={<Main current={getCarrent()} />} />
             <Route path="/wishlist" component={<Wishlist />} />
             <Route path="/shopping-card" component={<ShoppingCard />} />
             <Route path="/product" component={<ProductPage />} />

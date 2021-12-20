@@ -2,7 +2,7 @@
 
 ## Project url
 
-https://online-shop-vue3.web.app/ - вставь сюда ссылку на деплой
+https://online-shop-vue3.web.app/ - https://premium-shop-wg.herokuapp.com/
 
 До сдачи планируем доделать логин через openid, фильтрацию товаров
 

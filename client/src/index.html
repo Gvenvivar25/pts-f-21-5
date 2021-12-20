@@ -1,112 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <meta name="theme-color" content="#ffffff" />
+    <title>Premium shop</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-  <link rel="manifest" href="/site.webmanifest" />
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-  <meta name="theme-color" content="#ffffff" />
-  <title>Premium shop</title>
-</head>
-
-<body class="page">
-  <header class="header">
-    <div class="header_content page_content">
-      <a href="/" class="logo">
-        <h1 class="logo_text">PREMIUM SHOP</h1>
-      </a>
-      <ul class="header_menu">
-        <li class="header_menu_item">
-          <a href="/wishlist" class="wish"><span class="text">Wishlist</span><span class="index_wish">(0)</span></a>
-        </li>
-        <li class="header_menu_item">
-          <a href="/cart" class="cart"><span class="text">Shopping card</span><span class="index_cart">(0)</span></a>
-        </li>
-        <li class="header_menu_item">
-          <a href="#" class="login"><span class="text">Login</span></a><span class="or text">or</span><a href="#"
-            class="account"><span class="text">Create account</span></a>
-        </li>
-      </ul>
-    </div>
-  </header>
-
-  <div class="wrapper">
-    <div class="nav_container page_content">
-      <div class="logoWoT"></div>
-      <nav class="nav">
-        <div class="content-wh content-wh-end">
-          <ul class="nav_menu">
-            <li class="nav_menu_item"><a class="active_itm nav_link" href="/">All</a></li>
-            <li class="nav_menu_item"><a class="nav_link" href="#">Vehicles</a></li>
-            <li class="nav_menu_item"><a class="nav_link" href="#">Gold</a></li>
-            <li class="nav_menu_item"><a class="nav_link" href="#">Premium account</a></li>
+  <body>
+    <div id="root">
+      <!-- <header id="header">
+        <div class="header_content">
+          <a href="/">
+            <h1>PREMIUM SHOP</h1>
+          </a>
+          <ul class="header_menu">
+            <li class="header_menu_item">
+              <a href="/wishlist" class="wish"
+                ><span class="text">Wishlist</span
+                ><span class="index">(0)</span></a
+              >
+            </li>
+            <li class="header_menu_item">
+              <a href="/cart" class="cart"
+                ><span class="text">Shopping card</span
+                ><span class="index">(0)</span></a
+              >
+            </li>
+            <li class="header_menu_item">
+              <a href="#" class="login"><span class="text">Login</span></a
+              ><span class="or text">or</span
+              ><a href="#"><span class="text">Create account</span></a>
+            </li>
           </ul>
         </div>
-      </nav>
-    </div>
+      </header> -->
 
-    <main id="root" class="page_content">
+      <!-- <div class="wrapper">
+        <div class="nav_container">
+          <div class="logoWoT"></div>
+          <nav>
+            <div class="content-wh content-wh-end">
+              <ul class="nav_menu">
+                <li class="nav_menu_item">
+                  <a class="active_itm" href="/">All</a>
+                </li>
+                <li class="nav_menu_item"><a href="#">Vehicles</a></li>
+                <li class="nav_menu_item"><a href="#">Gold</a></li>
+                <li class="nav_menu_item"><a href="#">Premium account</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
 
-      <!-- <div class="grid">
+        <main>
+          <div class="grid"> -->
+      <!-- <article class="item">
+            <input class="checkbox_input" id="checkbox_1" type="checkbox">
+            <label class="checkbox_label" for="checkbox_1"></label>
+            <a href=""><img class="pictureItem"
+                src="http:\/\/api.worldoftanks.ru\/static\/2.69.0\/wot\/encyclopedia\/vehicle\/ussr-R04_T-34.png"
+                alt="tank ИС-6"></a>
+            <div class="item_conteiner">
+              <div class="description">
+                <span class="flag ussr"></span>
+                <span class="type destroyers"></span>
+                <h2>ИС-6</h2>
+              </div>
+              <span class="price">$ 47.99</span>
+              <button class="purchase">PURSHACE</button>
+            </div>
+          </article>
+    
+          <article class="item double">
+            <input class="checkbox_input" id="checkbox_2" type="checkbox">
+            <label class="checkbox_label" for="checkbox_2"></label>
+            <a href=""><img class="pictureItem"
+                src="http:\/\/api.worldoftanks.ru\/static\/2.69.0\/wot\/encyclopedia\/vehicle\/ussr-R12_A-20.png"
+                alt="tank VIII Lowe"></a>
+            <div class="item_conteiner">
+              <div class="description">
+                <span class="flag sweden"></span>
+                <span class="type light"></span>
+                <h2>ИС-6</h2>
+              </div>
+              <span class="price">$ 42.99</span>
+              <button class="purchase">PURSHACE</button>
+            </div>
+          </article>
+    
           <article class="item">
-          <input class="checkbox_input" id="checkbox_1" type="checkbox">
-          <label class="checkbox_label" for="checkbox_1"></label>
-          <a href=""><img class="pictureItem"
-              src="http:\/\/api.worldoftanks.ru\/static\/2.69.0\/wot\/encyclopedia\/vehicle\/ussr-R04_T-34.png"
-              alt="tank ИС-6"></a>
-          <div class="item_container">
-            <div class="description">
-              <span class="flag ussr"></span>
-              <span class="type destroyers"></span>
-              <h2 class="item_name">ИС-6</h2>
+            <input class="checkbox_input" id="checkbox_4" type="checkbox">
+            <label class="checkbox_label" for="checkbox_4"></label>
+            <a href=""><img class="pictureItem"
+                src="http:\/\/api.worldoftanks.ru\/static\/2.69.0\/wot\/encyclopedia\/vehicle\/france-F08_AMX_50_100.png"
+                alt="WOT PREMIUM ACCOUNT: 3 DAYS"></a>
+            <div class="item_conteiner">
+              <div class="description">
+                <span class="flag germany"></span>
+                <span class="type heavy"></span>
+                <h2>WOT PREMIUM ACCOUNT: 3 DAYS</h2>
+              </div>
+              <span class="price">2.99</span>
+              <button class="purchase">PURSHACE</button>
             </div>
-            <span class="price">$ 47.99</span>
-          </div>
-          <button class="purchase">PURSHACE</button>
-
-        </article>
-        <article class="item double">
-          <input class="checkbox_input" id="checkbox_2" type="checkbox">
-          <label class="checkbox_label" for="checkbox_2"></label>
-          <a href=""><img class="pictureItem"
-              src="http:\/\/api.worldoftanks.ru\/static\/2.69.0\/wot\/encyclopedia\/vehicle\/ussr-R12_A-20.png"
-              alt="tank VIII Lowe"></a>
-          <div class="item_container">
-            <div class="description">
-              <span class="flag sweden"></span>
-              <span class="type light"></span>
-              <h2 class="item_name">ИС-6</h2>
-            </div>
-            <span class="price">$ 42.99</span>
-          </div>
-          <button class="purchase">PURSHACE</button>
-        </article>
-
-        <article class="item">
-          <input class="checkbox_input" id="checkbox_4" type="checkbox">
-          <label class="checkbox_label" for="checkbox_4"></label>
-          <a href=""><img class="pictureItem"
-              src="http:\/\/api.worldoftanks.ru\/static\/2.69.0\/wot\/encyclopedia\/vehicle\/france-F08_AMX_50_100.png"
-              alt="WOT PREMIUM ACCOUNT: 3 DAYS"></a>
-          <div class="item_container">
-            <div class="description">
-              <span class="flag germany"></span>
-              <span class="type heavy"></span>
-              <h2 class="item_name">WOT PREMIUM ACCOUNT: 3 DAYS</h2>
-            </div>
-            <span class="price">2.99</span>
-          </div>
-          <button class="purchase">PURSHACE</button>
-        </article>
-        </div> -->
-
-    </main>
-  </div>
-</body>
-
+          </article> -->
+      <!-- </div>
+        </main>
+      </div> -->
+    </div>
+  </body>
 </html>

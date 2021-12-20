@@ -1,7 +1,9 @@
 {
   "parser": "babel-eslint",
   "rules": {
-    "no-unused-vars": "warn"
+    "no-unused-vars": "warn",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error"
   },
   "env": {
     "es6": true,
@@ -16,5 +18,5 @@
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
-  "plugins": ["prettier"]
+  "plugins": ["react", "prettier"]
 }

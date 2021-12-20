@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -32,9 +33,18 @@ const optimization = () => {
 const filename = (ext) =>
   isDev ? `[name].${ext}` : `[name].[chunkhash].${ext}`
 
-const cssLoaders = (loader) => {
-  const styleLoader = isDev ? 'style-loader' : MiniCssExtractPlugin.loader
-  const loaders = [styleLoader, 'css-loader', 'postcss-loader']
+const cssLoaders = (isModule = false, loader) => {
+  const loaders = [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: 1,
+        modules: isModule,
+      },
+    },
+    'postcss-loader',
+  ]
 
   if (loader) {
     loaders.push(loader)
@@ -79,7 +89,10 @@ const jsLoaders = (loader) => {
     {
       loader: 'esbuild-loader',
       options: {
+        loader: 'jsx',
         target: 'es2019',
+        jsxFactory: 'CastomReact.createElement',
+        jsxFragment: 'CastomReact.createFragment',
       },
     },
   ]
@@ -88,7 +101,7 @@ const jsLoaders = (loader) => {
     loaders[0].options.loader = loader
   }
 
-  if (isDev) {
+  if (isProd) {
     loaders.push('eslint-loader')
   }
 
@@ -97,6 +110,9 @@ const jsLoaders = (loader) => {
 
 const plugins = () => {
   const base = [
+    new webpack.ProvidePlugin({
+      CastomReact: '/react/newVersion/creating',
+    }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
       patterns: [
@@ -111,10 +127,7 @@ const plugins = () => {
     }),
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, './src/index.html'),
-      minify: {
-        collapseWhitespace: isProd,
-      },
-      hash: true,
+      minify: isProd,
     }),
   ]
 
@@ -126,10 +139,10 @@ const plugins = () => {
 module.exports = {
   entry: {
     // app: ['@babel/polyfill', './app.js'],
-    app: './app.js',
+    app: './index.js',
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, './dist'),
     filename: `js/${filename('js')}`,
     publicPath: '/',
   },
@@ -142,7 +155,7 @@ module.exports = {
     compress: true,
     port: 3000,
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, 'public'),
     },
   },
   module: {
@@ -153,6 +166,11 @@ module.exports = {
         exclude: /node_modules/,
         use: jsLoaders(),
       },
+      // {
+      //   test: /\.jsx$/,
+      //   exclude: /node_modules/,
+      //   use: jsLoaders(null, true),
+      // },
       // TypeScript
       {
         test: /\.ts$/,
@@ -179,16 +197,23 @@ module.exports = {
       {
         test: /\.css$/,
         use: cssLoaders(),
+        exclude: /\.module\.css$/,
+      },
+      {
+        test: /\.module.css$/,
+        // include: /\.module\.css$/,
+        use: cssLoaders(true),
       },
       {
         test: /\.(s[ca]ss)$/,
-        use: cssLoaders('sass-loader'),
+        use: cssLoaders(false, 'sass-loader'),
       },
     ],
   },
   optimization: optimization(),
+  target: isDev ? 'web' : 'browserslist',
   plugins: plugins(),
   resolve: {
-    extensions: ['.js', '.json', '.ts'],
+    extensions: ['.js', '.json', '.ts', '.jsx', '.tsx'],
   },
 }

@@ -1,4 +1,4 @@
-import { subscriber } from '../react/react'
+// import { subscriber } from '../react/react'
 import mainReducer from './main-reducer'
 
 class Store {

@@ -1,4 +1,4 @@
-import router from '../react/react'
+// import router from '../react/react'
 import { Component } from '/react/newVersion/Component'
 
 class Wishlist extends Component {

@@ -47,11 +47,11 @@ const mountVElement = (vElement, container) => {
   return domNode
 }
 
-const isContainerRoot = (container) => {
-  if (container === window.root) {
-    container.textContent = ''
-  }
-}
+// const isContainerRoot = (container) => {
+//   if (container === window.root) {
+//     container.textContent = ''
+//   }
+// }
 
 const mountVComponent = (vComponent, container) => {
   // debugger

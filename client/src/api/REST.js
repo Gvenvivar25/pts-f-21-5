@@ -1,5 +1,3 @@
-console.log(window.location)
-
 const BASE_URL =
   window.location.hostname === 'localhost'
     ? 'http://localhost:3300/api/'

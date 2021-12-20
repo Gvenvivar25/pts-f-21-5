@@ -4,7 +4,7 @@ const ADD_PRODUCTS = 'ADD_PRODUCTS'
 const initialState = {
   carrent: 0,
   products: [],
-  items: []
+  typeProductsAll: {},
 }
 
 const mainReducer = (state = initialState, action = {}) => {
@@ -12,7 +12,11 @@ const mainReducer = (state = initialState, action = {}) => {
     case UPDATE_CARRENT:
       return { ...state, ...action.body }
     case ADD_PRODUCTS: {
-      return {...state, products: action.products, items: action.items}
+      return {
+        ...state,
+        products: action.products,
+        typeProductsAll: action.typeProductsAll,
+      }
     }
 
     default:
@@ -25,11 +29,23 @@ export const updateCarrent = (carrent) => ({
   body: { carrent },
 })
 
-export const addProducts = ({products, items}) => {
+export const addProducts = ({ products, items }) => {
+  const typeProductsAll = {}
+  items.forEach((item) => (typeProductsAll[item.id] = item))
+
+  const arrayActiveProducts = products.filter((product) => {
+    if (product.isActive) {
+      product.typeProduct = Object.keys(product.items).map(
+        (itemId) => typeProductsAll[itemId]
+      )
+      return product
+    }
+  })
+
   return {
     type: ADD_PRODUCTS,
-    products: products.filter((product) => product.isActive),
-    items,
+    products: arrayActiveProducts,
+    typeProductsAll,
   }
 }
 

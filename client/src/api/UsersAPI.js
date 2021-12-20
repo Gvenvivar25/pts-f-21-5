@@ -65,10 +65,14 @@ class UsepsAPI extends REST {
     return { tier, nation, type }
   }
 
- async getAllProduct() {
+  async getAllProduct() {
     const products = await this.get('products')
     const items = await this.get('items')
-   return {products, items}
+    const tiers = await this.get('tiers')
+    const types = await this.get('types')
+    const nations = await this.get('nations')
+    const currentCurs = await this.getCurrentCur()
+    return { products, items, tiers, types, nations, currentCurs }
   }
 
   // getAllItems() {

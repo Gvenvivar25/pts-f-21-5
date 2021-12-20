@@ -1,4 +1,5 @@
 // import { subscriber } from '../react/react'
+import additionallyReducer from './additionally-reducer'
 import mainReducer from './main-reducer'
 
 class Store {
@@ -31,6 +32,7 @@ const callSubscriber = () => {
 export const dispatch = (action = {}) => {
   const state = store.getState()
   state.main = mainReducer(state.main, action)
+  state.additionally = additionallyReducer(state.additionally, action)
 
   callSubscriber()
 }

@@ -5,6 +5,8 @@ import { addProducts } from '../redux/main-reducer'
 import UsersAPI from '../api/UsersAPI'
 import ProductCard from '../components/Main/ProductCard'
 import { getDynamicProducts } from '../redux/main-selectors'
+import { getAdditionally } from '../redux/additionally-reducer'
+import { getAdditionallyAll } from '../redux/additionally-selectors'
 
 class Main extends Component {
   constructor(props) {
@@ -21,23 +23,26 @@ class Main extends Component {
   }
 
   getProductsFetch() {
-    UsersAPI.getAllProduct().then(({ products, items }) => {
-      console.log('main products', products, items)
-      // this.getItemsFetch ()
-      dispatch(addProducts({ products, items }))
-      this.setState({
-        ...this.state,
-        isReady: true,
-        totalCount: products.length,
-        dynamicListProducts: products.slice(0, this.state.countProductsCard),
-      })
-    })
+    UsersAPI.getAllProduct().then(
+      ({ products, items, tiers, types, nations, currentCurs }) => {
+        console.log('main products', products, items)
+        // this.getItemsFetch ()
+        dispatch(addProducts({ products, items }))
+        dispatch(
+          getAdditionally({ tiers, typesVichels: types, nations, currentCurs })
+        )
+        this.setState({
+          ...this.state,
+          isReady: true,
+          totalCount: products.length,
+        })
+        this.dynamicAddProducts()
+      }
+    )
   }
 
   getItemsFetch() {
     UsersAPI.getAllItems().then((items) => {
-      console.log('main items', items)
-
       this.setState({
         ...this.state,
         items: items.slice(0),
@@ -72,7 +77,6 @@ class Main extends Component {
       this.state.countProductsCard,
       this.state.dynamicListProducts.length
     )
-    console.log(resultDynamic)
 
     if (resultDynamic) {
       this.setState({
@@ -92,50 +96,18 @@ class Main extends Component {
     document.addEventListener('scroll', this.scrollHandler)
   }
 
-  componentDidUpdate() {
-    // debugger
-    // if (this.state.isFetching) {
-    // }
-    // debugger
-  }
+  componentDidUpdate() {}
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.scrollHandler)
   }
 
-  // getItemInProduct(products) {
-  //   products.map((product) =>  (
-  //       this.uniteProductAndItem (product)
-  //   ))
-  // }
-
-  // GetItemInProduct(Product, key){
-  //   this.state.items.map((item) =>{
-  //         if(String(item.id)=== key){
-  //           Product.items.tank=item;
-  //         }
-  //         console.log(Product)
-  //   }
-  //   )
-  // }
-  //
-  // uniteProductAndItem (product){
-  //   //console.log(product)
-  //     for (let key in product.items){
-  //       if(key.length >2){
-  //         this.GetItemInProduct(product, key)
-  //          //console.log(product)
-  //       }
-  //     }
-  // }
-
   render() {
-    // const listProductsCard = getDynamicProducts()
     return (
       <div className="grid">
         {this.state.isReady
           ? this.state.dynamicListProducts.map((product) => (
-              <ProductCard card={product} />
+              <ProductCard card={product} additionally={getAdditionallyAll()} />
             ))
           : 'Loading...'}
       </div>

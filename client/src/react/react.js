@@ -168,6 +168,7 @@ export class BrowserRouter extends Component {
   }
 
   componentDidUpdate() {
+    // debugger
     if (router.localPath !== this.state.path) {
       this.setState({ ...this.state, path: router.localPath })
     }

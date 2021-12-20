@@ -2,6 +2,7 @@ import UsersAPI from '/api/UsersAPI'
 import Product from '/components/Product/Product'
 import { router, subscriber } from '/react/react'
 import { Component } from '/react/newVersion/Component'
+// import '../components/Product/item.scss'
 
 class ProductPage extends Component {
   constructor(props) {

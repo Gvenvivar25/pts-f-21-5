@@ -1,5 +1,6 @@
 import { Component } from '/react/newVersion/Component'
 import Bundle from './Bundle/Bundle'
+import './item.scss'
 
 class Product extends Component {
   constructor(props) {

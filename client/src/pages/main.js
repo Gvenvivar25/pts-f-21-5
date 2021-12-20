@@ -21,10 +21,10 @@ class Main extends Component {
   }
 
   getProductsFetch() {
-    UsersAPI.getAllProduct().then(({products, items}) => {
+    UsersAPI.getAllProduct().then(({ products, items }) => {
       console.log('main products', products, items)
       // this.getItemsFetch ()
-      dispatch(addProducts({products, items}))
+      dispatch(addProducts({ products, items }))
       this.setState({
         ...this.state,
         isReady: true,
@@ -34,13 +34,13 @@ class Main extends Component {
     })
   }
 
-  getItemsFetch () {
-    UsersAPI.getAllItems().then((items) =>{
+  getItemsFetch() {
+    UsersAPI.getAllItems().then((items) => {
       console.log('main items', items)
 
       this.setState({
         ...this.state,
-        items: items.slice(0)
+        items: items.slice(0),
       })
     })
   }
@@ -57,9 +57,9 @@ class Main extends Component {
     const { scrollHeight, scrollTop } = target.documentElement
 
     if (
-        scrollHeight - (scrollTop + window.innerHeight) < 100 &&
-        this.state.dynamicListProducts.length < this.state.totalCount &&
-        !this.state.isFetching
+      scrollHeight - (scrollTop + window.innerHeight) < 100 &&
+      this.state.dynamicListProducts.length < this.state.totalCount &&
+      !this.state.isFetching
     ) {
       // this.setState({ ...this.state, isFetching: true })
       this.dynamicAddProducts()
@@ -69,8 +69,8 @@ class Main extends Component {
 
   dynamicAddProducts() {
     const resultDynamic = getDynamicProducts(
-        this.state.countProductsCard,
-        this.state.dynamicListProducts.length
+      this.state.countProductsCard,
+      this.state.dynamicListProducts.length
     )
     console.log(resultDynamic)
 
@@ -87,7 +87,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    subscriber.push(this.updateSearch.bind(this))
+    // subscriber.push(this.updateSearch.bind(this))
     this.getProductsFetch()
     document.addEventListener('scroll', this.scrollHandler)
   }
@@ -130,16 +130,15 @@ class Main extends Component {
   // }
 
   render() {
-
     // const listProductsCard = getDynamicProducts()
     return (
-        <div className="grid">
-          {this.state.isReady
-              ? this.state.dynamicListProducts.map((product) => (
-                  <ProductCard card={product} />
-              ))
-              : 'Loading...'}
-        </div>
+      <div className="grid">
+        {this.state.isReady
+          ? this.state.dynamicListProducts.map((product) => (
+              <ProductCard card={product} />
+            ))
+          : 'Loading...'}
+      </div>
     )
   }
 }

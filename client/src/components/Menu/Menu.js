@@ -8,27 +8,27 @@ class Menu extends Component {
 
   render() {
     return (
-      <div class="nav_container">
-        <div class="logoWoT"></div>
+      <div className="nav_container">
+        <div className="logoWoT"></div>
         <nav>
-          <div class="content-wh content-wh-end">
-            <ul class="nav_menu">
-              <li class="nav_menu_item">
+          <div className="content-wh content-wh-end">
+            <ul className="nav_menu">
+              <li className="nav_menu_item">
                 <Link href="/" classActive="active_itm">
                   All
                 </Link>
               </li>
-              <li class="nav_menu_item">
+              <li className="nav_menu_item">
                 <Link href="/?type=vehicles" classActive="active_itm">
                   Vehicles
                 </Link>
               </li>
-              <li class="nav_menu_item">
+              <li className="nav_menu_item">
                 <Link href="/?type=gold" classActive="active_itm">
                   Gold
                 </Link>
               </li>
-              <li class="nav_menu_item">
+              <li className="nav_menu_item">
                 <Link href="/?type=premiun-account" classActive="active_itm">
                   Premium account
                 </Link>

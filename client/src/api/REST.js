@@ -1,10 +1,16 @@
+console.log(window.location)
+
+const BASE_URL =
+  window.location.hostname === 'localhost'
+    ? 'http://localhost:3300/api/'
+    : 'https://premium-shop-wg.herokuapp.com/api/'
 export class REST {
-  // _baseUrl = process.env.NEXT_PUBLIC_API
-  _baseUrl = 'https://premium-shop-wg.herokuapp.com/api/'
-  // _baseUrl = 'http://localhost:3300/api/'
+  // #baseUrl = process.env.NEXT_PUBLIC_API
+  // #baseUrl =  'https://premium-shop-wg.herokuapp.com/api/'
+  #baseUrl = BASE_URL
 
   get(url, headers = {}) {
-    return fetch(this._baseUrl + url, {
+    return fetch(this.#baseUrl + url, {
       method: 'GET',
       // credentials: 'include',
       headers: {
@@ -24,7 +30,7 @@ export class REST {
   }
 
   put(url, body, headers = {}) {
-    return fetch(this._baseUrl + url, {
+    return fetch(this.#baseUrl + url, {
       method: 'PUT',
       // credentials: 'include',
       body: JSON.stringify({ ...body }),
@@ -45,7 +51,7 @@ export class REST {
   }
 
   post(url, body, headers = {}) {
-    return fetch(this._baseUrl + url, {
+    return fetch(this.#baseUrl + url, {
       method: 'POST',
       // credentials: 'include',
       body: JSON.stringify({ ...body }),

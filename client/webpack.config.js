@@ -215,5 +215,6 @@ module.exports = {
   plugins: plugins(),
   resolve: {
     extensions: ['.js', '.json', '.ts', '.jsx', '.tsx'],
+    modules: [path.join(__dirname, 'node_modules')],
   },
 }

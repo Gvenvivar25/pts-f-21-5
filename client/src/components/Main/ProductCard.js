@@ -8,22 +8,47 @@ class ProductCard extends Component {
 
   render() {
     // console.log(this.props.card)
-    const { image, name, price, id } = this.props.card
-    // const current= getCarrent()
+    const { image, name, price, id, typeProduct } = this.props.card
+    const tank = typeProduct.find((product) => product.item_type === 'vehicle')
+    const { currentCurs, nations, tiers, typesVichels } =
+      this.props.additionally
+    // debugger
+    const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+
     return (
       <article class="item">
-        <input class="checkbox_input" id="checkbox_1" type="checkbox" />
-        <label class="checkbox_label" for="checkbox_1"></label>
+        <input class="checkbox_input" id={id} type="checkbox" />
+        <label class="checkbox_label" for={id}></label>
         <a href={`/product?id=${id}`}>
           <img class="pictureItem" src={image} alt={name} />
         </a>
         <div className="item_conteiner">
           <div class="description">
-            <span className="flag ussr"></span>
-            <span className={`type  {item.}`}></span>
-            <h2>{name}</h2>
+            {tank ? (
+              <>
+                <span
+                  className={'flag'}
+                  style={{
+                    backgroundImage: `url(${nations[tank.nation].icon})`,
+                  }}
+                ></span>
+                <span
+                  className={'type'}
+                  style={{
+                    backgroundImage: `url(${typesVichels[tank.type].icon})`,
+                  }}
+                ></span>
+                <h2>
+                  {tiers[tank.tier].name} {name}
+                </h2>
+              </>
+            ) : (
+              <h2>{name}</h2>
+            )}
           </div>
-          <span class="price">$ {price}</span>
+          <span class="price">
+            {currentCurs.sign} {CurrentPrice}
+          </span>
           <button class="purchase">PURSHACE</button>
         </div>
       </article>

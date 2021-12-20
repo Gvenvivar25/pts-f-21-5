@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --color --hot --stats  minimal",
-    "build": "cross-env NODE_ENV=production webpack --color --progress",
+    "build": "cross-env webpack --color --progress",
     "start": "cross-env NODE_ENV=production webpack serve",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
@@ -20,7 +20,7 @@
     "url": "https://github.com/Gvenvivar25/pts-f-21-5/issues"
   },
   "homepage": "https://github.com/Gvenvivar25/pts-f-21-5#readme",
-  "devDependencies": {
+  "dependencies": {
     "@babel/core": "^7.16.0",
     "@babel/plugin-proposal-class-properties": "^7.16.0",
     "@babel/plugin-transform-runtime": "^7.16.4",

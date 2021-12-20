@@ -1,8 +1,8 @@
 import { Component } from '/react/newVersion/Component'
-import './item.scss'
 import Bundle from './Bundle/Bundle'
+import './item.scss'
 
-class Product extends Component {
+class ProductContainer extends Component {
   constructor(props) {
     super(props)
   }
@@ -70,4 +70,4 @@ class Product extends Component {
   }
 }
 
-export default Product
+export default ProductContainer

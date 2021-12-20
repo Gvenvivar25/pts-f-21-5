@@ -256,6 +256,7 @@ h1:before {
   position: absolute;
   top: 25px;
   right: 25px;
+  cursor: pointer;
 }
 @media (max-width: 480px) {
   .checkbox_label::before {
@@ -422,6 +423,9 @@ button.purchase {
 .description .flag {
   height: 15px;
   width: 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
 }
 @media (max-width: 480px) {
   .description .flag {
@@ -466,6 +470,9 @@ button.purchase {
   height: 15px;
   width: 12px;
   margin-right: 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: auto;
 }
 .description .light {
   background: url('../public/img/type/light.png') center/cover no-repeat;

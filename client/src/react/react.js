@@ -7,6 +7,7 @@ class Router {
   query = {}
 
   #setQuery(newSearch) {
+    if (!newSearch) return
     this.search = newSearch
     let getArraySearch = this.search.slice(1).split('&')
     let result = []
@@ -42,6 +43,15 @@ class Router {
     return this.search
   }
 
+  get query() {
+    this.updateLocalPath()
+    return this.query
+  }
+
+  getQuery() {
+    this.updateLocalPath()
+    return this.query
+  }
   // It's the method that makes the redirect as in React/Next
   // async push(pathName) {
   //   this.#id++
@@ -51,9 +61,9 @@ class Router {
 
   updateLocalPath() {
     this.localPath = window.location.pathname
-    if (window.location.search !== this.search) {
-      this.#setQuery(window.location.search)
-    }
+    this.#setQuery(window.location.search)
+    // if (window.location.search !== this.search) {
+    // }
   }
 
   // It's the method that is triggered when the page loads or the path changes
@@ -168,6 +178,7 @@ export class BrowserRouter extends Component {
   }
 
   componentDidUpdate() {
+    // debugger
     if (router.localPath !== this.state.path) {
       this.setState({ ...this.state, path: router.localPath })
     }

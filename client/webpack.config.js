@@ -142,13 +142,15 @@ module.exports = {
     app: './index.js',
   },
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: `js/${filename('js')}`,
     publicPath: '/',
   },
-  mode: isDev ? 'development' : 'production',
+  // mode: isDev ? 'development' : 'production',
+  mode: 'development',
   context: path.resolve(__dirname, 'src'),
-  devtool: isDev ? 'source-map' : false,
+  // devtool: isDev ? 'source-map' : false,
+  devtool: 'source-map',
   devServer: {
     watchFiles: 'src/**.html',
     historyApiFallback: true,
@@ -215,5 +217,6 @@ module.exports = {
   plugins: plugins(),
   resolve: {
     extensions: ['.js', '.json', '.ts', '.jsx', '.tsx'],
+    modules: [path.join(__dirname, 'node_modules')],
   },
 }

@@ -9,7 +9,7 @@ import Menu from './components/Menu/Menu'
 import Main from './pages/main'
 import Wishlist from './pages/wishlist'
 import ShoppingCard from './pages/shoppingCard'
-import ProductPage from './pages/product'
+import ProductPage from './pages/productPage'
 // import vehiclesType from '/client/src/modules/main/VehiclesType/vehiclesType'
 
 class App extends Component {

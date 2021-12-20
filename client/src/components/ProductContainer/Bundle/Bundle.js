@@ -32,9 +32,7 @@ class Bundle extends Component {
           </li>
         ) : (
           <li class="description_list_item">
-            {value}
-            {type}
-            {name}
+            {value} {type} {name}
           </li>
         )}
       </ul>

@@ -1,5 +1,5 @@
 import UsersAPI from '/api/UsersAPI'
-import Product from '/components/Product/Product'
+import Product from '/components/ProductContainer/Product'
 import { router, subscriber } from '/react/react'
 import { Component } from '/react/newVersion/Component'
 // import '../components/Product/item.scss'

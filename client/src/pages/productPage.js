@@ -1,5 +1,5 @@
 import UsersAPI from '/api/UsersAPI'
-import Product from '/components/ProductContainer/Product'
+import ProductContainer from '/components/ProductContainer/ProductContainer'
 import { router, subscriber } from '/react/react'
 import { Component } from '/react/newVersion/Component'
 // import '../components/Product/item.scss'
@@ -24,15 +24,23 @@ class ProductPage extends Component {
   componentDidMount() {
     // debugger
     subscriber.push(this.updateSearch.bind(this))
-    UsersAPI.getAllProductItem(this.state.id).then((data) => {
-      this.setState({ ...this.state, isReady: true, data })
-    })
+    UsersAPI.getAllProductItem(this.state.id)
+      .then((data) => {
+        this.setState({ ...this.state, isReady: true, data })
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
   render() {
     return (
       <div class="container_item">
-        {this.state.isReady ? <Product data={this.state.data} /> : 'Loading...'}
+        {this.state.isReady ? (
+          <ProductContainer data={this.state.data} />
+        ) : (
+          'Loading...'
+        )}
       </div>
     )
   }

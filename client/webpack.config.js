@@ -146,9 +146,11 @@ module.exports = {
     filename: `js/${filename('js')}`,
     publicPath: '/',
   },
-  mode: isDev ? 'development' : 'production',
+  // mode: isDev ? 'development' : 'production',
+  mode: 'development',
   context: path.resolve(__dirname, 'src'),
-  devtool: isDev ? 'source-map' : false,
+  // devtool: isDev ? 'source-map' : false,
+  devtool: 'source-map',
   devServer: {
     watchFiles: 'src/**.html',
     historyApiFallback: true,

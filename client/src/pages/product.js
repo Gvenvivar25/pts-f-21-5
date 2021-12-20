@@ -1,6 +1,6 @@
-import UsersAPI from '../api/UsersAPI'
-import Product from '../components/Product/Product'
-import { router, subscriber } from '../react/react'
+import UsersAPI from '/api/UsersAPI'
+import Product from '/components/Product/Product'
+import { router, subscriber } from '/react/react'
 import { Component } from '/react/newVersion/Component'
 
 class ProductPage extends Component {

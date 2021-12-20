@@ -9,10 +9,6 @@
     "start": "cross-env NODE_ENV=production webpack serve",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
-  "engines": {
-    "node": "16.x",
-    "npm": "7.x"
-  },
   "browserslist": "> 0.25%, not dead",
   "repository": {
     "type": "git",

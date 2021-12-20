@@ -11,6 +11,10 @@
     "client:build": "npm run build --prefix client",
     "dev": "cross-env NODE_ENV=development concurrently \"npm run serve\" \"npm run client\""
   },
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

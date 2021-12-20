@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --color --hot --stats  minimal",
-    "build": "cross-env NODE_ENV=production webpack --color --progress",
+    "build": "cross-env webpack --color --progress",
     "start": "cross-env NODE_ENV=production webpack serve",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },

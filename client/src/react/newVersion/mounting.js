@@ -19,8 +19,9 @@ const mountVElement = (vElement, container) => {
   }
   // add children
   if (props.children) {
+    // debugger
     if (Array.isArray(props.children)) {
-      props.children.forEach((child) => mount(child || '', domNode))
+      props.children.forEach((child) => mount(child, domNode))
     } else {
       mount(props.children, domNode)
     }
@@ -53,6 +54,7 @@ const isContainerRoot = (container) => {
 }
 
 const mountVComponent = (vComponent, container) => {
+  // debugger
   const { tag, props } = vComponent
   const Component = tag
   const instance = new Component(props)
@@ -64,25 +66,23 @@ const mountVComponent = (vComponent, container) => {
   instance._parentNode = container
   vComponent._instance = instance
 
-  // if (!nextRenderedElement) {
-  //   isContainerRoot(container)
-  //   instance.componentDidMount()
-  //   return
-  // }
-
   // debugger
   const dom = mount(nextRenderedElement, container)
   vComponent.dom = dom
 
-  isContainerRoot(container)
-  container.appendChild(dom)
+  // isContainerRoot(container)
+  if (Array.isArray(nextRenderedElement)) {
+    nextRenderedElement.forEach((element) => container.appendChild(element.dom))
+  } else {
+    container.appendChild(dom)
+  }
+
   instance.componentDidMount()
   return dom
 }
 
 export const mount = (vNode, container) => {
   // debugger
-  // if (!vNode) return
 
   if (Array.isArray(vNode)) {
     vNode.forEach((node) => mount(node, container))

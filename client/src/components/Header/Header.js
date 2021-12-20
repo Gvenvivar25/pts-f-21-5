@@ -9,31 +9,31 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <div class="header_content">
+        <div className="header_content">
           <Link href="/">
             <h1>PREMIUM SHOP</h1>
           </Link>
 
-          <ul class="header_menu">
-            <li class="header_menu_item">
-              <Link href="/wishlist" className="wish">
-                <span class="text">Wishlist</span>
-                <span class="index">(0)</span>
+          <ul className="header_menu">
+            <li className="header_menu_item">
+              <Link href="/wishlist" classNameName="wish">
+                <span className="text">Wishlist</span>
+                <span className="index">(0)</span>
               </Link>
             </li>
-            <li class="header_menu_item">
+            <li className="header_menu_item">
               <Link href="/shopping-card" className="cart">
-                <span class="text">Shopping card</span>
-                <span class="index">(0)</span>
+                <span className="text">Shopping card</span>
+                <span className="index">(0)</span>
               </Link>
             </li>
-            <li class="header_menu_item">
-              <Link href="/" className="login">
-                <span class="text">Login</span>
+            <li className="header_menu_item">
+              <Link href="/" classNameName="login">
+                <span className="text">Login</span>
               </Link>
-              <span class="or text">or</span>
+              <span className="or text">or</span>
               <Link href="/">
-                <span class="text">Create account</span>
+                <span className="text">Create account</span>
               </Link>
             </li>
           </ul>

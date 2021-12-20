@@ -9,7 +9,7 @@ class ProductPage extends Component {
     this.state = {
       search: router.getSearch(),
       isReady: false,
-      id: 'UG9v2YWIy2G6xAok50ZO',
+      id: router.query.id,
       data: null,
     }
   }

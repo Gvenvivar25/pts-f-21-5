@@ -1,34 +1,145 @@
 import { router, subscriber } from '../react/react'
 import { Component } from '/react/newVersion/Component'
+import { dispatch } from '../redux/redux-store'
+import { addProducts } from '../redux/main-reducer'
+import UsersAPI from '../api/UsersAPI'
+import ProductCard from '../components/Main/ProductCard'
+import { getDynamicProducts } from '../redux/main-selectors'
 
 class Main extends Component {
   constructor(props) {
     super(props)
-    this.state = { search: router.getSearch() }
+    this.state = {
+      search: router.getSearch(),
+      isReady: false,
+      totalCount: 0,
+      countProductsCard: 12,
+      isFetching: false,
+      dynamicListProducts: [],
+      items: [],
+    }
+  }
+
+  getProductsFetch() {
+    UsersAPI.getAllProduct().then(({products, items}) => {
+      console.log('main products', products, items)
+      // this.getItemsFetch ()
+      dispatch(addProducts({products, items}))
+      this.setState({
+        ...this.state,
+        isReady: true,
+        totalCount: products.length,
+        dynamicListProducts: products.slice(0, this.state.countProductsCard),
+      })
+    })
+  }
+
+  getItemsFetch () {
+    UsersAPI.getAllItems().then((items) =>{
+      console.log('main items', items)
+
+      this.setState({
+        ...this.state,
+        items: items.slice(0)
+      })
+    })
   }
 
   updateSearch() {
     if (this.state.search !== router.search) {
-      this.setState({ search: router.search })
+      this.setState({ ...this.state, search: router.search })
+      this.getProductsFetch()
+      //this.getItemInProduct()
+    }
+  }
+
+  scrollHandler = ({ target }) => {
+    const { scrollHeight, scrollTop } = target.documentElement
+
+    if (
+        scrollHeight - (scrollTop + window.innerHeight) < 100 &&
+        this.state.dynamicListProducts.length < this.state.totalCount &&
+        !this.state.isFetching
+    ) {
+      // this.setState({ ...this.state, isFetching: true })
+      this.dynamicAddProducts()
+      console.log('fething')
+    }
+  }
+
+  dynamicAddProducts() {
+    const resultDynamic = getDynamicProducts(
+        this.state.countProductsCard,
+        this.state.dynamicListProducts.length
+    )
+    console.log(resultDynamic)
+
+    if (resultDynamic) {
+      this.setState({
+        ...this.state,
+        isFetching: false,
+        dynamicListProducts: [
+          ...this.state.dynamicListProducts,
+          ...resultDynamic,
+        ],
+      })
     }
   }
 
   componentDidMount() {
     subscriber.push(this.updateSearch.bind(this))
+    this.getProductsFetch()
+    document.addEventListener('scroll', this.scrollHandler)
   }
 
   componentDidUpdate() {
     // debugger
+    // if (this.state.isFetching) {
+    // }
+    // debugger
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('scroll', this.scrollHandler)
+  }
+
+  // getItemInProduct(products) {
+  //   products.map((product) =>  (
+  //       this.uniteProductAndItem (product)
+  //   ))
+  // }
+
+  // GetItemInProduct(Product, key){
+  //   this.state.items.map((item) =>{
+  //         if(String(item.id)=== key){
+  //           Product.items.tank=item;
+  //         }
+  //         console.log(Product)
+  //   }
+  //   )
+  // }
+  //
+  // uniteProductAndItem (product){
+  //   //console.log(product)
+  //     for (let key in product.items){
+  //       if(key.length >2){
+  //         this.GetItemInProduct(product, key)
+  //          //console.log(product)
+  //       }
+  //     }
+  // }
+
   render() {
+
+    // const listProductsCard = getDynamicProducts()
     return (
-      <div className="grid">
-        <div>
-          <h2>MAIN</h2>
-          <h3>Search state: {this.state.search}</h3>
+        <div className="grid">
+          {this.state.isReady
+              ? this.state.dynamicListProducts.map((product) => (
+                  <ProductCard card={product} />
+              ))
+              : 'Loading...'}
         </div>
-      </div>
     )
   }
 }

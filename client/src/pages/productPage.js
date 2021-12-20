@@ -10,7 +10,7 @@ class ProductPage extends Component {
     this.state = {
       search: router.getSearch(),
       isReady: false,
-      id: router.query.id,
+      id: router.getQuery().id,
       data: null,
     }
   }
@@ -22,6 +22,7 @@ class ProductPage extends Component {
   }
 
   componentDidMount() {
+    // debugger
     subscriber.push(this.updateSearch.bind(this))
     UsersAPI.getAllProductItem(this.state.id).then((data) => {
       this.setState({ ...this.state, isReady: true, data })

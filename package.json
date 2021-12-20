@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "cross-env NODE_ENV=production node index.js",
     "serve": "nodemon index.js",
     "heroku-postbuild": "npm run client:install && npm run client:build",
     "client": "npm run dev --prefix client",

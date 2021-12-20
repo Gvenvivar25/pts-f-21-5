@@ -1,6 +1,6 @@
 export class REST {
   // _baseUrl = process.env.NEXT_PUBLIC_API
-  _baseUrl = 'http://localhost:3300/api/'
+  _baseUrl = 'https://premium-shop-wg.herokuapp.com/api/'
 
   get(url, headers = {}) {
     return fetch(this._baseUrl + url, {

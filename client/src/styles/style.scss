@@ -354,13 +354,27 @@ h1:before {
     font-size: 12px;
   }
 }
-.item_conteiner span {
+.item_conteiner .price {
   display: block;
-  margin-left: 10px;
+  // margin-left: 10px;
   color: #d1b482;
   font-weight: 400;
   font-size: 15px;
 }
+
+.price_old{
+  color:#656565;
+  text-decoration: line-through;
+  display: block;
+  margin-right: 10px;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.prices{
+  display: flex;
+}
+
 
 img.pictureItem,
 img.heart {

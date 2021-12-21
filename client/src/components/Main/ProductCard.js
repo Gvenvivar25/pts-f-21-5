@@ -8,12 +8,20 @@ class ProductCard extends Component {
 
   render() {
     // console.log(this.props.card)
-    const { image, name, price, id, typeProduct } = this.props.card
+    let { image, name, price, id, typeProduct, discPer, discValue } = this.props.card
     const tank = typeProduct.find((product) => product.item_type === 'vehicle')
     const { currentCurs, nations, tiers, typesVichels } =
       this.props.additionally
     // debugger
-    const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+    let CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+
+    let oldPrice
+    if (discPer !== 0 || discValue !== 0) {
+      oldPrice = CurrentPrice
+      CurrentPrice = (CurrentPrice - (CurrentPrice * discPer) / 100 - discValue).toFixed(2)
+      console.log(oldPrice,'!!!!',CurrentPrice);
+    }
+
 
     return (
       <article class="item">
@@ -46,9 +54,11 @@ class ProductCard extends Component {
               <h2>{name}</h2>
             )}
           </div>
-          <span class="price">
-            {currentCurs.sign} {CurrentPrice}
-          </span>
+          <div class="prices">        
+            {(oldPrice !== undefined) ? <span class="price_old">{currentCurs.sign} {oldPrice} </span> : ''}
+            <span class="price">
+              {currentCurs.sign} {CurrentPrice}
+            </span></div>
         </div>
         {JSON.parse(localStorage.getItem('cart')).includes(id) ? <button onClick={() => this.props.addToCart(id)} class="purchase animate" >IN CART</button> : <button onClick={() => this.props.addToCart(id)} class="purchase"  >PURSHACE</button>}
       </article>

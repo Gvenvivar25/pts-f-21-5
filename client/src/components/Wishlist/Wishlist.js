@@ -16,7 +16,7 @@ class Wishlist extends Component {
           {items.length !== 0 ? (
             items.map(({ product }) => (
               <WishItem
-                addInCart={this.props.addInCart}
+                // addInCart={this.props.addInCart}
                 deleteItem={this.props.deleteItem}
                 product={product}
               />

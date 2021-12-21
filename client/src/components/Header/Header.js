@@ -22,9 +22,9 @@ class Header extends Component {
               </Link>
             </li>
             <li className="header_menu_item">
-              <Link href="/shopping-card" className="cart">
+              <Link href="/shopping-cart" className="cart">
                 <span className="text">Shopping card</span>
-                <span className="index">(0)</span>
+                <span className="index">({this.props.shoppingCartLength})</span>
               </Link>
             </li>
             <li className="header_menu_item">

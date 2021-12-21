@@ -375,7 +375,7 @@ img.heart {
   z-index: -10;
 }
 
-button.purchase {
+.purchase {
   display: block;
   background: #e95104;
   border: none;
@@ -389,25 +389,35 @@ button.purchase {
   overflow: hidden;
   margin-top: 8px;
 }
+
+a.purchase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (hover: none) {
-  button.purchase {
+  .purchase {
     opacity: 1;
     height: 30px;
     font-size: 10px;
   }
 }
 @media (hover: none) and (max-width: 480px) {
-  button.purchase {
+  .purchase {
     height: 25px;
   }
 }
 
 @media (hover: hover) {
-  .item:hover button.purchase {
+  .item:hover .purchase {
     display: block;
     opacity: 1;
     height: 40px;
     transition: 0.4s;
+  }
+  .item:hover a.purchase {
+    display: flex;
   }
 }
 .double {

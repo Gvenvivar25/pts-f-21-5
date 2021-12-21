@@ -1,4 +1,5 @@
 import { Link } from '../../react/react'
+import ButtonAddProductInCart from '../common/ButtonAddProductInCart'
 import { Component } from '/react/newVersion/Component'
 
 class WishItem extends Component {
@@ -9,6 +10,7 @@ class WishItem extends Component {
   render() {
     // debugger
     const product = this.props.product
+
     return (
       <li className="wish_item">
         <Link href={`/product?id=${product.id}`} className="link_img">
@@ -24,17 +26,8 @@ class WishItem extends Component {
             <div className="wish_price">
               {product.sign} {product.price}
             </div>
-            {/* {JSON.parse(localStorage.getItem('cart')).includes(product.id) ? ( */}
-            {/* <button className="wish_in_cart">in cart</button> */}
-            {/* ) : ( */}
-            <button
-              onClick={() => this.props.addInCart(product.id)}
-              className="wish_add"
-            >
-              add to cart
-            </button>
-            {/* )} */}
-            {/* <button className="wish_add">add to cart</button> */}
+
+            <ButtonAddProductInCart id={product.id} className="wish_add" />
           </div>
           <button
             onClick={() => {

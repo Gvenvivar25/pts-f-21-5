@@ -8,11 +8,13 @@ import Header from './components/Header/Header'
 import Menu from './components/Menu/Menu'
 import Main from './pages/main'
 import Wishlist from './pages/wishlist'
-import ShoppingCard from './pages/shoppingCard'
+import ShoppingCart from './pages/shoppingCart'
 import ProductPage from './pages/productPage'
 import { setAllWishlist } from './redux/wishlist-reducer'
 import { dispatch, subscriberStore } from './redux/redux-store'
 import { getWishlist } from './redux/wishlist-selectors'
+import { setAllShoppingCart } from './redux/shoppingCart-reducer'
+import { getShoppingCart } from './redux/shoppingCart-selectors'
 // import vehiclesType from '/client/src/modules/main/VehiclesType/vehiclesType'
 
 class App extends Component {
@@ -25,8 +27,8 @@ class App extends Component {
 
   componentDidMount() {
     subscriberStore.push(this.updateCopmonent.bind(this))
-    // debugger
     dispatch(setAllWishlist())
+    dispatch(setAllShoppingCart())
   }
 
   // componentDidUpdate() {
@@ -36,13 +38,16 @@ class App extends Component {
   render() {
     return (
       <div className="wrapper">
-        <Header wishlistLength={getWishlist().length} />
+        <Header
+          wishlistLength={getWishlist().length}
+          shoppingCartLength={getShoppingCart().length}
+        />
         <Menu />
         <main>
           <Router>
             <Route path="/" component={<Main />} />
             <Route path="/wishlist" component={<Wishlist />} />
-            <Route path="/shopping-card" component={<ShoppingCard />} />
+            <Route path="/shopping-cart" component={<ShoppingCart />} />
             <Route path="/product" component={<ProductPage />} />
           </Router>
         </main>

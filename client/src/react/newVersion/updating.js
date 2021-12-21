@@ -107,17 +107,29 @@ const updateChildren = (prevChildren, nextChildren, container) => {
 
 const addAttributes = (attrs, container) => {
   attrs.forEach(([type, value]) => {
-    if (type.startsWith('on') && type.toLowerCase() in window)
+    if (type.startsWith('on') && type.toLowerCase() in window) {
       container.addEventListener(type.toLowerCase().slice(2), value)
-    else container.setAttribute(type, value.toString())
+    }
+    // else if (type === 'disabled' && value) {
+    //   container.disabled = true
+    // }
+    else {
+      container.setAttribute(type, value.toString())
+    }
   })
 }
 
-const remodeAttributes = (attrs, container) => {
+const removeAttributes = (attrs, container) => {
   attrs.forEach(([type, value]) => {
-    if (type.startsWith('on') && type.toLowerCase() in window)
+    if (type.startsWith('on') && type.toLowerCase() in window) {
       container.removeEventListener(type.toLowerCase().slice(2), value)
-    else container.removeAttribute(type, value.toString())
+    }
+    // else if (type === 'disabled') {
+    //   container.disabled = false
+    // }
+    else {
+      container.removeAttribute(type, value.toString())
+    }
   })
 }
 
@@ -128,9 +140,9 @@ const updateAttribute = (prevAttrs, nextAttrs, container) => {
     if (keysPrevAttrs.length === 0) {
       addAttributes(keysNextAttrs, container)
     } else if (keysNextAttrs.length === 0) {
-      remodeAttributes(keysPrevAttrs, container)
+      removeAttributes(keysPrevAttrs, container)
     } else {
-      remodeAttributes(keysPrevAttrs, container)
+      removeAttributes(keysPrevAttrs, container)
       addAttributes(keysNextAttrs, container)
       // const minLengthAttrs = Math.min(keysPrevAttrs.length, keysNextAttrs.length)
 
@@ -186,7 +198,7 @@ const updateVComponent = (prevComponent, nextComponent) => {
 
   const nextState = nextComponent._instance.state
   // debugger
-  if (_instance.shouldComponentUpdate(nextProps, nextState, prevComponent)) {
+  if (_instance.shouldComponentUpdate(prevProps, nextState, prevComponent)) {
     const prevRenderElement = _currentElement
     _instance.componentDidUpdate(prevProps, _instance.state)
     const nextRenderElement = _instance.render()

@@ -1,6 +1,7 @@
 // import { subscriber } from '../react/react'
 import additionallyReducer from './additionally-reducer'
 import mainReducer from './main-reducer'
+import shoppingCartReducer from './shoppingCart-reducer'
 import wishlistReducer from './wishlist-reducer'
 
 class Store {
@@ -35,6 +36,7 @@ export const dispatch = (action = {}) => {
   state.main = mainReducer(state.main, action)
   state.additionally = additionallyReducer(state.additionally, action)
   state.wishlist = wishlistReducer(state.wishlist, action)
+  state.shoppingCart = shoppingCartReducer(state.shoppingCart, action)
 
   callSubscriber()
 }

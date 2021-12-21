@@ -36,7 +36,11 @@ const mountVElement = (vElement, container) => {
 
       domNode.addEventListener(type, value)
     } else {
+      // if (name === 'disabled' && value) {
+      //   domNode.disabled = true
+      // } else
       if (value) {
+        // debugger
         if (name === 'defaultChecked') {
           domNode.setAttribute('checked', value.toString())
         } else {
@@ -93,6 +97,10 @@ export const mount = (vNode, container) => {
   } else {
     if (typeof vNode === 'string' || typeof vNode === 'number') {
       return mountVText(vNode, container)
+    }
+
+    if (vNode === undefined) {
+      return mountVText('', container)
     }
 
     if (typeof vNode.tag === 'function') {

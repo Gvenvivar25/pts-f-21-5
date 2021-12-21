@@ -4,6 +4,7 @@ import {
   addProductInWishlist,
   deleteProductInWishlist,
 } from '../../redux/wishlist-reducer'
+import ButtonAddProductInCart from '../common/ButtonAddProductInCart'
 import { Component } from '/react/newVersion/Component'
 //import UsersAPI from '../api/UsersAPI'
 
@@ -21,8 +22,8 @@ class ProductCard extends Component {
       : dispatch(deleteProductInWishlist(productId))
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps !== this.props) {
+  shouldComponentUpdate(prevProps) {
+    if (prevProps !== this.props) {
       return true
     }
   }
@@ -78,7 +79,8 @@ class ProductCard extends Component {
           <span className="price">
             {currentCurs.sign} {CurrentPrice}
           </span>
-          <button className="purchase">PURSHACE</button>
+          <ButtonAddProductInCart id={id} className="purchase" />
+          {/* <button className="purchase">PURSHACE</button> */}
         </div>
       </article>
     )

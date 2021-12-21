@@ -31,7 +31,7 @@ class ButtonAddProductInCart extends Component {
           </Link>
         ) : (
           <button onClick={this.handleCLick} className={this.props.className}>
-            PURSHACE
+            PURSHASE
           </button>
         )}
       </>

@@ -83,7 +83,6 @@ class ProductCard extends Component {
             {/* {currentCurs.sign} {CurrentPrice} */}
           </span>
           <ButtonAddProductInCart id={id} className="purchase" />
-          {/* <button className="purchase">PURSHACE</button> */}
         </div>
       </article>
     )

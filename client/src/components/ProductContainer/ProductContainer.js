@@ -1,66 +1,118 @@
 import { Component } from '/react/newVersion/Component'
 import Bundle from './Bundle/Bundle'
 import './item.scss'
+import { dispatch } from '../../redux/redux-store'
+import { addProductInShoppingCart } from '../../redux/shoppingCart-reducer'
+import ButtonAddProductInCart from '../common/ButtonAddProductInCart'
 
 class ProductContainer extends Component {
   constructor(props) {
     super(props)
   }
 
+  handleCLick = (id) => {
+    // debugger
+    // console.log('click', this.props.id)
+    dispatch(addProductInShoppingCart(id))
+  }
+
+  showSlider = (gallery) => {
+    let counter = 0
+    const imageView = document.querySelector('.imageView')
+    const nextBtn = document.getElementById('next-btn')
+    const prevBtn = document.getElementById('prev-btn')
+    const sliderDiv = document.getElementById('slider')
+    const imgSlider = document.getElementById('imgSlider')
+
+    imageView.addEventListener('click', function () {
+      this.style.display = 'none'
+      sliderDiv.style.display = 'none'
+    })
+    imgSlider.addEventListener('click', () => {
+      imageView.style.display = 'block'
+      sliderDiv.style.display = 'block'
+      sliderDiv.style.background = `url(${gallery[counter]}) center/cover no-repeat`
+    })
+
+    prevBtn.addEventListener('click', function () {
+      counter--
+      if (counter < 0) {
+        counter = gallery.length - 1
+      }
+      sliderDiv.style.background = `url(${gallery[counter]}) center/cover no-repeat`
+    })
+
+    nextBtn.addEventListener('click', function () {
+      counter++
+      if (counter > gallery.length - 1) {
+        counter = 0
+      }
+      sliderDiv.style.background = `url(${gallery[counter]}) center/cover no-repeat`
+    })
+  }
+
+  componentDidMount() {
+    this.showSlider(this.props.data.gallery)
+  }
+
   render() {
-    console.log(this.props.data)
+    // console.log(this.props.data)
+
     const { bundle, gallery, oldPrice, product } = this.props.data
+
     return (
       <>
-        <div class="item_header">
-          <div class="item-header_content">
-            <h1 class="item_header-name">{product.name}</h1>
+        <div className="item_header">
+          <div className="item-header_content">
+            <h1 className="item_header-name">{product.name}</h1>
             <hr />
-            <div class="header-price">
-              <div class="product-price-box">
-                <p class="product-old-price">
+            <div className="header-price">
+              <div className="product-price-box">
+                <p className="product-old-price">
                   {product.sign}
                   {oldPrice}
                 </p>
-                <p class="product-price">
+                <p className="product-price">
                   {product.sign}
                   {product.price}
                 </p>
               </div>
-
-              <a href="#" class="button">
-                Purchase
-              </a>
+              <ButtonAddProductInCart id={product.id} className="button" />
             </div>
           </div>
-          <div class="header-image-box">
-            <div class="mobile_bundle">{bundle}</div>
+          <div className="header-image-box">
+            <div className="mobile_bundle">{bundle}</div>
             <img
               src={product.card_image}
               alt={product.name}
-              class="item-header_image"
+              className="item-header_image"
             />
           </div>
         </div>
 
-        <div class="item-content">
-          <div class="item-content-bundle">
-            <h2 class="item-content_header">Bundle content</h2>
+        <div className="item-content">
+          <div className="item-content-bundle">
+            <h2 className="item-content_header">Bundle content</h2>
             <hr />
-            <div class="bundle_description">
+            <div className="bundle_description">
               {product.items.map((item, index) => {
                 return <Bundle key={index} item={item} />
               })}
             </div>
           </div>
-          <div class="item-content_details">
-            <h2 class="item-content_header">Details</h2>
+          <div className="item-content_details">
+            <h2 className="item-content_header">Details</h2>
             <hr />
-            <p class="item-content_description">{product.description}</p>
-            <div class="item-content_slider">
+            <p className="item-content_description">{product.description}</p>
+            <div className="item-content_slider">
               <div id="preview">
-                <div class="img_tooltip">View tank images</div>
-                <img id="imgSlider" class="imgSlider" src={gallery[0]} />
+                <div className="img_tooltip">View tank images</div>
+                <img id="imgSlider" className="imgSlider" src={gallery[0]} />
+              </div>
+              <div class="imageView"></div>
+              <div id="slider">
+                <div id="prev-btn"></div>
+                <div id="next-btn"></div>
               </div>
             </div>
           </div>

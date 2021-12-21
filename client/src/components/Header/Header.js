@@ -16,14 +16,14 @@ class Header extends Component {
 
           <ul className="header_menu">
             <li className="header_menu_item">
-              <Link href="/wishlist" classNameName="wish">
+              <Link href="/wishlist" className="wish">
                 <span className="text">Wishlist</span>
                 <span className="index">({this.props.wishlistLength})</span>
               </Link>
             </li>
             <li className="header_menu_item">
               <Link href="/shopping-cart" className="cart">
-                <span className="text">Shopping card</span>
+                <span className="text">Shopping cart</span>
                 <span className="index">({this.props.shoppingCartLength})</span>
               </Link>
             </li>

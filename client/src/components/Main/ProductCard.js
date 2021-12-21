@@ -17,7 +17,7 @@ class ProductCard extends Component {
   handleChangeCheckBox = (e) => {
     // debugger
     const productId = this.props.card.id
-    console.log(e.target.checked)
+
     e.target.checked
       ? dispatch(addProductInWishlist(productId))
       : dispatch(deleteProductInWishlist(productId))
@@ -31,15 +31,31 @@ class ProductCard extends Component {
 
   render() {
     // console.log(this.props.card)
-    const { image, name, price, id, typeProduct } = this.props.card
+    let { image, name, price, id, typeProduct, discPer, discValue } =
+      this.props.card
     const tank = typeProduct.find((product) => product.item_type === 'vehicle')
     const { currentCurs, nations, tiers, typesVichels } =
       this.props.additionally
 
     // const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
-    const CurrentPrice = countPrice(price, currentCurs)
 
     const isProductInWishlist = this.props.wishlist.includes(id)
+
+    // let CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+
+    let oldPrice
+    let currentPrice
+
+    if (discPer !== 0 || discValue !== 0) {
+      oldPrice = countPrice(price, currentCurs)
+
+      discPer = discPer / 100 || 1
+      // debugger
+      currentPrice = countPrice(price - (price * discPer - discValue))
+      // console.log(oldPrice, '!!!!', currentPrice)
+    } else {
+      currentPrice = countPrice(price, currentCurs)
+    }
 
     return (
       <article className="item">
@@ -78,10 +94,14 @@ class ProductCard extends Component {
               <h2>{name}</h2>
             )}
           </div>
-          <span className="price">
-            {CurrentPrice}
-            {/* {currentCurs.sign} {CurrentPrice} */}
-          </span>
+          <div className="price">
+            {oldPrice != undefined ? (
+              <span class="price_old">{oldPrice}</span>
+            ) : (
+              ''
+            )}
+            <span class="price">{currentPrice}</span>
+          </div>
           <ButtonAddProductInCart id={id} className="purchase" />
         </div>
       </article>

@@ -26,7 +26,7 @@ class Main extends Component {
   getProductsFetch() {
     UsersAPI.getAllProduct().then(
       ({ products, items, tiers, types, nations, currentCurs }) => {
-        console.log('main products', products, items)
+        // console.log('main products', products, items)
         // this.getItemsFetch ()
         dispatch(addProducts({ products, items }))
         dispatch(
@@ -69,7 +69,7 @@ class Main extends Component {
     ) {
       // this.setState({ ...this.state, isFetching: true })
       this.dynamicAddProducts()
-      console.log('fething')
+      // console.log('fething')
     }
   }
 
@@ -101,6 +101,30 @@ class Main extends Component {
 
   componentWillUnmount() {
     document.removeEventListener('scroll', this.scrollHandler)
+  }
+
+  addToCart = (id) => {
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || []
+    if (cartItems.includes(id)) {
+      let index = cartItems.indexOf(id)
+      cartItems.splice(index, 1)
+    } else {
+      cartItems.push(id)
+    }
+    localStorage.setItem('cart', JSON.stringify(cartItems))
+    this.setState({ ...this.state })
+  }
+
+  addToWishlist = (id) => {
+    let cartItems = JSON.parse(localStorage.getItem('wishlist')) || []
+    if (cartItems.includes(id)) {
+      let index = cartItems.indexOf(id)
+      cartItems.splice(index, 1)
+    } else {
+      cartItems.push(id)
+    }
+    localStorage.setItem('wishlist', JSON.stringify(cartItems))
+    this.setState({ ...this.state })
   }
 
   render() {

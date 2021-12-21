@@ -33,7 +33,7 @@ export const addProducts = ({ products, items }) => {
   const typeProductsAll = {}
   items.forEach((item) => (typeProductsAll[item.id] = item))
 
-  const arrayActiveProducts = products.filter((product) => {
+  let arrayActiveProducts = products.filter((product) => {
     if (product.isActive) {
       product.typeProduct = Object.keys(product.items).map(
         (itemId) => typeProductsAll[itemId]
@@ -41,6 +41,8 @@ export const addProducts = ({ products, items }) => {
       return product
     }
   })
+
+  arrayActiveProducts = arrayActiveProducts.sort((a, b) => b - a)
 
   return {
     type: ADD_PRODUCTS,

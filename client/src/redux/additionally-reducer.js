@@ -1,4 +1,5 @@
 const GET_ADDITIONALLY = 'GET_ADDITIONALLY'
+const SET_CURRENT_CURS = 'SET_CURRENT_CURS'
 
 const initialState = {
   currentCurs: {},
@@ -9,6 +10,9 @@ const initialState = {
 
 const additionallyReducer = (state = initialState, action = {}) => {
   switch (action.type) {
+    case SET_CURRENT_CURS: {
+      return { ...state, currentCurs: action.currentCurs }
+    }
     case GET_ADDITIONALLY: {
       return {
         currentCurs: action.currentCurs,
@@ -21,6 +25,10 @@ const additionallyReducer = (state = initialState, action = {}) => {
     default:
       return state
   }
+}
+
+export const setCurrentCur = (currentCurs) => {
+  return { type: SET_CURRENT_CURS, currentCurs }
 }
 
 export const getAdditionally = ({

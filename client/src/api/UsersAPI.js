@@ -20,7 +20,8 @@ class UsepsAPI extends REST {
     let currentCur = await this.getCurrentCur()
     if (currentCur.name !== 'USD') {
       product.price = (
-        Number(currentCur.multiplier) * Number(product.price)
+        Math.ceil(Number(currentCur.multiplier) * Number(product.price) * 100) /
+        100
       ).toFixed(2)
       product.sign = currentCur.sign
     } else {
@@ -49,6 +50,13 @@ class UsepsAPI extends REST {
 
     return data
   }
+
+  // async getProductById(id) {
+  //   let product = await this.getProductWithItem(id)
+  //   let currentCur = await this.getCurrentCur()
+
+  //   return { currentCur, product }
+  // }
 
   getProductWithItem(id) {
     return this.get(`products_items/${id}`)

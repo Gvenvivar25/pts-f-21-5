@@ -1,3 +1,4 @@
+import { countPrice } from '../../middleware/countPrice'
 import { Link } from '../../react/react'
 import { Component } from '/react/newVersion/Component'
 
@@ -19,14 +20,12 @@ class CartItem extends Component {
               {product.name}
             </a>
           </h3>
-          <span class="cart_price">
-            {product.sign} {product.price}
-          </span>
+          <span class="cart_price">{countPrice(product.price)}</span>
           <button
             onClick={() => this.props.deleteItem(product.id)}
             class="cart_remove"
           >
-            remove
+            Remove
           </button>
         </div>
       </li>

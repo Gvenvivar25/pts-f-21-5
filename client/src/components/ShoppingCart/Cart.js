@@ -8,13 +8,13 @@ class Cart extends Component {
   }
 
   render() {
-    let items = this.props.data
+    const items = this.props.data
     return (
       <div>
         <h2 class="heading_cart">YOUR SHOPPING CART</h2>
         <ul class="cart_list">
           {items.length !== 0 ? (
-            items.map(({ product }) => {
+            items.map((product) => {
               return (
                 <CartItem
                   deleteItem={this.props.deleteItem}
@@ -28,7 +28,8 @@ class Cart extends Component {
         </ul>
         {items.length !== 0 ? (
           <div class="buying">
-            <button class="proceed_bt">proceed to pay</button>
+            <h2 className="subtotal">Total price {this.props.totalPrice}</h2>
+            <button class="proceed_bt">Proceed to pay</button>
           </div>
         ) : (
           ''

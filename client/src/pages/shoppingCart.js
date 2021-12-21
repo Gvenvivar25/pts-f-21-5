@@ -7,6 +7,8 @@ import {
 } from '../redux/shoppingCart-reducer'
 import { dispatch } from '../redux/redux-store'
 import { getShoppingCart } from '../redux/shoppingCart-selectors'
+import { countPrice, countPriceWithoutSing } from '../middleware/countPrice'
+import { setCurrentCur } from '../redux/additionally-reducer'
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -14,22 +16,29 @@ class ShoppingCart extends Component {
     this.state = {
       isReady: false,
       shoppingCartProducts: [],
+      totalPrice: 0,
     }
   }
 
   componentDidMount() {
     dispatch(setAllShoppingCart())
     let shoppingCartIDs = getShoppingCart()
-    console.log('shoppingCartIDs', shoppingCartIDs)
+
     if (shoppingCartIDs.length === 0) {
       this.setState({ ...this.state, isReady: true })
     } else {
+      UsersAPI.getCurrentCur().then((currentCur) =>
+        dispatch(setCurrentCur(currentCur))
+      )
+
       shoppingCartIDs.map((id) => {
-        UsersAPI.getAllProductItem(id).then((item) => {
+        UsersAPI.getProductWithItem(id).then((product) => {
           this.setState({
             ...this.state,
             isReady: true,
-            shoppingCartProducts: [...this.state.shoppingCartProducts, item],
+            shoppingCartProducts: [...this.state.shoppingCartProducts, product],
+            totalPrice:
+              this.state.totalPrice + countPriceWithoutSing(product.price),
           })
         })
       })
@@ -58,17 +67,22 @@ class ShoppingCart extends Component {
   handlerDeleteItem = (id) => {
     dispatch(deleteProductInShoppingCart(id))
     const deleteProductInState = this.state.shoppingCartProducts.filter(
-      ({ product }) => product.id !== id
+      (product) => product.id !== id
+    )
+    let newTotalPrice = 0
+    deleteProductInState.forEach(
+      (product) => (newTotalPrice += countPriceWithoutSing(product.price))
     )
 
     this.setState({
       ...this.state,
       shoppingCartProducts: deleteProductInState,
+      totalPrice: newTotalPrice,
     })
   }
 
   render() {
-    let shoppingCartProducts = this.state.shoppingCartProducts
+    const { shoppingCartProducts, totalPrice } = this.state
 
     return (
       <div class="container_item">
@@ -76,6 +90,7 @@ class ShoppingCart extends Component {
           <Cart
             deleteItem={this.handlerDeleteItem}
             data={shoppingCartProducts}
+            totalPrice={countPrice(totalPrice)}
           />
         ) : (
           'Loading...'

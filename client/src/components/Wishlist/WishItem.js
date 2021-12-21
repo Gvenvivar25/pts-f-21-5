@@ -36,7 +36,7 @@ class WishItem extends Component {
             }}
             className="wish_remove"
           >
-            remove
+            Remove
           </button>
         </div>
       </li>

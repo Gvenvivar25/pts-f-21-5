@@ -1,3 +1,4 @@
+import { countPrice } from '../../middleware/countPrice'
 import { Link } from '../../react/react'
 import { dispatch } from '../../redux/redux-store'
 import {
@@ -35,7 +36,8 @@ class ProductCard extends Component {
     const { currentCurs, nations, tiers, typesVichels } =
       this.props.additionally
 
-    const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+    // const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+    const CurrentPrice = countPrice(price, currentCurs)
 
     const isProductInWishlist = this.props.wishlist.includes(id)
 
@@ -77,7 +79,8 @@ class ProductCard extends Component {
             )}
           </div>
           <span className="price">
-            {currentCurs.sign} {CurrentPrice}
+            {CurrentPrice}
+            {/* {currentCurs.sign} {CurrentPrice} */}
           </span>
           <ButtonAddProductInCart id={id} className="purchase" />
           {/* <button className="purchase">PURSHACE</button> */}

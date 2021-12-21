@@ -1,9 +1,21 @@
+import { dispatch } from '../../redux/redux-store'
+import {
+  addProductInWishlist,
+  deleteProductInWishlist,
+} from '../../redux/wishlist-reducer'
 import { Component } from '/react/newVersion/Component'
 //import UsersAPI from '../api/UsersAPI'
 
 class ProductCard extends Component {
   componentDidUpdate() {
     // debugger
+  }
+
+  handleChangeCheckBox = (e) => {
+    const productId = this.props.card.id
+    e.target.checked
+      ? dispatch(addProductInWishlist(productId))
+      : dispatch(deleteProductInWishlist(productId))
   }
 
   render() {
@@ -17,7 +29,12 @@ class ProductCard extends Component {
 
     return (
       <article class="item">
-        <input class="checkbox_input" id={id} type="checkbox" />
+        <input
+          class="checkbox_input"
+          id={id}
+          type="checkbox"
+          onChange={this.handleChangeCheckBox}
+        />
         <label class="checkbox_label" for={id}></label>
         <a href={`/product?id=${id}`}>
           <img class="pictureItem" src={image} alt={name} />
@@ -29,17 +46,17 @@ class ProductCard extends Component {
                 <span
                   className={'flag'}
                   style={{
-                    backgroundImage: `url(${nations[tank.nation].icon})`,
+                    backgroundImage: `url(${nations[tank.nation]?.icon})`,
                   }}
                 ></span>
                 <span
                   className={'type'}
                   style={{
-                    backgroundImage: `url(${typesVichels[tank.type].icon})`,
+                    backgroundImage: `url(${typesVichels[tank.type]?.icon})`,
                   }}
                 ></span>
                 <h2>
-                  {tiers[tank.tier].name} {name}
+                  {tiers[tank.tier]?.name} {name}
                 </h2>
               </>
             ) : (

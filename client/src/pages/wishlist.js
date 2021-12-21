@@ -1,5 +1,7 @@
 import UsersAPI from '../api/UsersAPI'
 import Wishlist from '../components/Wishlist/Wishlist'
+import { getWishlist } from '../redux/wishlist-selectors'
+import { deleteProductInWishlist } from '../redux/wishlist-reducer'
 import { Component } from '/react/newVersion/Component'
 
 class WishlistPage extends Component {
@@ -7,49 +9,62 @@ class WishlistPage extends Component {
     super(props)
     this.state = {
       isReady: false,
-      data: null,
+      wishlistProducts: [],
     }
   }
-
 
   componentDidMount() {
-    
     // localStorage.setItem('wishlist',JSON.stringify([ '0vtIPnLFTs4Z7csA2DvE','16JGq0nLSTmoDPNwYH0A']))
-    let wishlistIDs = JSON.parse(localStorage.getItem('wishlist')) || []
-    let dataItems=[]
-
-    wishlistIDs.map((id)=>{
-      UsersAPI.getAllProductItem(id).then((data) => {
-        dataItems.push(data)
-        this.setState({ ...this.state, isReady: true, data: dataItems })
-      })
-    })
-
-    if(wishlistIDs.length===0){
+    let wishlistIDs = getWishlist()
+    console.log('wishlistIDs', wishlistIDs)
+    if (wishlistIDs.length === 0) {
       this.setState({ ...this.state, isReady: true })
+    } else {
+      wishlistIDs.map((id) => {
+        UsersAPI.getAllProductItem(id).then((item) => {
+          this.setState({
+            ...this.state,
+            isReady: true,
+            wishlistProducts: [...this.state.wishlistProducts, item],
+          })
+        })
+      })
     }
-
   }
 
-  handlerDeleteItem=(id)=>{
-    this.setState({ ...this.state, data: this.state.data.filter(({product})=>product.id!==id)})
-    const productsId = this.state.data.map(({product})=>product.id)
-    localStorage.setItem('wishlist', JSON.stringify(productsId))
+  handlerDeleteItem = (id) => {
+    deleteProductInWishlist(id)
+    const deleteProductInState = this.state.wishlistProducts.filter(
+      ({ product }) => product.id !== id
+    )
+
+    this.setState({
+      ...this.state,
+      data: deleteProductInState,
+    })
   }
 
-  addInCart=(id)=>{
-    let newCart=JSON.parse(localStorage.getItem('cart'))
+  addInCart = (id) => {
+    let newCart = JSON.parse(localStorage.getItem('cart'))
     newCart.push(id)
-    localStorage.setItem('cart', JSON.stringify(newCart)) 
-    this.setState({ ...this.state, data: this.state.data})
+    localStorage.setItem('cart', JSON.stringify(newCart))
+    this.setState({ ...this.state, data: this.state.data })
   }
 
   render() {
-    let items= this.state.data
-
+    let wishlistProducts = this.state.wishlistProducts
+    console.log(wishlistProducts)
     return (
       <div class="container_item">
-        {this.state.isReady ? <Wishlist addInCart={this.addInCart} deleteItem={this.handlerDeleteItem} data={items} /> : 'Loading...'}
+        {this.state.isReady ? (
+          <Wishlist
+            addInCart={this.addInCart}
+            deleteItem={this.handlerDeleteItem}
+            data={wishlistProducts}
+          />
+        ) : (
+          'Loading...'
+        )}
       </div>
     )
   }

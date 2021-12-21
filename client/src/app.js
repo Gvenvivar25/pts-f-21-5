@@ -10,9 +10,16 @@ import Main from './pages/main'
 import Wishlist from './pages/wishlist'
 import ShoppingCard from './pages/shoppingCard'
 import ProductPage from './pages/productPage'
+import { setAllWishlist } from './redux/wishlist-reducer'
+import { dispatch } from './redux/redux-store'
 // import vehiclesType from '/client/src/modules/main/VehiclesType/vehiclesType'
 
 class App extends Component {
+  componentDidMount() {
+    // debugger
+    dispatch(setAllWishlist())
+  }
+
   render() {
     return (
       <div className="wrapper">

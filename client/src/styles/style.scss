@@ -257,6 +257,7 @@ h1:before {
   top: 25px;
   right: 25px;
   cursor: pointer;
+  z-index: 10;
 }
 @media (max-width: 480px) {
   .checkbox_label::before {
@@ -279,6 +280,8 @@ h1:before {
   display: none;
   top: 25px;
   right: 25px;
+  cursor: pointer;
+  z-index: 10;
 }
 @media (max-width: 480px) {
   .checkbox_label::after {
@@ -320,6 +323,7 @@ h1:before {
   position: relative;
   background-color: rgba(0, 0, 0, 0.22);
   padding-bottom: 100%;
+  z-index: 10;
 }
 @media (hover: hover) {
   .item:hover {
@@ -368,6 +372,7 @@ img.heart {
   margin: 0 auto;
   top: 50%;
   transform: translate(7.5%, -50%);
+  z-index: -10;
 }
 
 button.purchase {

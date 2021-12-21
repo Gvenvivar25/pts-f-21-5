@@ -18,7 +18,7 @@ class Header extends Component {
             <li className="header_menu_item">
               <Link href="/wishlist" classNameName="wish">
                 <span className="text">Wishlist</span>
-                <span className="index">(0)</span>
+                <span className="index">({this.props.wishlistLength})</span>
               </Link>
             </li>
             <li className="header_menu_item">

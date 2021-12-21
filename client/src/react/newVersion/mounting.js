@@ -37,7 +37,11 @@ const mountVElement = (vElement, container) => {
       domNode.addEventListener(type, value)
     } else {
       if (value) {
-        domNode.setAttribute(name, value.toString())
+        if (name === 'defaultChecked') {
+          domNode.setAttribute('checked', value.toString())
+        } else {
+          domNode.setAttribute(name, value.toString())
+        }
       }
     }
   })

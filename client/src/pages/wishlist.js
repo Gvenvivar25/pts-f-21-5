@@ -1,8 +1,12 @@
 import UsersAPI from '../api/UsersAPI'
 import Wishlist from '../components/Wishlist/Wishlist'
 import { getWishlist } from '../redux/wishlist-selectors'
-import { deleteProductInWishlist } from '../redux/wishlist-reducer'
+import {
+  deleteProductInWishlist,
+  setAllWishlist,
+} from '../redux/wishlist-reducer'
 import { Component } from '/react/newVersion/Component'
+import { dispatch } from '../redux/redux-store'
 
 class WishlistPage extends Component {
   constructor(props) {
@@ -14,7 +18,9 @@ class WishlistPage extends Component {
   }
 
   componentDidMount() {
+    // debugger
     // localStorage.setItem('wishlist',JSON.stringify([ '0vtIPnLFTs4Z7csA2DvE','16JGq0nLSTmoDPNwYH0A']))
+    dispatch(setAllWishlist())
     let wishlistIDs = getWishlist()
     console.log('wishlistIDs', wishlistIDs)
     if (wishlistIDs.length === 0) {
@@ -33,14 +39,14 @@ class WishlistPage extends Component {
   }
 
   handlerDeleteItem = (id) => {
-    deleteProductInWishlist(id)
+    dispatch(deleteProductInWishlist(id))
     const deleteProductInState = this.state.wishlistProducts.filter(
       ({ product }) => product.id !== id
     )
 
     this.setState({
       ...this.state,
-      data: deleteProductInState,
+      wishlistProducts: deleteProductInState,
     })
   }
 
@@ -53,7 +59,7 @@ class WishlistPage extends Component {
 
   render() {
     let wishlistProducts = this.state.wishlistProducts
-    console.log(wishlistProducts)
+    // console.log(wishlistProducts)
     return (
       <div class="container_item">
         {this.state.isReady ? (

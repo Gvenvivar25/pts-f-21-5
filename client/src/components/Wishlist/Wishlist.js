@@ -6,24 +6,23 @@ class Wishlist extends Component {
   constructor(props) {
     super(props)
   }
-
   render() {
     let items = this.props.data
-
+    // debugger
     return (
       <div>
-        <h2 class="heading_wish">YOUR WISHLIST</h2>
-        <ul class="wish_list">
+        <h2 className="heading_wish">YOUR WISHLIST</h2>
+        <ul className="wish_list">
           {items.length !== 0 ? (
-            items.map((elem) => (
+            items.map(({ product }) => (
               <WishItem
                 addInCart={this.props.addInCart}
                 deleteItem={this.props.deleteItem}
-                data={elem}
+                product={product}
               />
             ))
           ) : (
-            <h2 class="empty_list">YOUR WISHLIST IS EMPTY</h2>
+            <h2 className="empty_list">YOUR WISHLIST IS EMPTY</h2>
           )}
         </ul>
       </div>

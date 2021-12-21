@@ -1,3 +1,4 @@
+import { Link } from '../../react/react'
 import { dispatch } from '../../redux/redux-store'
 import {
   addProductInWishlist,
@@ -12,10 +13,18 @@ class ProductCard extends Component {
   }
 
   handleChangeCheckBox = (e) => {
+    // debugger
     const productId = this.props.card.id
+    console.log(e.target.checked)
     e.target.checked
       ? dispatch(addProductInWishlist(productId))
       : dispatch(deleteProductInWishlist(productId))
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (nextProps !== this.props) {
+      return true
+    }
   }
 
   render() {
@@ -24,23 +33,26 @@ class ProductCard extends Component {
     const tank = typeProduct.find((product) => product.item_type === 'vehicle')
     const { currentCurs, nations, tiers, typesVichels } =
       this.props.additionally
-    // debugger
+
     const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
 
+    const isProductInWishlist = this.props.wishlist.includes(id)
+
     return (
-      <article class="item">
+      <article className="item">
         <input
-          class="checkbox_input"
+          className="checkbox_input"
           id={id}
           type="checkbox"
+          defaultChecked={isProductInWishlist}
           onChange={this.handleChangeCheckBox}
         />
-        <label class="checkbox_label" for={id}></label>
-        <a href={`/product?id=${id}`}>
-          <img class="pictureItem" src={image} alt={name} />
-        </a>
+        <label className="checkbox_label" for={id}></label>
+        <Link href={`/product?id=${id}`}>
+          <img className="pictureItem" src={image} alt={name} />
+        </Link>
         <div className="item_conteiner">
-          <div class="description">
+          <div className="description">
             {tank ? (
               <>
                 <span
@@ -63,10 +75,10 @@ class ProductCard extends Component {
               <h2>{name}</h2>
             )}
           </div>
-          <span class="price">
+          <span className="price">
             {currentCurs.sign} {CurrentPrice}
           </span>
-          <button class="purchase">PURSHACE</button>
+          <button className="purchase">PURSHACE</button>
         </div>
       </article>
     )

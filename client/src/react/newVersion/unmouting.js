@@ -1,17 +1,21 @@
 export const unmount = (prevElement, container) => {
   // debugger
-  if (typeof prevElement === 'string') {
-    container.textContent = container.textContent.replace(prevElement, '')
+  if (Array.isArray(prevElement)) {
+    prevElement.forEach((element) => unmount(element, container))
   } else {
-    if (prevElement?.tag && typeof prevElement.tag === 'function') {
-      removeEventListener(prevElement?._instance?._currentElement)
-      prevElement._instance?.componentWillUnmount()
+    if (typeof prevElement === 'string') {
+      container.textContent = container.textContent.replace(prevElement, '')
     } else {
-      removeEventListener(prevElement)
-      prevElement.componentWillUnmount && prevElement.componentWillUnmount()
-    }
+      if (prevElement?.tag && typeof prevElement.tag === 'function') {
+        removeEventListener(prevElement?._instance?._currentElement)
+        prevElement._instance?.componentWillUnmount()
+      } else {
+        removeEventListener(prevElement)
+        prevElement.componentWillUnmount && prevElement.componentWillUnmount()
+      }
 
-    prevElement.dom.remove()
+      prevElement.dom.remove()
+    }
   }
 }
 

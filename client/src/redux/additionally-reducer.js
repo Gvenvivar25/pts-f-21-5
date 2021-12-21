@@ -33,7 +33,11 @@ export const getAdditionally = ({
   tiers.forEach((item) => (objectTiers[item.id] = item))
 
   const objectNations = {}
-  nations.forEach((item) => (objectNations[item.id] = item))
+  nations.forEach((item) => {
+    item.id
+      ? (objectNations[item.id] = item)
+      : (objectNations[item.name] = item)
+  })
   // debugger
 
   const objectTypesVichels = {}

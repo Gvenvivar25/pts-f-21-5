@@ -7,6 +7,7 @@ import ProductCard from '../components/Main/ProductCard'
 import { getDynamicProducts } from '../redux/main-selectors'
 import { getAdditionally } from '../redux/additionally-reducer'
 import { getAdditionallyAll } from '../redux/additionally-selectors'
+import { getWishlist } from '../redux/wishlist-selectors'
 
 class Main extends Component {
   constructor(props) {
@@ -107,7 +108,11 @@ class Main extends Component {
       <div className="grid">
         {this.state.isReady
           ? this.state.dynamicListProducts.map((product) => (
-              <ProductCard card={product} additionally={getAdditionallyAll()} />
+              <ProductCard
+                card={product}
+                additionally={getAdditionallyAll()}
+                wishlist={getWishlist()}
+              />
             ))
           : 'Loading...'}
       </div>

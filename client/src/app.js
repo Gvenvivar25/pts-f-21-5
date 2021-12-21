@@ -11,19 +11,32 @@ import Wishlist from './pages/wishlist'
 import ShoppingCard from './pages/shoppingCard'
 import ProductPage from './pages/productPage'
 import { setAllWishlist } from './redux/wishlist-reducer'
-import { dispatch } from './redux/redux-store'
+import { dispatch, subscriberStore } from './redux/redux-store'
+import { getWishlist } from './redux/wishlist-selectors'
 // import vehiclesType from '/client/src/modules/main/VehiclesType/vehiclesType'
 
 class App extends Component {
+  // constructor(props) {
+  //   super(props)
+  //   this.state = {
+  //     wishlistLength: getWishlist().length,
+  //   }
+  // }
+
   componentDidMount() {
+    subscriberStore.push(this.updateCopmonent.bind(this))
     // debugger
     dispatch(setAllWishlist())
   }
 
+  // componentDidUpdate() {
+  //   console.log('UPDATE APP', getWishlist().length)
+  // }
+
   render() {
     return (
       <div className="wrapper">
-        <Header />
+        <Header wishlistLength={getWishlist().length} />
         <Menu />
         <main>
           <Router>

@@ -18,13 +18,13 @@ class Header extends Component {
             <li className="header_menu_item">
               <Link href="/wishlist" classNameName="wish">
                 <span className="text">Wishlist</span>
-                <span className="index">(0)</span>
+                <span className="index">({JSON.parse(localStorage.getItem('wishlist')).length})</span>
               </Link>
             </li>
             <li className="header_menu_item">
               <Link href="/shopping-card" className="cart">
                 <span className="text">Shopping card</span>
-                <span className="index">(0)</span>
+                <span className="index">({JSON.parse(localStorage.getItem('cart')).length})</span>
               </Link>
             </li>
             <li className="header_menu_item">

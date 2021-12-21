@@ -102,12 +102,35 @@ class Main extends Component {
     document.removeEventListener('scroll', this.scrollHandler)
   }
 
+
+  addToCart=(id)=>{
+    let cartItems=JSON.parse(localStorage.getItem('cart')) || []
+    if (cartItems.includes(id)) {
+      let index=cartItems.indexOf(id)
+      cartItems.splice(index,1)
+    }
+    else{
+      cartItems.push(id)
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cartItems))
+
+    console.log('!!!!!!!!!!!!!!!!!');
+// console.log(PointerEvent.target);
+// console.log(document.getElementsByClassName("purchase"));
+
+
+this.setState({ ...this.state, })
+  }
+
+
+
   render() {
     return (
       <div className="grid">
         {this.state.isReady
           ? this.state.dynamicListProducts.map((product) => (
-              <ProductCard card={product} additionally={getAdditionallyAll()} />
+              <ProductCard card={product} additionally={getAdditionallyAll()}  addToCart={this.addToCart} />
             ))
           : 'Loading...'}
       </div>

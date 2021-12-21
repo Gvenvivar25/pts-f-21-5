@@ -49,8 +49,8 @@ class ProductCard extends Component {
           <span class="price">
             {currentCurs.sign} {CurrentPrice}
           </span>
-          <button class="purchase">PURSHACE</button>
         </div>
+        {JSON.parse(localStorage.getItem('cart')).includes(id)? <button onClick={()=>this.props.addToCart(id)} class="purchase animate" >IN CART</button>: <button onClick={()=>this.props.addToCart(id)} class="purchase"  >PURSHACE</button>}
       </article>
     )
   }

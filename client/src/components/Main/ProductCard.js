@@ -17,7 +17,7 @@ class ProductCard extends Component {
 
     return (
       <article class="item">
-        <input class="checkbox_input" id={id} type="checkbox" />
+        {JSON.parse(localStorage.getItem('wishlist')).includes(id) ? <input class="checkbox_input" id={id} type="checkbox" onClick={() => this.props.addToWishlist(id)} checked /> : <input class="checkbox_input" id={id} type="checkbox" onClick={() => this.props.addToWishlist(id)} />}
         <label class="checkbox_label" for={id}></label>
         <a href={`/product?id=${id}`}>
           <img class="pictureItem" src={image} alt={name} />
@@ -50,7 +50,7 @@ class ProductCard extends Component {
             {currentCurs.sign} {CurrentPrice}
           </span>
         </div>
-        {JSON.parse(localStorage.getItem('cart')).includes(id)? <button onClick={()=>this.props.addToCart(id)} class="purchase animate" >IN CART</button>: <button onClick={()=>this.props.addToCart(id)} class="purchase"  >PURSHACE</button>}
+        {JSON.parse(localStorage.getItem('cart')).includes(id) ? <button onClick={() => this.props.addToCart(id)} class="purchase animate" >IN CART</button> : <button onClick={() => this.props.addToCart(id)} class="purchase"  >PURSHACE</button>}
       </article>
     )
   }

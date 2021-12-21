@@ -103,24 +103,31 @@ class Main extends Component {
   }
 
 
-  addToCart=(id)=>{
-    let cartItems=JSON.parse(localStorage.getItem('cart')) || []
+  addToCart = (id) => {
+    let cartItems = JSON.parse(localStorage.getItem('cart')) || []
     if (cartItems.includes(id)) {
-      let index=cartItems.indexOf(id)
-      cartItems.splice(index,1)
+      let index = cartItems.indexOf(id)
+      cartItems.splice(index, 1)
     }
-    else{
+    else {
       cartItems.push(id)
     }
-
     localStorage.setItem('cart', JSON.stringify(cartItems))
-
-    console.log('!!!!!!!!!!!!!!!!!');
-// console.log(PointerEvent.target);
-// console.log(document.getElementsByClassName("purchase"));
+    this.setState({ ...this.state, })
+  }
 
 
-this.setState({ ...this.state, })
+  addToWishlist = (id) =>{
+    let cartItems = JSON.parse(localStorage.getItem('wishlist')) || []
+    if (cartItems.includes(id)) {
+      let index = cartItems.indexOf(id)
+      cartItems.splice(index, 1)
+    }
+    else {
+      cartItems.push(id)
+    }
+    localStorage.setItem('wishlist', JSON.stringify(cartItems))
+    this.setState({ ...this.state, })
   }
 
 
@@ -130,7 +137,7 @@ this.setState({ ...this.state, })
       <div className="grid">
         {this.state.isReady
           ? this.state.dynamicListProducts.map((product) => (
-              <ProductCard card={product} additionally={getAdditionallyAll()}  addToCart={this.addToCart} />
+              <ProductCard card={product} additionally={getAdditionallyAll()}  addToCart={this.addToCart} addToWishlist={this.addToWishlist} />
             ))
           : 'Loading...'}
       </div>

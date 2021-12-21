@@ -31,7 +31,8 @@ class ProductCard extends Component {
 
   render() {
     // console.log(this.props.card)
-    const { image, name, price, id, typeProduct } = this.props.card
+    let { image, name, price, id, typeProduct, discPer, discValue } =
+      this.props.card
     const tank = typeProduct.find((product) => product.item_type === 'vehicle')
     const { currentCurs, nations, tiers, typesVichels } =
       this.props.additionally
@@ -40,6 +41,15 @@ class ProductCard extends Component {
     const CurrentPrice = countPrice(price, currentCurs)
 
     const isProductInWishlist = this.props.wishlist.includes(id)
+
+    // let CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
+
+    // let oldPrice
+    // if (discPer !== 0 || discValue !== 0) {
+    //   oldPrice = CurrentPrice
+    //   CurrentPrice = (CurrentPrice - (CurrentPrice * discPer) / 100 - discValue).toFixed(2)
+    //   console.log(oldPrice,'!!!!',CurrentPrice);
+    // }
 
     return (
       <article className="item">
@@ -78,11 +88,19 @@ class ProductCard extends Component {
               <h2>{name}</h2>
             )}
           </div>
-          <span className="price">
-            {CurrentPrice}
-            {/* {currentCurs.sign} {CurrentPrice} */}
-          </span>
-          <ButtonAddProductInCart id={id} className="purchase" />
+          <div className="price">
+            {'oldPrice' !== undefined ? (
+              <span class="price_old">
+                {currentCurs.sign} {'oldPrice'}{' '}
+              </span>
+            ) : (
+              ''
+            )}
+            <span class="price">
+              {currentCurs.sign} {CurrentPrice}
+            </span>
+          </div>
+          <ButtonAddProductInCart id={id} className="purchase animate" />
         </div>
       </article>
     )

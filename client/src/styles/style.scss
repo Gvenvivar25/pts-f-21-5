@@ -62,11 +62,13 @@ h1 {
     font-size: 12px;
   }
 }
-h1:before {
-  display: flex;
-  align-items: center;
-  content: url(../public/img/logo.png);
-  margin-right: 10px;
+.header_content {
+  h1:before {
+    display: flex;
+    align-items: center;
+    content: url(../public/img/logo.png);
+    margin-right: 10px;
+}
 }
 
 .header_menu {

@@ -26,7 +26,7 @@ class Main extends Component {
   getProductsFetch() {
     UsersAPI.getAllProduct().then(
       ({ products, items, tiers, types, nations, currentCurs }) => {
-        console.log('main products', products, items)
+        // console.log('main products', products, items)
         // this.getItemsFetch ()
         dispatch(addProducts({ products, items }))
         dispatch(
@@ -69,7 +69,7 @@ class Main extends Component {
     ) {
       // this.setState({ ...this.state, isFetching: true })
       this.dynamicAddProducts()
-      console.log('fething')
+      // console.log('fething')
     }
   }
 

@@ -391,12 +391,11 @@ img.heart {
   z-index: -10;
 }
 
-.purchase {
-  $fuschia: #e95104;
-  $button-bg: $fuschia;
-  $button-text-color: #fff;
-  $baby-blue: #f8faff;
-}
+$fuschia: #e95104;
+$button-bg: $fuschia;
+$button-text-color: #fff;
+$baby-blue: #f8faff;
+
 @media (hover: none) {
   button.purchase {
     opacity: 1;
@@ -433,8 +432,8 @@ button.purchase {
   transition: 0.4s;
   margin-top: 8px;
   position: absolute;
-  bottom: 14px;
-  left: 16px;
+  // bottom: 14px;
+  // left: 16px;
   -webkit-appearance: none;
   appearance: none;
   background-color: $button-bg;
@@ -566,11 +565,13 @@ button.purchase {
 button.animate {
   box-shadow: none;
 }
-
-a.purchase {
+.purchase a {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  color: $button-text-color;
 }
 
 @media (hover: none) {
@@ -593,7 +594,7 @@ a.purchase {
     height: 40px;
     transition: 0.4s;
   }
-  .item:hover a.purchase {
+  .item:hover .purchase a {
     display: flex;
   }
 }

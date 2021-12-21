@@ -274,7 +274,9 @@ hr {
     flex: 1 1 auto;
   }
 }
-
+.button a {
+  color: $white;
+}
 .button:hover {
   cursor: pointer;
   background-color: $light_orange;

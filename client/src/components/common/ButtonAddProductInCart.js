@@ -11,7 +11,7 @@ class ButtonAddProductInCart extends Component {
 
   handleCLick = () => {
     // debugger
-    console.log('click', this.props.id)
+    // console.log('click', this.props.id)
     dispatch(addProductInShoppingCart(this.props.id))
   }
 
@@ -25,15 +25,18 @@ class ButtonAddProductInCart extends Component {
     // debugger
     return (
       <>
-        {isProductInShoppingCart ? (
-          <Link href="/shopping-cart" className={this.props.className}>
-            In cart
-          </Link>
-        ) : (
-          <button onClick={this.handleCLick} className={this.props.className}>
-            PURSHASE
-          </button>
-        )}
+        <button
+          onClick={this.handleCLick}
+          className={`${this.props.className}${
+            isProductInShoppingCart ? ' animate' : ''
+          }`}
+        >
+          {isProductInShoppingCart ? (
+            <Link href="/shopping-cart">In cart</Link>
+          ) : (
+            'PURSHASE'
+          )}
+        </button>
       </>
     )
   }

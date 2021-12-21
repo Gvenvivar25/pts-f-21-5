@@ -13,7 +13,7 @@ export class NestedApp extends Component {
   // }
 
   componentWillUnmount() {
-    console.log('UNMOUNT:', this.props)
+    // console.log('UNMOUNT:', this.props)
   }
 
   render() {
@@ -39,7 +39,7 @@ export class NestedApp2 extends Component {
   // }
 
   componentWillUnmount() {
-    console.log('UNMOUNT:', this.props)
+    // console.log('UNMOUNT:', this.props)
   }
 
   render() {

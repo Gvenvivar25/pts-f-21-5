@@ -1,6 +1,5 @@
 import './item.scss'
 
-
 //temporary methods to read from firestore
 export async function getProductWithItem(id) {
   const prod = await fetch(`http://localhost:3300/api/products_items/${id}`)
@@ -10,14 +9,17 @@ export async function getProductWithItem(id) {
 export async function getCurrentCur() {
   const currentCur = await fetch(`http://localhost:3300/api/current_cur`)
   return await currentCur.json()
-
 }
 
 export async function getVehicleInfo(item) {
   const tier = await fetch(`http://localhost:3300/api/tiers/${item.tier}`)
   const nation = await fetch(`http://localhost:3300/api/nations/${item.nation}`)
   const type = await fetch(`http://localhost:3300/api/types/${item.type}`)
-  return {tier: await tier.json(), nation: await nation.json(), type: await type.json()}
+  return {
+    tier: await tier.json(),
+    nation: await nation.json(),
+    type: await type.json(),
+  }
 }
 
 export class ProductCard extends HTMLElement {
@@ -31,13 +33,18 @@ export class ProductCard extends HTMLElement {
   // get product data by id from url
   async getProductData(id) {
     this.product = await getProductWithItem(id)
-    if(this.product.discPer !== 0 || this.product.discValue !== 0) {
+    if (this.product.discPer !== 0 || this.product.discValue !== 0) {
       this.oldPrice = this.product.price
-      this.product.price = this.product.price - this.product.price*this.product.discPer/100 - this.product.discValue
+      this.product.price =
+        this.product.price -
+        (this.product.price * this.product.discPer) / 100 -
+        this.product.discValue
     }
-    await getCurrentCur().then(data => {
-      if(data.name !== "USD") {
-        this.product.price = (Number(data.multiplier)*Number(this.product.price)).toFixed(2)
+    await getCurrentCur().then((data) => {
+      if (data.name !== 'USD') {
+        this.product.price = (
+          Number(data.multiplier) * Number(this.product.price)
+        ).toFixed(2)
         this.product.sign = data.sign
       } else {
         this.product.price = this.product.price.toFixed(2)
@@ -45,28 +52,28 @@ export class ProductCard extends HTMLElement {
       }
     })
     const items = this.product.items
-    if(items) {
-      for(let i = 0; i < items.length; i++) {
-        console.log(items[i].item_type)
-        if(items[i].item_type === 'vehicle') {
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        // console.log(items[i].item_type)
 
-          if(items[i].gallery) {
+        if (items[i].item_type === 'vehicle') {
+          if (items[i].gallery) {
             this.gallery.push(...items[i].gallery)
           }
           // get icons of tank nation, type and tier
-          await getVehicleInfo(items[i]).then(data => {
+          await getVehicleInfo(items[i]).then((data) => {
             items[i].tier_name = data.tier.name
             items[i].nation_icon = data.nation.icon
             items[i].type_icon = data.type.icon
-
           })
           // prerender bundle list
           this.bundle += `<li class="description_list_item">
                             <span class="icon" style="background-image:url('${items[i].nation_icon}');">  </span>
                             <span class="icon" style="background-image:url('${items[i].type_icon}');">  </span>
                             <span class="tier"> ${items[i].tier_name}  </span>${items[i].name}</li>`
-          console.log(this.bundle)
-        } else if(items[i].item_type === 'premium') {
+
+          // console.log(this.bundle)
+        } else if (items[i].item_type === 'premium') {
           this.bundle += `<li class="description_list_item">${items[i].value} days of ${items[i].name}</li>`
         } else if (items[i].item_type === 'bonus') {
           this.bundle += `<li class="description_list_item">${items[i].value}x ${items[i].name}</li>`
@@ -85,7 +92,7 @@ export class ProductCard extends HTMLElement {
     const list = document.querySelector('.bundle_description_list')
     list.innerHTML = this.bundle
     const oldPrice = document.querySelector('.product-old-price')
-    if(this.oldPrice !==0) {
+    if (this.oldPrice !== 0) {
       oldPrice.classList.add('show')
     }
     //render slider after page
@@ -101,27 +108,27 @@ export class ProductCard extends HTMLElement {
     const sliderDiv = document.getElementById('slider')
     const imgSlider = document.getElementById('imgSlider')
 
-    imageView.addEventListener('click', function(){
-      this.style.display = "none"
-      sliderDiv.style.display = "none"
+    imageView.addEventListener('click', function () {
+      this.style.display = 'none'
+      sliderDiv.style.display = 'none'
     })
     imgSlider.addEventListener('click', () => {
-      imageView.style.display = "block"
-      sliderDiv.style.display = "block"
+      imageView.style.display = 'block'
+      sliderDiv.style.display = 'block'
       sliderDiv.style.background = `url(${gallery[counter]}) center/cover no-repeat`
     })
 
-    prevBtn.addEventListener('click', function(){
+    prevBtn.addEventListener('click', function () {
       counter--
-      if(counter < 0){
-        counter = gallery.length-1
+      if (counter < 0) {
+        counter = gallery.length - 1
       }
       sliderDiv.style.background = `url(${gallery[counter]}) center/cover no-repeat`
     })
 
-    nextBtn.addEventListener('click', function(){
+    nextBtn.addEventListener('click', function () {
       counter++
-      if(counter > gallery.length-1){
+      if (counter > gallery.length - 1) {
         counter = 0
       }
       sliderDiv.style.background = `url(${gallery[counter]}) center/cover no-repeat`
@@ -129,7 +136,7 @@ export class ProductCard extends HTMLElement {
   }
 
   renderSlider() {
-    const html =  `
+    const html = `
     <div class="imageView"></div>
     <div id="slider">
       <div id = "prev-btn"></div>

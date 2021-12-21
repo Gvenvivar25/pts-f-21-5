@@ -24,7 +24,9 @@ class WishlistPage extends Component {
     dispatch(setAllWishlist())
     dispatch(setAllShoppingCart())
     let wishlistIDs = getWishlist()
-    console.log('wishlistIDs', wishlistIDs)
+
+    // console.log('wishlistIDs', wishlistIDs)
+
     if (wishlistIDs.length === 0) {
       this.setState({ ...this.state, isReady: true })
     } else {

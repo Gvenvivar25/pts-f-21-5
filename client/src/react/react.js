@@ -113,14 +113,17 @@ export class Link extends Component {
 
   render() {
     const { className = '', href, children, classActive = '' } = this.props
+
     let allPathName = router.localPath
-    // debugger
+
     if (router.search) {
       allPathName += router.search
     }
+
     const isActive = allPathName === href
 
     let finallyClassName = className
+
     if (isActive && classActive) {
       finallyClassName += className ? ' ' + classActive : classActive
     }
@@ -152,7 +155,7 @@ export class Route extends Component {
 
   componentDidMount() {
     // debugger
-    console.log(router.localPath)
+    // console.log(router.localPath)
     this.dynamicRoute()
   }
 

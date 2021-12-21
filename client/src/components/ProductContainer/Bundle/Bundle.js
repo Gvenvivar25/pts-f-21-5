@@ -7,7 +7,7 @@ class Bundle extends Component {
 
   render() {
     // debugger
-    console.log('kek', this.props.item.item_type)
+    // console.log('kek', this.props.item.item_type)
 
     const { item_type, nation_icon, type_icon, tier_name, name, value } =
       this.props.item

@@ -17,7 +17,7 @@ class ProductCard extends Component {
   handleChangeCheckBox = (e) => {
     // debugger
     const productId = this.props.card.id
-    console.log(e.target.checked)
+
     e.target.checked
       ? dispatch(addProductInWishlist(productId))
       : dispatch(deleteProductInWishlist(productId))
@@ -38,18 +38,24 @@ class ProductCard extends Component {
       this.props.additionally
 
     // const CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
-    const CurrentPrice = countPrice(price, currentCurs)
 
     const isProductInWishlist = this.props.wishlist.includes(id)
 
     // let CurrentPrice = Number(price * currentCurs.multiplier).toFixed(2)
 
-    // let oldPrice
-    // if (discPer !== 0 || discValue !== 0) {
-    //   oldPrice = CurrentPrice
-    //   CurrentPrice = (CurrentPrice - (CurrentPrice * discPer) / 100 - discValue).toFixed(2)
-    //   console.log(oldPrice,'!!!!',CurrentPrice);
-    // }
+    let oldPrice
+    let currentPrice
+
+    if (discPer !== 0 || discValue !== 0) {
+      oldPrice = countPrice(price, currentCurs)
+
+      discPer = discPer / 100 || 1
+      // debugger
+      currentPrice = countPrice(price - (price * discPer - discValue))
+      // console.log(oldPrice, '!!!!', currentPrice)
+    } else {
+      currentPrice = countPrice(price, currentCurs)
+    }
 
     return (
       <article className="item">
@@ -89,18 +95,14 @@ class ProductCard extends Component {
             )}
           </div>
           <div className="price">
-            {'oldPrice' !== undefined ? (
-              <span class="price_old">
-                {currentCurs.sign} {'oldPrice'}{' '}
-              </span>
+            {oldPrice != undefined ? (
+              <span class="price_old">{oldPrice}</span>
             ) : (
               ''
             )}
-            <span class="price">
-              {currentCurs.sign} {CurrentPrice}
-            </span>
+            <span class="price">{currentPrice}</span>
           </div>
-          <ButtonAddProductInCart id={id} className="purchase animate" />
+          <ButtonAddProductInCart id={id} className="purchase" />
         </div>
       </article>
     )

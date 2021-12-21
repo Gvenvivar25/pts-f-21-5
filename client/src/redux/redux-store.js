@@ -24,7 +24,7 @@ class Store {
 export const subscriberStore = []
 
 const callSubscriber = () => {
-  console.log('State changed')
+  // console.log('State changed')
   // debugger
   for (const item of subscriberStore) {
     item()

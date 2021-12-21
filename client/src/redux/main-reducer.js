@@ -41,8 +41,8 @@ export const addProducts = ({ products, items }) => {
       return product
     }
   })
-
-  arrayActiveProducts = arrayActiveProducts.sort((a, b) => b - a)
+  // debugger
+  arrayActiveProducts = arrayActiveProducts.sort((a, b) => b.weight - a.weight)
 
   return {
     type: ADD_PRODUCTS,

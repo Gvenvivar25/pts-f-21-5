@@ -35,6 +35,7 @@ export class Component {
     this._currentElement = nextElement
 
     update(prevElement, nextElement, this._parentNode)
+    this.componentDidUpdate(prevElement.props, prevState)
   }
 
   setState(newState) {

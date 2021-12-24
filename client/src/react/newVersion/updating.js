@@ -183,6 +183,7 @@ const updateVElement = (prevElement, nextElement) => {
 }
 
 const updateVComponent = (prevComponent, nextComponent) => {
+  // debugger
   const { _instance } = prevComponent
   const { _currentElement } = _instance
 
@@ -200,7 +201,7 @@ const updateVComponent = (prevComponent, nextComponent) => {
   // debugger
   if (_instance.shouldComponentUpdate(prevProps, nextState, prevComponent)) {
     const prevRenderElement = _currentElement
-    _instance.componentDidUpdate(prevProps, _instance.state)
+    _instance.componentDidUpdate(prevProps, nextState)
     const nextRenderElement = _instance.render()
 
     nextComponent._instance._currentElement = nextRenderElement

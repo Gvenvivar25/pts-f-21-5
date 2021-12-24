@@ -1,29 +1,36 @@
 import { Component } from './newVersion/Component'
 
+const getQueryWithPath = (search) => {
+  if (!search) return
+
+  let getArraySearch = search.slice(1).split('&')
+  let result = []
+
+  for (const item of getArraySearch) {
+    //check is param ''
+    if (item == '' || item == ' ') continue
+
+    let params = item.split('=')
+    // check is rigth item param search
+    if (params.length === 1) continue
+    // add item param search
+    result.push(params)
+  }
+
+  return Object.fromEntries(result)
+}
+
 class Router {
-  #id = 0
   localPath = window.location.pathname
   search = window.location.search
   query = {}
 
   #setQuery(newSearch) {
-    if (!newSearch) return
-    this.search = newSearch
-    let getArraySearch = this.search.slice(1).split('&')
-    let result = []
+    const result = getQueryWithPath(newSearch)
 
-    for (const item of getArraySearch) {
-      //check is param ''
-      if (item == '' || item == ' ') continue
+    // if (!result && newSearch !== '') return
 
-      let params = item.split('=')
-      // check is rigth item param search
-      if (params.length === 1) continue
-      // add item param search
-      result.push(params)
-    }
-
-    this.query = Object.fromEntries(result)
+    this.query = result || {}
   }
 
   get localPath() {
@@ -61,6 +68,7 @@ class Router {
 
   updateLocalPath() {
     this.localPath = window.location.pathname
+    this.search = window.location.search
     this.#setQuery(window.location.search)
     // if (window.location.search !== this.search) {
     // }
@@ -98,8 +106,8 @@ export class Link extends Component {
     }
 
     e.preventDefault()
-    // debugger
-    const pathName = this.props.href
+    e.stopPropagation()
+    const pathName = this.props.href + (this.props.search || '')
     window.history.pushState({ as: pathName }, null, pathName)
     router.updateLocalPath()
 
@@ -112,15 +120,30 @@ export class Link extends Component {
   }
 
   render() {
-    const { className = '', href, children, classActive = '' } = this.props
+    const {
+      className = '',
+      href,
+      children,
+      classActive = '',
+      search = '',
+    } = this.props
 
-    let allPathName = router.localPath
+    let isActive = router.localPath === href
+    // debugger
+    if (isActive) {
+      if (search) {
+        const linkQure = getQueryWithPath(search)
+        const routerQuery = router.getQuery()
 
-    if (router.search) {
-      allPathName += router.search
+        isActive = Object.keys(linkQure || {}).every(
+          (key) => linkQure[key] === routerQuery[key]
+        )
+      } else {
+        // debugger
+        isActive = search === window.location.search
+      }
+      // debugger
     }
-
-    const isActive = allPathName === href
 
     let finallyClassName = className
 

@@ -19,7 +19,7 @@ class Menu extends Component {
                 </Link>
               </li>
               <li className="nav_menu_item">
-                <Link href="/" classActive="active_itm" search="?type=vehicles">
+                <Link href="/" classActive="active_itm" search="?type=vehicle">
                   Vehicles
                 </Link>
               </li>

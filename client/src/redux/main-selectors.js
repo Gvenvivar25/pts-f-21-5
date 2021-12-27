@@ -4,15 +4,6 @@ export const getCarrent = () => {
   return store.getState().main.carrent
 }
 
-export const getDynamicProducts = (countProductsCard, length) => {
-  const allProducts = store.getState().main.products
-
-  let sizePart = length + countProductsCard
-
-  if (sizePart > allProducts.length) {
-    sizePart = allProducts.length
-  }
-  const resPart = allProducts.slice(length, sizePart)
-
-  return resPart
+export const getAllProducts = () => {
+  return store.getState().main.products
 }

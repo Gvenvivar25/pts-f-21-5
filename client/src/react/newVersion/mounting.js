@@ -14,7 +14,8 @@ const mountVElement = (vElement, container) => {
     Object.keys(style).forEach((s) => (domNode.style[s] = style[s]))
   }
   // add class
-  if (className != undefined) {
+  if (className != undefined && className != '') {
+    // debugger
     domNode.className = className
   }
   // add children

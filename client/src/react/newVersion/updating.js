@@ -133,24 +133,40 @@ const removeAttributes = (attrs, container) => {
   })
 }
 
+const isSameAttrs = (keysPrevAttrs, keysNextAttrs) => {
+  for (let i = 0; i < keysPrevAttrs.length; i++) {
+    const [prevType, prevValue] = keysPrevAttrs[i]
+    const [nextType, nextValue] = keysNextAttrs[i]
+
+    if (nextType !== prevType || prevValue !== nextValue) {
+      return false
+    }
+  }
+
+  return true
+}
+
 const updateAttribute = (prevAttrs, nextAttrs, container) => {
   let keysPrevAttrs = Object.entries(prevAttrs || {})
   let keysNextAttrs = Object.entries(nextAttrs || {})
-  if (keysNextAttrs.length !== 0 && keysPrevAttrs.length !== 0) {
-    if (keysPrevAttrs.length === 0) {
-      addAttributes(keysNextAttrs, container)
-    } else if (keysNextAttrs.length === 0) {
-      removeAttributes(keysPrevAttrs, container)
-    } else {
-      removeAttributes(keysPrevAttrs, container)
-      addAttributes(keysNextAttrs, container)
-      // const minLengthAttrs = Math.min(keysPrevAttrs.length, keysNextAttrs.length)
 
-      // for (let i = 0; i < minLengthChildren; i++) {
-      //   patch(oldVNode.children[i], newVNode.children[i])
-      // }
-    }
+  if (keysPrevAttrs.length === 0) {
+    return addAttributes(keysNextAttrs, container)
   }
+
+  if (keysNextAttrs.length === 0) {
+    return removeAttributes(keysPrevAttrs, container)
+  }
+
+  if (
+    keysPrevAttrs.length === keysNextAttrs.length &&
+    isSameAttrs(keysPrevAttrs, keysNextAttrs)
+  ) {
+    return
+  }
+
+  removeAttributes(keysPrevAttrs, container)
+  addAttributes(keysNextAttrs, container)
 }
 
 const updateVElement = (prevElement, nextElement) => {

@@ -37,32 +37,12 @@ class ShoppingCart extends Component {
             ...this.state,
             isReady: true,
             shoppingCartProducts: [...this.state.shoppingCartProducts, product],
-            totalPrice:
-              this.state.totalPrice + countPriceWithoutSing(product.price),
+            totalPrice: this.state.totalPrice + product.price,
           })
         })
       })
     }
   }
-
-  // componentDidMount() {
-  //   // localStorage.setItem('cart',JSON.stringify(['16JGq0nLSTmoDPNwYH0A']))
-  //   let cartIDs = JSON.parse(localStorage.getItem('cart')) || []
-  //   let dataItems = []
-
-  //   cartIDs.map((e) => {
-  //     UsersAPI.getAllProductItem(e).then((data) => {
-  //       dataItems.push(data)
-  //       {
-  //         this.setState({ ...this.state, isReady: true, data: dataItems })
-  //       }
-  //     })
-  //   })
-
-  //   if (cartIDs.length === 0) {
-  //     this.setState({ ...this.state, isReady: true })
-  //   }
-  // }
 
   handlerDeleteItem = (id) => {
     dispatch(deleteProductInShoppingCart(id))
@@ -70,9 +50,7 @@ class ShoppingCart extends Component {
       (product) => product.id !== id
     )
     let newTotalPrice = 0
-    deleteProductInState.forEach(
-      (product) => (newTotalPrice += countPriceWithoutSing(product.price))
-    )
+    deleteProductInState.forEach((product) => (newTotalPrice += product.price))
 
     this.setState({
       ...this.state,
@@ -83,6 +61,8 @@ class ShoppingCart extends Component {
 
   render() {
     const { shoppingCartProducts, totalPrice } = this.state
+
+    console.log(totalPrice)
 
     return (
       <div class="container_item">

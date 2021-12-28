@@ -9,6 +9,7 @@ export const countPrice = (price) => {
 
 export const countPriceWithoutSing = (price) => {
   const currentCurs = getCurrentCurs()
+
   const CurrentPrice = Math.ceil(price * currentCurs.multiplier * 100) / 100
   return Number(CurrentPrice.toFixed(2))
 }

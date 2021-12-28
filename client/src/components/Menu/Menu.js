@@ -29,11 +29,7 @@ class Menu extends Component {
                 </Link>
               </li>
               <li className="nav_menu_item">
-                <Link
-                  href="/"
-                  classActive="active_itm"
-                  search="?type=premiun-account"
-                >
+                <Link href="/" classActive="active_itm" search="?type=premium">
                   Premium account
                 </Link>
               </li>

@@ -32,7 +32,7 @@ class Main extends Component {
   }
 
   // shouldComponentUpdate(prevProps, prevState) {
-  //   if (prevProps !== this.props && prevState !== this.state) {
+  //   if (prevState.isReady !== this.state) {
   //     return true
   //   }
   // }

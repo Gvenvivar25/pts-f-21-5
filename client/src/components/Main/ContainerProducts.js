@@ -8,18 +8,19 @@ class ContainerProducts extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      totalCount: 266,
+      totalCount: 0,
       countProductsCard: 12,
       dynamicListProducts: [],
     }
   }
 
   componentDidMount() {
-    this.dynamicAddProducts()
+    this.dynamicAddProducts(true)
     document.addEventListener('scroll', this.scrollHandler)
   }
 
   scrollHandler = ({ target }) => {
+    // debugger
     const { scrollHeight, scrollTop } = target.documentElement
     // debugger
     if (
@@ -33,15 +34,19 @@ class ContainerProducts extends Component {
 
   dynamicAddProducts(restart = false) {
     if (this.props.products.length) {
+      // debugger
+      const lengthDynamicList = restart
+        ? 0
+        : this.state.dynamicListProducts.length
       const resultDynamic = getDynamicProducts(
         this.props.products,
         this.state.countProductsCard,
-        this.state.dynamicListProducts.length
+        lengthDynamicList
       )
-
       if (resultDynamic && restart) {
         return this.setState({
           ...this.state,
+          totalCount: this.props.products.length,
           dynamicListProducts: [...resultDynamic],
         })
       }
@@ -58,7 +63,7 @@ class ContainerProducts extends Component {
   }
 
   // shouldComponentUpdate(prevProps, prevState) {
-  //   if (prevProps !== this.props && prevState !== this.state) {
+  //   if (prevProps !== this.props || prevState !== this.state) {
   //     return true
   //   }
   // }
@@ -73,6 +78,7 @@ class ContainerProducts extends Component {
       }
     }
     if (prevProps !== this.props) {
+      // debugger
       return this.dynamicAddProducts(true)
     }
   }
@@ -82,6 +88,7 @@ class ContainerProducts extends Component {
   }
 
   render() {
+    // console.log(this.state.dynamicListProducts)
     return this.state.dynamicListProducts.length ? (
       this.state.dynamicListProducts.map((product) => (
         <Products

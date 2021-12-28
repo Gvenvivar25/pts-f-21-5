@@ -14,12 +14,8 @@ class Wishlist extends Component {
         <h2 className="heading_wish">YOUR WISHLIST</h2>
         <ul className="wish_list">
           {items.length !== 0 ? (
-            items.map(({ product }) => (
-              <WishItem
-                // addInCart={this.props.addInCart}
-                deleteItem={this.props.deleteItem}
-                product={product}
-              />
+            items.map((product) => (
+              <WishItem deleteItem={this.props.deleteItem} product={product} />
             ))
           ) : (
             <h2 className="empty_list">YOUR WISHLIST IS EMPTY</h2>

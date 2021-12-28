@@ -19,17 +19,17 @@ class Menu extends Component {
                 </Link>
               </li>
               <li className="nav_menu_item">
-                <Link href="/?type=vehicles" classActive="active_itm">
+                <Link href="/" classActive="active_itm" search="?type=vehicle">
                   Vehicles
                 </Link>
               </li>
               <li className="nav_menu_item">
-                <Link href="/?type=gold" classActive="active_itm">
+                <Link href="/" classActive="active_itm" search="?type=gold">
                   Gold
                 </Link>
               </li>
               <li className="nav_menu_item">
-                <Link href="/?type=premiun-account" classActive="active_itm">
+                <Link href="/" classActive="active_itm" search="?type=premium">
                   Premium account
                 </Link>
               </li>

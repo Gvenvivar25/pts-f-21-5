@@ -7,8 +7,15 @@ export const countPrice = (price) => {
   return `${currentCurs.sign} ${Number(CurrentPrice.toFixed(2))}`
 }
 
+export const getPriceWithSing = (price) => {
+  const currentCurs = getCurrentCurs()
+
+  return `${currentCurs.sign} ${price}`
+}
+
 export const countPriceWithoutSing = (price) => {
   const currentCurs = getCurrentCurs()
+
   const CurrentPrice = Math.ceil(price * currentCurs.multiplier * 100) / 100
   return Number(CurrentPrice.toFixed(2))
 }

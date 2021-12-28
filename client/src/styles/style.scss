@@ -396,34 +396,6 @@ $button-bg: $fuschia;
 $button-text-color: #fff;
 $baby-blue: #f8faff;
 
-@media (hover: none) {
-  button.purchase {
-    opacity: 1;
-    height: 30px;
-    font-size: 10px;
-  }
-  .item_conteiner {
-    transform: translateY(-40px);
-  }
-}
-@media (hover: none) and (max-width: 480px) {
-  button.purchase {
-    height: 25px;
-  }
-}
-
-@media (hover: hover) {
-  .item:hover button.purchase {
-    display: block;
-    opacity: 1;
-    height: 40px;
-    transition: 0.4s;
-  }
-  .item:hover .item_conteiner {
-    transform: translateY(-50px);
-  }
-}
-
 button.purchase {
   display: block;
   width: 100px;
@@ -575,25 +547,57 @@ button.animate {
 }
 
 @media (hover: none) {
-  .purchase {
+  button.purchase {
     opacity: 1;
     height: 30px;
     font-size: 10px;
   }
+  .item_conteiner {
+    transform: translateY(-40px);
+  }
 }
 @media (hover: none) and (max-width: 480px) {
-  .purchase {
+  button.purchase {
     height: 25px;
+  }
+
+  .item {
+    background-color: rgba(0, 0, 0, 0.8);
   }
 }
 
 @media (hover: hover) {
-  .item:hover .purchase {
+  .item:hover button.purchase {
     display: block;
     opacity: 1;
     height: 40px;
     transition: 0.4s;
   }
+  .item:hover .item_conteiner {
+    transform: translateY(-50px);
+  }
+}
+
+// @media (hover: none) {
+//   .purchase {
+//     opacity: 1;
+//     height: 30px;
+//     font-size: 10px;
+//   }
+// }
+// @media (hover: none) and (max-width: 480px) {
+//   .purchase {
+//     height: 25px;
+//   }
+// }
+
+@media (hover: hover) {
+  // .item:hover .purchase {
+  //   display: block;
+  //   opacity: 1;
+  //   height: 40px;
+  //   transition: 0.4s;
+  // }
   .item:hover .purchase a {
     display: flex;
   }

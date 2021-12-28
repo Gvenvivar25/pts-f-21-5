@@ -1,3 +1,4 @@
+import { countPrice } from '../../middleware/countPrice'
 import { Link } from '../../react/react'
 import ButtonAddProductInCart from '../common/ButtonAddProductInCart'
 import { Component } from '/react/newVersion/Component'
@@ -10,6 +11,7 @@ class WishItem extends Component {
   render() {
     // debugger
     const product = this.props.product
+    const price = countPrice(product.price)
 
     return (
       <li className="wish_item">
@@ -23,9 +25,7 @@ class WishItem extends Component {
             </Link>
           </h3>
           <div className="wish_block">
-            <div className="wish_price">
-              {product.sign} {product.price}
-            </div>
+            <div className="wish_price">{price}</div>
 
             <ButtonAddProductInCart id={product.id} className="wish_add" />
           </div>

@@ -11,8 +11,8 @@ class Cart extends Component {
     const items = this.props.data
     return (
       <div>
-        <h2 class="heading_cart">YOUR SHOPPING CART</h2>
-        <ul class="cart_list">
+        <h2 className="heading_cart">YOUR SHOPPING CART</h2>
+        <ul className="cart_list">
           {items.length !== 0 ? (
             items.map((product) => {
               return (
@@ -23,13 +23,13 @@ class Cart extends Component {
               )
             })
           ) : (
-            <h2 class="empty_cart">YOUR SHOPPING CART IS EMPTY</h2>
+            <h2 className="empty_cart">YOUR SHOPPING CART IS EMPTY</h2>
           )}
         </ul>
         {items.length !== 0 ? (
-          <div class="buying">
+          <div className="buying">
             <h2 className="subtotal">Total price {this.props.totalPrice}</h2>
-            <button class="proceed_bt">Proceed to pay</button>
+            <button className="proceed_bt">Proceed to pay</button>
           </div>
         ) : (
           ''

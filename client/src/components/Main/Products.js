@@ -84,11 +84,11 @@ class Products extends Component {
           </div>
           <div className="price">
             {oldPrice != undefined ? (
-              <span class="price_old">{oldPrice}</span>
+              <span className="price_old">{oldPrice}</span>
             ) : (
               ''
             )}
-            <span class="price">{currentPrice}</span>
+            <span className="price">{currentPrice}</span>
           </div>
           <ButtonAddProductInCart id={id} className="purchase" />
         </div>

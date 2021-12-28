@@ -109,7 +109,7 @@ class ProductContainer extends Component {
                 <div className="img_tooltip">View tank images</div>
                 <img id="imgSlider" className="imgSlider" src={gallery[0]} />
               </div>
-              <div class="imageView"></div>
+              <div className="imageView"></div>
               <div id="slider">
                 <div id="prev-btn"></div>
                 <div id="next-btn"></div>

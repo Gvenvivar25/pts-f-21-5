@@ -1,5 +1,4 @@
 export const unmount = (prevElement, container) => {
-  // debugger
   if (Array.isArray(prevElement)) {
     prevElement.forEach((element) => unmount(element, container))
   } else {

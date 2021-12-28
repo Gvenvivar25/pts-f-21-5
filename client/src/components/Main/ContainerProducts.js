@@ -9,13 +9,16 @@ class ContainerProducts extends Component {
     super(props)
     this.state = {
       totalCount: 0,
+      isScroll: false,
       countProductsCard: 12,
       dynamicListProducts: [],
     }
   }
 
   componentDidMount() {
+    // debugger
     this.dynamicAddProducts(true)
+    this.isEnoughProducts()
     document.addEventListener('scroll', this.scrollHandler)
   }
 
@@ -27,12 +30,12 @@ class ContainerProducts extends Component {
       scrollHeight - (scrollTop + window.innerHeight) < 100 &&
       this.state.dynamicListProducts.length < this.state.totalCount
     ) {
-      this.dynamicAddProducts()
+      this.dynamicAddProducts(false, true)
       // console.log('fething')
     }
   }
 
-  dynamicAddProducts(restart = false) {
+  dynamicAddProducts(restart = false, scroll = false) {
     if (this.props.products.length) {
       // debugger
       const lengthDynamicList = restart
@@ -46,6 +49,7 @@ class ContainerProducts extends Component {
       if (resultDynamic && restart) {
         return this.setState({
           ...this.state,
+          isScroll: scroll,
           totalCount: this.props.products.length,
           dynamicListProducts: [...resultDynamic],
         })
@@ -53,6 +57,7 @@ class ContainerProducts extends Component {
       if (resultDynamic) {
         return this.setState({
           ...this.state,
+          isScroll: scroll,
           dynamicListProducts: [
             ...this.state.dynamicListProducts,
             ...resultDynamic,
@@ -62,25 +67,31 @@ class ContainerProducts extends Component {
     }
   }
 
-  // shouldComponentUpdate(prevProps, prevState) {
-  //   if (prevProps !== this.props || prevState !== this.state) {
-  //     return true
-  //   }
-  // }
+  isEnoughProducts = () => {
+    const grid = this._parentNode
+    if (window.innerHeight > grid.clientHeight - 100) {
+      return this.dynamicAddProducts()
+    }
+  }
+
+  shouldComponentUpdate(prevProps, prevState) {
+    if (prevProps !== this.props || prevState !== this.state) {
+      return true
+    }
+  }
 
   componentDidUpdate(prevProps, prevState) {
-    // debugger
-    if (prevState.dynamicListProducts !== this.state.dynamicListProducts) {
-      const grid = this._parentNode
-
-      if (window.innerHeight > grid.clientHeight - 100) {
-        return this.dynamicAddProducts()
-      }
-    }
+    debugger
     if (prevProps !== this.props) {
       // debugger
-      return this.dynamicAddProducts(true)
+      this.dynamicAddProducts(true)
+      this.isEnoughProducts()
     }
+    // else {
+    //   if (!this.state.isScroll && prevState !== this.state) {
+    //     this.isEnoughProducts()
+    //   }
+    // }
   }
 
   componentWillUnmount() {
@@ -88,7 +99,7 @@ class ContainerProducts extends Component {
   }
 
   render() {
-    // console.log(this.state.dynamicListProducts)
+    console.log(this.state.dynamicListProducts)
     return this.state.dynamicListProducts.length ? (
       this.state.dynamicListProducts.map((product) => (
         <Products

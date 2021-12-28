@@ -24,6 +24,7 @@ export class Component {
 
   updateCopmonent() {
     const prevState = this.state
+    const prevProps = this.props
     const prevElement = this._currentElement
     // debugger
     if (this._nextState !== prevState && this._nextState != null) {
@@ -35,7 +36,7 @@ export class Component {
     this._currentElement = nextElement
 
     update(prevElement, nextElement, this._parentNode)
-    // this.componentDidUpdate(prevElement.props, prevState)
+    // this.componentDidUpdate(prevProps, prevState)
   }
 
   setState(newState) {

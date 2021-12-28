@@ -221,7 +221,6 @@ const updateVComponent = (prevComponent, nextComponent) => {
     const nextRenderElement = _instance.render()
 
     nextComponent._instance._currentElement = nextRenderElement
-
     update(prevRenderElement, nextRenderElement, _instance._parentNode)
   }
 }

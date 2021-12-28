@@ -7,6 +7,12 @@ export const countPrice = (price) => {
   return `${currentCurs.sign} ${Number(CurrentPrice.toFixed(2))}`
 }
 
+export const getPriceWithSing = (price) => {
+  const currentCurs = getCurrentCurs()
+
+  return `${currentCurs.sign} ${price}`
+}
+
 export const countPriceWithoutSing = (price) => {
   const currentCurs = getCurrentCurs()
 

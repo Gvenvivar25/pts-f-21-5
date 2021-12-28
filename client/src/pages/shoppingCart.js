@@ -7,7 +7,11 @@ import {
 } from '../redux/shoppingCart-reducer'
 import { dispatch } from '../redux/redux-store'
 import { getShoppingCart } from '../redux/shoppingCart-selectors'
-import { countPrice, countPriceWithoutSing } from '../middleware/countPrice'
+import {
+  countPrice,
+  countPriceWithoutSing,
+  getPriceWithSing,
+} from '../middleware/countPrice'
 import { setCurrentCur } from '../redux/additionally-reducer'
 
 class ShoppingCart extends Component {
@@ -37,7 +41,8 @@ class ShoppingCart extends Component {
             ...this.state,
             isReady: true,
             shoppingCartProducts: [...this.state.shoppingCartProducts, product],
-            totalPrice: this.state.totalPrice + product.price,
+            totalPrice:
+              this.state.totalPrice + countPriceWithoutSing(product.price),
           })
         })
       })
@@ -50,7 +55,9 @@ class ShoppingCart extends Component {
       (product) => product.id !== id
     )
     let newTotalPrice = 0
-    deleteProductInState.forEach((product) => (newTotalPrice += product.price))
+    deleteProductInState.forEach(
+      (product) => (newTotalPrice += countPriceWithoutSing(product.price))
+    )
 
     this.setState({
       ...this.state,
@@ -61,16 +68,13 @@ class ShoppingCart extends Component {
 
   render() {
     const { shoppingCartProducts, totalPrice } = this.state
-
-    console.log(totalPrice)
-
     return (
-      <div class="container_item">
+      <div className="container_item">
         {this.state.isReady ? (
           <Cart
             deleteItem={this.handlerDeleteItem}
             data={shoppingCartProducts}
-            totalPrice={countPrice(totalPrice)}
+            totalPrice={getPriceWithSing(totalPrice)}
           />
         ) : (
           'Loading...'

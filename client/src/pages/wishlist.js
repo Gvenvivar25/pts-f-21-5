@@ -8,6 +8,7 @@ import {
 import { Component } from '/react/newVersion/Component'
 import { dispatch } from '../redux/redux-store'
 import { setAllShoppingCart } from '../redux/shoppingCart-reducer'
+import { setCurrentCur } from '../redux/additionally-reducer'
 
 class WishlistPage extends Component {
   constructor(props) {
@@ -19,19 +20,19 @@ class WishlistPage extends Component {
   }
 
   componentDidMount() {
-    // debugger
-    // localStorage.setItem('wishlist',JSON.stringify([ '0vtIPnLFTs4Z7csA2DvE','16JGq0nLSTmoDPNwYH0A']))
     dispatch(setAllWishlist())
     dispatch(setAllShoppingCart())
     let wishlistIDs = getWishlist()
 
-    // console.log('wishlistIDs', wishlistIDs)
-
     if (wishlistIDs.length === 0) {
       this.setState({ ...this.state, isReady: true })
     } else {
+      UsersAPI.getCurrentCur().then((currentCur) =>
+        dispatch(setCurrentCur(currentCur))
+      )
+
       wishlistIDs.map((id) => {
-        UsersAPI.getAllProductItem(id).then((item) => {
+        UsersAPI.getProductWithItem(id).then((item) => {
           this.setState({
             ...this.state,
             isReady: true,
@@ -54,22 +55,14 @@ class WishlistPage extends Component {
     })
   }
 
-  // addInCart = (id) => {
-  //   let newCart = JSON.parse(localStorage.getItem('cart'))
-  //   newCart.push(id)
-  //   localStorage.setItem('cart', JSON.stringify(newCart))
-  //   this.setState({ ...this.state, data: this.state.data })
-  // }
-
   render() {
     // debugger
     let wishlistProducts = this.state.wishlistProducts
-    // console.log(wishlistProducts)
+
     return (
-      <div class="container_item">
+      <div className="container_item">
         {this.state.isReady ? (
           <Wishlist
-            // addInCart={this.addInCart}
             deleteItem={this.handlerDeleteItem}
             data={wishlistProducts}
           />
